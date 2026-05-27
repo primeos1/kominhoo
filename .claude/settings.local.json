@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l /c/xampp/htdocs/kominhoo/*.html)",
+      "Bash(grep -l \"nav-logo\\\\|nav-links\\\\|nav-link\" c:/xampp/htdocs/kominhoo/*.html)",
+      "Bash(node -e ' *)",
+      "Bash(ngrok http *)",
+      "PowerShell($env:PATH -split \";\" | ForEach-Object { if \\(Test-Path \"$_\\\\ngrok.exe\"\\) { \"$_\\\\ngrok.exe\" } })",
+      "PowerShell(Get-Process -Name \"ngrok\" -ErrorAction SilentlyContinue)",
+      "PowerShell(Start-Sleep -Seconds 3; Invoke-RestMethod -Uri \"http://localhost:4040/api/tunnels\" | ForEach-Object { $_.tunnels | Where-Object { $_.proto -eq \"https\" } | Select-Object -ExpandProperty public_url })"
+    ]
+  }
+}
