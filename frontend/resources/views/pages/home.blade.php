@@ -1275,6 +1275,165 @@
   }
   .sk-title-1, .sk-title-2, .sk-title-3 { height: 42px; }
 }
+
+/* ─── Mobile App Home ─── */
+.mob-home{display:none}
+@media(max-width:459px){
+  .home-page,#page-skeleton{display:none!important}
+  .mob-home{
+    display:block;
+    --m-rose:#893941;--m-blush:#CB7885;--m-chart:#D4D994;--m-olive:#5E6623;
+    --m-black:#1C1416;--m-bg:#F2F2F7;--m-card:#fff;
+    --m-border:rgba(60,60,67,.12);--m-text2:rgba(60,60,67,.55);--m-r:14px;
+    font-family:'Jost',system-ui,sans-serif;
+    color:var(--m-black);
+    background:var(--m-bg);
+  }
+  /* Announcement ticker */
+  .mob-ann-bar{background:var(--m-rose);color:#fff;font-size:12px;font-weight:500;padding:7px 0;overflow:hidden;white-space:nowrap}
+  .mob-ann-inner{display:inline-flex;animation:mobMarquee 25s linear infinite;will-change:transform}
+  @keyframes mobMarquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  /* Greeting */
+  .mob-greeting-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 6px}
+  .mob-greeting-text{font-size:22px;font-weight:700;line-height:1.2}
+  .mob-greeting-text em{color:var(--m-rose);font-style:normal}
+  .mob-greeting-avatar{width:38px;height:38px;border-radius:50%;background:var(--m-rose);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;overflow:hidden;flex-shrink:0;text-decoration:none}
+  .mob-greeting-avatar img{width:100%;height:100%;object-fit:cover}
+  /* Search */
+  .mob-search-bar{margin:4px 16px 10px;background:rgba(118,118,128,.12);border-radius:12px;display:flex;align-items:center;gap:8px;padding:10px 14px;cursor:pointer}
+  .mob-search-bar svg{width:16px;height:16px;color:rgba(60,60,67,.5);flex-shrink:0}
+  .mob-search-ph{font-size:14px;color:rgba(60,60,67,.5)}
+  /* Quiz nudge */
+  .mob-quiz-nudge{margin:0 16px 12px;background:linear-gradient(135deg,var(--m-rose),var(--m-blush));border-radius:var(--m-r);padding:14px 16px;display:flex;align-items:center;gap:12px;text-decoration:none}
+  .mob-quiz-icon{width:40px;height:40px;background:rgba(255,255,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .mob-quiz-icon svg{width:22px;height:22px;color:#fff}
+  .mob-quiz-text{flex:1}
+  .mob-quiz-title{font-size:14px;font-weight:700;color:#fff}
+  .mob-quiz-sub{font-size:12px;color:rgba(255,255,255,.8);margin-top:2px}
+  .mob-quiz-arr{color:rgba(255,255,255,.7);font-size:22px;line-height:1}
+  /* Category pills */
+  .mob-cat-pills{display:flex;gap:8px;padding:0 16px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .mob-cat-pills::-webkit-scrollbar{display:none}
+  .mob-cat-pill{flex-shrink:0;padding:7px 16px;border-radius:999px;font-size:13px;font-weight:500;white-space:nowrap;border:1.5px solid var(--m-border);background:var(--m-card);color:var(--m-black);text-decoration:none;transition:background .15s,color .15s,border-color .15s}
+  .mob-cat-pill.active{background:var(--m-rose);color:#fff;border-color:var(--m-rose)}
+  /* Story rings */
+  .mob-stories{display:flex;gap:14px;padding:4px 16px 14px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .mob-stories::-webkit-scrollbar{display:none}
+  .mob-story{display:flex;flex-direction:column;align-items:center;gap:5px;flex-shrink:0;text-decoration:none}
+  .mob-story-ring{width:64px;height:64px;border-radius:50%;padding:3px;display:flex;align-items:center;justify-content:center}
+  .mob-story-inner{width:100%;height:100%;border-radius:50%;background:var(--m-bg);padding:2px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .mob-story-inner img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+  .mob-story-init{font-size:20px;font-weight:800;color:#fff}
+  .mob-story-label{font-size:11px;font-weight:500;color:var(--m-black);text-align:center;max-width:66px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  /* Section header */
+  .mob-sec-head{display:flex;align-items:center;justify-content:space-between;padding:16px 16px 8px}
+  .mob-sec-title{font-size:18px;font-weight:700}
+  .mob-sec-link{font-size:13px;font-weight:600;color:var(--m-rose);text-decoration:none}
+  /* Featured deal card */
+  .mob-feat-card{margin:0 16px;border-radius:var(--m-r);background:var(--m-card);overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.09)}
+  .mob-feat-img{position:relative;height:220px;overflow:hidden;background:#f0e8e9}
+  .mob-feat-img img{width:100%;height:100%;object-fit:cover;display:block}
+  .mob-feat-badge{position:absolute;top:12px;left:12px;background:var(--m-rose);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px}
+  .mob-feat-body{padding:14px 16px 16px}
+  .mob-feat-brand{font-size:11px;font-weight:600;color:var(--m-rose);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
+  .mob-feat-name{font-size:17px;font-weight:700;color:var(--m-black);margin-bottom:10px;font-family:'Bodoni Moda',Georgia,serif;line-height:1.25}
+  .mob-feat-prices{display:flex;align-items:baseline;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .mob-feat-price{font-size:22px;font-weight:800;color:var(--m-rose)}
+  .mob-feat-orig{font-size:14px;color:var(--m-text2);text-decoration:line-through}
+  .mob-feat-save{font-size:12px;font-weight:700;color:var(--m-olive);background:rgba(94,102,35,.1);padding:2px 8px;border-radius:999px}
+  .mob-feat-cta{width:100%;padding:13px;background:var(--m-rose);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Jost',sans-serif;transition:opacity .15s}
+  .mob-feat-cta:active{opacity:.8}
+  /* Countdown strip */
+  .mob-cd-strip{background:var(--m-black);border-radius:0 0 var(--m-r) var(--m-r);margin:0 16px;padding:10px 16px;display:flex;align-items:center;gap:6px;justify-content:center}
+  .mob-cd-label{font-size:11px;color:rgba(255,255,255,.55);font-weight:500;text-transform:uppercase;letter-spacing:.5px;margin-right:6px}
+  .mob-cd-block{display:flex;flex-direction:column;align-items:center;gap:1px}
+  .mob-cd-num{font-size:22px;font-weight:800;color:var(--m-chart);min-width:34px;text-align:center;line-height:1}
+  .mob-cd-unit{font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.4px}
+  .mob-cd-sep{font-size:18px;font-weight:700;color:rgba(255,255,255,.3);align-self:flex-start;margin-top:1px;padding:0 2px}
+  /* Trust chips */
+  .mob-trust-row{display:flex;gap:8px;padding:12px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .mob-trust-row::-webkit-scrollbar{display:none}
+  .mob-trust-chip{display:flex;align-items:center;gap:6px;background:var(--m-card);border-radius:10px;padding:8px 12px;flex-shrink:0}
+  .mob-trust-chip svg{width:16px;height:16px;color:var(--m-rose);flex-shrink:0}
+  .mob-trust-chip span{font-size:12px;font-weight:500;white-space:nowrap}
+  /* Horizontal scroll row */
+  .mob-row{display:flex;gap:12px;padding:0 16px 4px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+  .mob-row::-webkit-scrollbar{display:none}
+  /* Small product card */
+  .mob-pcard{flex-shrink:0;scroll-snap-align:start;width:148px;background:var(--m-card);border-radius:12px;overflow:hidden}
+  .mob-pcard img{width:148px;height:148px;object-fit:cover;display:block}
+  .mob-pcard-body{padding:8px 10px 10px}
+  .mob-pcard-brand{font-size:10px;font-weight:600;color:var(--m-rose);text-transform:uppercase;letter-spacing:.5px}
+  .mob-pcard-name{font-size:13px;font-weight:600;color:var(--m-black);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:2px 0 5px}
+  .mob-pcard-price{font-size:14px;font-weight:700;color:var(--m-rose)}
+  .mob-pcard-btn{width:100%;margin-top:7px;padding:7px;background:var(--m-rose);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Jost',sans-serif;transition:opacity .15s}
+  .mob-pcard-btn:active{opacity:.8}
+  /* 2-col grid */
+  .mob-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 4px}
+  .mob-pgrid-card{background:var(--m-card);border-radius:12px;overflow:hidden}
+  .mob-pgrid-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+  .mob-pgrid-body{padding:8px 10px 10px}
+  .mob-pgrid-brand{font-size:10px;font-weight:600;color:var(--m-rose);text-transform:uppercase;letter-spacing:.5px}
+  .mob-pgrid-name{font-size:13px;font-weight:600;color:var(--m-black);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;margin:2px 0 5px}
+  .mob-pgrid-price{font-size:14px;font-weight:700;color:var(--m-rose)}
+  .mob-pgrid-badge{display:inline-block;margin-bottom:3px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--m-chart);color:var(--m-olive)}
+  /* Bundle card */
+  .mob-bundle-card{flex-shrink:0;scroll-snap-align:start;width:210px;background:var(--m-card);border-radius:12px;overflow:hidden}
+  .mob-bundle-card img{width:100%;height:130px;object-fit:cover;display:block}
+  .mob-bundle-body{padding:10px 12px 12px}
+  .mob-bundle-tag{font-size:10px;font-weight:700;color:var(--m-olive);background:var(--m-chart);padding:2px 7px;border-radius:999px;display:inline-block;margin-bottom:5px}
+  .mob-bundle-name{font-size:14px;font-weight:700;color:var(--m-black);margin-bottom:3px}
+  .mob-bundle-desc{font-size:12px;color:var(--m-text2);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;margin-bottom:8px}
+  .mob-bundle-price{font-size:14px;font-weight:700;color:var(--m-rose);margin-bottom:8px}
+  .mob-bundle-btn{width:100%;padding:8px;background:var(--m-black);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Jost',sans-serif;transition:opacity .15s}
+  .mob-bundle-btn:active{opacity:.8}
+  /* Category grid */
+  .mob-cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 4px}
+  .mob-cat-tile{border-radius:12px;overflow:hidden;position:relative;height:100px;display:block;text-decoration:none;background:linear-gradient(135deg,var(--m-rose),var(--m-blush))}
+  .mob-cat-tile img{width:100%;height:100%;object-fit:cover;display:block}
+  .mob-cat-tile-label{position:absolute;inset:0;display:flex;align-items:flex-end;padding:8px 11px;background:linear-gradient(to top,rgba(28,20,22,.72) 0%,transparent 65%);font-size:14px;font-weight:700;color:#fff}
+  /* Story ring gradient classes (one per ring, matches $mobStories order) */
+  .mob-sr-0{background:linear-gradient(135deg,#893941,#CB7885)}
+  .mob-sr-1{background:linear-gradient(135deg,#D4D994,#5E6623)}
+  .mob-sr-2{background:linear-gradient(135deg,#CB7885,#893941)}
+  .mob-sr-3{background:linear-gradient(135deg,#5E6623,#D4D994)}
+  .mob-sr-4{background:linear-gradient(135deg,#893941,#D4D994)}
+  .mob-sr-5{background:linear-gradient(135deg,#D4D994,#893941)}
+  .mob-sr-6{background:linear-gradient(135deg,#CB7885,#5E6623)}
+  .mob-sr-7{background:linear-gradient(135deg,#5E6623,#893941)}
+  /* Guide tile */
+  .mob-guide-tile{flex-shrink:0;scroll-snap-align:start;width:175px;background:var(--m-card);border-radius:12px;overflow:hidden;cursor:pointer}
+  .mob-guide-tile img{width:100%;height:108px;object-fit:cover;display:block}
+  .mob-guide-tile-body{padding:8px 10px 10px}
+  .mob-guide-tile-icon{font-size:16px;margin-bottom:2px}
+  .mob-guide-tile-name{font-size:13px;font-weight:700;color:var(--m-black);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  /* Community grid */
+  .mob-comm-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:8px;overflow:hidden}
+  .mob-comm-cell:first-child{grid-column:1/-1;height:180px}
+  .mob-comm-cell{height:120px;overflow:hidden;cursor:pointer}
+  .mob-comm-cell img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+  .mob-comm-cell:active img{transform:scale(1.04)}
+  /* Loyalty */
+  .mob-loyalty{margin:0 16px 12px;border-radius:var(--m-r);background:linear-gradient(135deg,var(--m-black),#3a2022);padding:20px 16px}
+  .mob-loyalty-title{font-size:17px;font-weight:700;color:#fff;margin-bottom:3px}
+  .mob-loyalty-sub{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:14px}
+  .mob-loyalty-tiers{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+  .mob-loyalty-tiers::-webkit-scrollbar{display:none}
+  .mob-loyalty-tier{flex-shrink:0;background:rgba(255,255,255,.08);border-radius:10px;padding:10px 14px;text-align:center;min-width:86px}
+  .mob-loyalty-tier-name{font-size:13px;font-weight:700;color:var(--m-chart);margin-bottom:2px}
+  .mob-loyalty-tier-pts{font-size:11px;color:rgba(255,255,255,.45)}
+  .mob-loyalty-btn{display:block;width:100%;margin-top:14px;padding:11px;background:var(--m-chart);color:var(--m-olive);border:none;border-radius:10px;font-size:14px;font-weight:700;text-align:center;text-decoration:none;cursor:pointer;font-family:'Jost',sans-serif;box-sizing:border-box}
+  /* Newsletter */
+  .mob-newsletter{margin:0 16px 12px;background:var(--m-card);border-radius:var(--m-r);padding:20px 16px}
+  .mob-nl-eyebrow{font-size:11px;font-weight:600;color:var(--m-rose);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
+  .mob-nl-title{font-size:18px;font-weight:700;color:var(--m-black);margin-bottom:3px}
+  .mob-nl-sub{font-size:13px;color:var(--m-text2);margin-bottom:14px}
+  .mob-nl-form{display:flex;gap:8px}
+  .mob-nl-input{flex:1;padding:11px 13px;border:1.5px solid var(--m-border);border-radius:10px;font-size:14px;font-family:'Jost',sans-serif;background:var(--m-bg);outline:none;min-width:0}
+  .mob-nl-input:focus{border-color:var(--m-rose)}
+  .mob-nl-btn{padding:11px 14px;background:var(--m-rose);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'Jost',sans-serif}
+  .mob-nl-note{font-size:11px;color:var(--m-text2);margin-top:7px;text-align:center}
+}
 </style>
 @endsection
 
@@ -1956,6 +2115,314 @@
 </div>
 
 </div>{{-- /.home-page --}}
+
+{{-- ────────────────────────────────────────────────────────────────────
+     Mobile App Home  (≤459px only — hidden on desktop via CSS)
+────────────────────────────────────────────────────────────────────── --}}
+@php
+  $mobShowDeal  = isset($deal) && data_get($deal, 'visible', true) && isset($dealProduct);
+  $mobDealOrig  = (float) data_get($deal ?? [], 'original_price', 0);
+  $mobDealPrice = (float) data_get($deal ?? [], 'deal_price', 0);
+  $mobDealSave  = $mobDealOrig > 0 ? round((1 - $mobDealPrice / $mobDealOrig) * 100) : 0;
+  $mobShowCd    = (bool) data_get($deal ?? [], 'show_countdown', false);
+
+  $mobLoyalty   = data_get($siteContent ?? [], 'loyalty_section', []);
+  $mobNl        = $newsletterSection ?? [];
+
+  $mobAnnItems  = data_get($siteContent ?? [], 'announcement_bar.items', []);
+  $mobAnnText   = collect($mobAnnItems)->pluck('text')->filter()->implode(' · ');
+  if (empty(trim($mobAnnText))) {
+    $mobAnnText = 'Free shipping over ₦15,000 · Authentic K-Beauty · 7-day returns';
+  }
+
+  $shopUrl = route('shop');
+
+  $mobCatPills = [
+    ['label' => 'All',          'url' => $shopUrl],
+    ['label' => 'Serums',       'url' => $shopUrl . '?category=serums'],
+    ['label' => 'Cleansers',    'url' => $shopUrl . '?category=cleansers'],
+    ['label' => 'Moisturisers', 'url' => $shopUrl . '?category=moisturisers'],
+    ['label' => 'Toners',       'url' => $shopUrl . '?category=toners'],
+    ['label' => 'Sunscreen',    'url' => $shopUrl . '?category=sunscreen'],
+    ['label' => 'Sets',         'url' => $shopUrl . '?category=sets'],
+  ];
+
+  $mobStories = [
+    ['label' => 'All Skin',  'gradient' => 'linear-gradient(135deg,#893941,#CB7885)', 'url' => $shopUrl,                             'media' => $slotMedia('mob_story_all',       '', 'All Skin')],
+    ['label' => 'Oily',      'gradient' => 'linear-gradient(135deg,#D4D994,#5E6623)', 'url' => $shopUrl . '?skin=oily',              'media' => $slotMedia('mob_story_oily',      '', 'Oily')],
+    ['label' => 'Dry',       'gradient' => 'linear-gradient(135deg,#CB7885,#893941)', 'url' => $shopUrl . '?skin=dry',               'media' => $slotMedia('mob_story_dry',       '', 'Dry')],
+    ['label' => 'Combo',     'gradient' => 'linear-gradient(135deg,#5E6623,#D4D994)', 'url' => $shopUrl . '?skin=combination',       'media' => $slotMedia('mob_story_combo',     '', 'Combo')],
+    ['label' => 'Sensitive', 'gradient' => 'linear-gradient(135deg,#893941,#D4D994)', 'url' => $shopUrl . '?skin=sensitive',         'media' => $slotMedia('mob_story_sensitive', '', 'Sensitive')],
+    ['label' => 'Serums',    'gradient' => 'linear-gradient(135deg,#D4D994,#893941)', 'url' => $shopUrl . '?category=serums',        'media' => $slotMedia('mob_story_serums',    '', 'Serums')],
+    ['label' => 'SPF',       'gradient' => 'linear-gradient(135deg,#CB7885,#5E6623)', 'url' => $shopUrl . '?category=sunscreen',     'media' => $slotMedia('mob_story_spf',       '', 'SPF')],
+    ['label' => 'Sets',      'gradient' => 'linear-gradient(135deg,#5E6623,#893941)', 'url' => $shopUrl . '?category=sets',          'media' => $slotMedia('mob_story_sets',      '', 'Sets')],
+  ];
+
+  $mobCatGrid = [
+    ['label' => 'Serums',       'url' => $shopUrl . '?category=serums',       'media' => $slotMedia('mob_cat_serums',       '', 'Serums')],
+    ['label' => 'Cleansers',    'url' => $shopUrl . '?category=cleansers',    'media' => $slotMedia('mob_cat_cleansers',    '', 'Cleansers')],
+    ['label' => 'Moisturisers', 'url' => $shopUrl . '?category=moisturisers', 'media' => $slotMedia('mob_cat_moisturisers', '', 'Moisturisers')],
+    ['label' => 'Sunscreen',    'url' => $shopUrl . '?category=sunscreen',    'media' => $slotMedia('mob_cat_sunscreen',    '', 'Sunscreen')],
+  ];
+@endphp
+
+<div class="mob-home" aria-label="Mobile home">
+
+  {{-- Announcement ticker --}}
+  @if(data_get($siteContent, 'announcement_bar.visible', true))
+  <div class="mob-ann-bar" aria-hidden="true">
+    <div class="mob-ann-inner">
+      <span>{{ $mobAnnText }}&emsp;·&emsp;</span><span>{{ $mobAnnText }}&emsp;·&emsp;</span>
+    </div>
+  </div>
+  @endif
+
+  {{-- Greeting --}}
+  <div class="mob-greeting-row">
+    <div class="mob-greeting-text" id="mob-greeting" data-name="{{ session('user.name') }}">Good morning<em>!</em></div>
+    @if(session('api_token'))
+      <div class="mob-greeting-avatar">
+        @if(session('user.avatar'))
+          <img src="{{ session('user.avatar') }}" alt="{{ session('user.name') }}">
+        @else
+          {{ strtoupper(substr(session('user.name', '?'), 0, 1)) }}
+        @endif
+      </div>
+    @else
+      <a href="{{ route('login') }}" class="mob-greeting-avatar" style="font-size:11px">Sign&nbsp;in</a>
+    @endif
+  </div>
+
+  {{-- Search bar --}}
+  <div class="mob-search-bar" role="button" tabindex="0"
+    onclick="document.getElementById('search-overlay').classList.add('open');setTimeout(function(){var i=document.querySelector('.search-input');if(i)i.focus();},80)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <span class="mob-search-ph">Search serums, cleansers, brands…</span>
+  </div>
+
+  {{-- Quiz nudge --}}
+  @if(data_get($visibility, 'quiz_banner', true))
+  <a href="{{ data_get($quizBanner ?? [], 'cta_link', '#') }}" class="mob-quiz-nudge">
+    <div class="mob-quiz-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    </div>
+    <div class="mob-quiz-text">
+      <div class="mob-quiz-title">{{ data_get($quizBanner ?? [], 'title_line_1', 'Find Your K-Beauty Routine') }}</div>
+      <div class="mob-quiz-sub">{{ data_get($quizBanner ?? [], 'meta', 'Take the 60-second skin quiz') }}</div>
+    </div>
+    <span class="mob-quiz-arr">›</span>
+  </a>
+  @endif
+
+  {{-- Category pills --}}
+  <div class="mob-cat-pills" role="list">
+    @foreach($mobCatPills as $i => $pill)
+      <a href="{{ $pill['url'] }}" class="mob-cat-pill{{ $i === 0 ? ' active' : '' }}" role="listitem">{{ $pill['label'] }}</a>
+    @endforeach
+  </div>
+
+  {{-- Story rings --}}
+  <div class="mob-stories" aria-label="Shop by skin type">
+    @foreach($mobStories as $story)
+      <a href="{{ $story['url'] }}" class="mob-story">
+        <div class="mob-story-ring mob-sr-{{ $loop->index }}" aria-hidden="true">
+          <div class="mob-story-inner">
+            @if($story['media']['url'])
+              <img src="{{ $story['media']['url'] }}" alt="{{ $story['media']['alt'] }}" loading="lazy">
+            @else
+              <span class="mob-story-init">{{ substr($story['label'], 0, 1) }}</span>
+            @endif
+          </div>
+        </div>
+        <span class="mob-story-label">{{ $story['label'] }}</span>
+      </a>
+    @endforeach
+  </div>
+
+  {{-- Featured deal card --}}
+  @if($mobShowDeal)
+  <div class="mob-sec-head">
+    <span class="mob-sec-title">⚡ {{ data_get($deal, 'badge', 'Deal of the Day') }}</span>
+    <a href="{{ $shopUrl }}" class="mob-sec-link">Shop all →</a>
+  </div>
+  <div class="mob-feat-card">
+    <div class="mob-feat-img">
+      <img src="{{ data_get($dealProduct, 'images.0', data_get($dealProduct, 'image', '')) }}" alt="{{ $dealProduct['name'] ?? '' }}" loading="eager">
+      <span class="mob-feat-badge">Save {{ $mobDealSave }}%</span>
+    </div>
+    <div class="mob-feat-body">
+      <div class="mob-feat-brand">{{ $dealProduct['brand'] ?? '' }}</div>
+      <div class="mob-feat-name">{{ $dealProduct['name'] ?? '' }}</div>
+      <div class="mob-feat-prices">
+        <span class="mob-feat-price">₦{{ number_format($mobDealPrice) }}</span>
+        @if($mobDealOrig > $mobDealPrice)
+          <span class="mob-feat-orig">₦{{ number_format($mobDealOrig) }}</span>
+          <span class="mob-feat-save">{{ $mobDealSave }}% off</span>
+        @endif
+      </div>
+      <button class="mob-feat-cta" data-pid="{{ $dealProduct['id'] ?? 0 }}" onclick="addToCart(+this.dataset.pid,event)">Add to Cart</button>
+    </div>
+  </div>
+  @if($mobShowCd)
+  <div class="mob-cd-strip">
+    <span class="mob-cd-label">Ends in</span>
+    <div class="mob-cd-block"><span class="mob-cd-num" id="mob-cd-h">23</span><span class="mob-cd-unit">hrs</span></div>
+    <span class="mob-cd-sep">:</span>
+    <div class="mob-cd-block"><span class="mob-cd-num" id="mob-cd-m">59</span><span class="mob-cd-unit">min</span></div>
+    <span class="mob-cd-sep">:</span>
+    <div class="mob-cd-block"><span class="mob-cd-num" id="mob-cd-s">00</span><span class="mob-cd-unit">sec</span></div>
+  </div>
+  @endif
+  @endif
+
+  {{-- Trust chips --}}
+  <div class="mob-trust-row" aria-label="Store promises">
+    <div class="mob-trust-chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+      </svg>
+      <span>Free ship ₦15k+</span>
+    </div>
+    <div class="mob-trust-chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+      </svg>
+      <span>100% Authentic</span>
+    </div>
+    <div class="mob-trust-chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+      </svg>
+      <span>7-Day Returns</span>
+    </div>
+    <div class="mob-trust-chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      <span>Secure Checkout</span>
+    </div>
+  </div>
+
+  {{-- Recommended products (populated by JS from PRODUCTS array) --}}
+  <div class="mob-sec-head">
+    <span class="mob-sec-title">Recommended</span>
+    <a href="{{ $shopUrl }}" class="mob-sec-link">See all →</a>
+  </div>
+  <div class="mob-row" id="mob-rec-row" aria-label="Recommended products"></div>
+
+  {{-- New drops grid --}}
+  @if(!empty($newDropProducts))
+  <div class="mob-sec-head">
+    <span class="mob-sec-title">New Drops</span>
+    <a href="{{ $shopUrl }}" class="mob-sec-link">See all →</a>
+  </div>
+  <div class="mob-grid-2">
+    @foreach(array_slice($newDropProducts, 0, 4) as $np)
+      <div class="mob-pgrid-card">
+        <img src="{{ data_get($np, 'images.0', data_get($np, 'image', '')) }}" alt="{{ $np['name'] ?? '' }}" loading="lazy">
+        <div class="mob-pgrid-body">
+          @if(!empty($np['badge']))
+            <div class="mob-pgrid-badge">{{ $np['badge'] }}</div>
+          @endif
+          <div class="mob-pgrid-brand">{{ $np['brand'] ?? '' }}</div>
+          <div class="mob-pgrid-name">{{ $np['name'] ?? '' }}</div>
+          <div class="mob-pgrid-price">₦{{ number_format((float)($np['price'] ?? 0)) }}</div>
+        </div>
+      </div>
+    @endforeach
+  </div>
+  @endif
+
+  {{-- Bundles & Kits (populated by JS from BUNDLES array) --}}
+  <div class="mob-sec-head">
+    <span class="mob-sec-title">Bundles & Kits</span>
+    <a href="{{ $shopUrl }}" class="mob-sec-link">See all →</a>
+  </div>
+  <div class="mob-row" id="mob-bundle-row" aria-label="Bundle kits"></div>
+
+  {{-- Shop by Category grid --}}
+  <div class="mob-sec-head">
+    <span class="mob-sec-title">Shop by Category</span>
+    <a href="{{ $shopUrl }}" class="mob-sec-link">All →</a>
+  </div>
+  <div class="mob-cat-grid">
+    @foreach($mobCatGrid as $cat)
+      <a href="{{ $cat['url'] }}" class="mob-cat-tile">
+        @if($cat['media']['url'])
+          <img src="{{ $cat['media']['url'] }}" alt="{{ $cat['media']['alt'] }}" loading="lazy">
+        @endif
+        <span class="mob-cat-tile-label">{{ $cat['label'] }}</span>
+      </a>
+    @endforeach
+  </div>
+
+  {{-- Skin Guides (populated by JS from GUIDES array) --}}
+  <div class="mob-sec-head">
+    <span class="mob-sec-title">Skin Guides</span>
+    <a href="{{ route('community') }}" class="mob-sec-link">See all →</a>
+  </div>
+  <div class="mob-row" id="mob-guide-strip" aria-label="Skin guides"></div>
+
+  {{-- Community gallery --}}
+  @if(!empty($communityGalleryItems))
+  <div class="mob-sec-head">
+    <span class="mob-sec-title">Community</span>
+    <a href="{{ route('community') }}" class="mob-sec-link">See all →</a>
+  </div>
+  <div class="mob-comm-grid">
+    @foreach(array_slice($communityGalleryItems, 0, 5) as $cell)
+      <div class="mob-comm-cell">
+        <img src="{{ $cell['url'] ?? '' }}" alt="{{ $cell['alt'] ?? 'Community photo' }}" loading="lazy">
+      </div>
+    @endforeach
+  </div>
+  @endif
+
+  {{-- Loyalty strip --}}
+  @if(data_get($visibility, 'loyalty_tiers', true) && !empty($loyaltyTiers))
+  <div class="mob-sec-head">
+    <span class="mob-sec-title">Rewards</span>
+  </div>
+  <div class="mob-loyalty">
+    <div class="mob-loyalty-title">{{ data_get($mobLoyalty, 'heading', 'Earn & Redeem Rewards') }}</div>
+    <div class="mob-loyalty-sub">{{ data_get($mobLoyalty, 'sub', 'Shop, earn points, unlock exclusive perks') }}</div>
+    <div class="mob-loyalty-tiers">
+      @foreach($loyaltyTiers as $tier)
+        <div class="mob-loyalty-tier">
+          <div class="mob-loyalty-tier-name">{{ data_get($tier, 'name', '') }}</div>
+          <div class="mob-loyalty-tier-pts">{{ data_get($tier, 'min_points', 0) }}+ pts</div>
+        </div>
+      @endforeach
+    </div>
+    <a href="{{ session('api_token') ? route('dashboard.index') : route('login') }}" class="mob-loyalty-btn">
+      {{ session('api_token') ? 'View My Rewards' : 'Join Rewards Programme' }}
+    </a>
+  </div>
+  @endif
+
+  {{-- Newsletter --}}
+  @if(data_get($visibility, 'newsletter', true))
+  <div class="mob-newsletter">
+    @if(data_get($mobNl, 'eyebrow'))
+      <div class="mob-nl-eyebrow">{{ data_get($mobNl, 'eyebrow') }}</div>
+    @endif
+    <div class="mob-nl-title">{{ data_get($mobNl, 'heading_line_1', 'K-Beauty Tips') }} {{ data_get($mobNl, 'heading_line_2', 'Delivered') }}</div>
+    <div class="mob-nl-sub">{{ data_get($mobNl, 'description', 'Weekly drops, exclusive deals & skincare science.') }}</div>
+    <form class="mob-nl-form" onsubmit="return false">
+      <input class="mob-nl-input" type="email" placeholder="{{ data_get($mobNl, 'input_placeholder', 'Your email address') }}" autocomplete="email">
+      <button class="mob-nl-btn" type="submit">{{ data_get($mobNl, 'button_text', 'Subscribe') }}</button>
+    </form>
+    @if(data_get($mobNl, 'note'))
+      <div class="mob-nl-note">{{ data_get($mobNl, 'note') }}</div>
+    @endif
+  </div>
+  @endif
+
+</div>{{-- /.mob-home --}}
 @endsection
 
 @section('scripts')
@@ -2152,5 +2619,92 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+</script>
+<script>
+// ── Mobile home JS (≤459px) ──────────────────────────────────────
+(function() {
+  if (window.innerWidth > 459) return;
+
+  // Greeting
+  var greetEl = document.getElementById('mob-greeting');
+  if (greetEl) {
+    var h = new Date().getHours();
+    var word = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+    var first = (greetEl.dataset.name || '').split(' ')[0];
+    greetEl.innerHTML = word + (first ? ', <em>' + first + '</em>!' : '<em>!</em>');
+  }
+
+  // Recommended products row
+  var recRow = document.getElementById('mob-rec-row');
+  if (recRow && typeof PRODUCTS !== 'undefined') {
+    PRODUCTS.slice(0, 8).forEach(function(p) {
+      var c = document.createElement('div');
+      c.className = 'mob-pcard';
+      c.innerHTML = '<img src="' + p.image + '" alt="" loading="lazy">'
+        + '<div class="mob-pcard-body">'
+        + '<div class="mob-pcard-brand">' + p.brand + '</div>'
+        + '<div class="mob-pcard-name">' + p.name + '</div>'
+        + '<div class="mob-pcard-price">&#x20A6;' + p.price.toLocaleString() + '</div>'
+        + '<button class="mob-pcard-btn" data-pid="' + p.id + '" onclick="addToCart(+this.dataset.pid,event)">Add to Cart</button>'
+        + '</div>';
+      recRow.appendChild(c);
+    });
+  }
+
+  // Bundles & Kits row
+  var bundleRow = document.getElementById('mob-bundle-row');
+  if (bundleRow && typeof BUNDLES !== 'undefined') {
+    BUNDLES.slice(0, 6).forEach(function(b) {
+      var c = document.createElement('div');
+      c.className = 'mob-bundle-card';
+      c.innerHTML = '<img src="' + b.image + '" alt="" loading="lazy">'
+        + '<div class="mob-bundle-body">'
+        + '<span class="mob-bundle-tag">' + b.tag + '</span>'
+        + '<div class="mob-bundle-name">' + b.name + '</div>'
+        + '<div class="mob-bundle-desc">' + b.desc + '</div>'
+        + '<div class="mob-bundle-price">&#x20A6;' + b.price.toLocaleString() + '</div>'
+        + '<button class="mob-bundle-btn" data-bid="' + b.id + '" onclick="openBundleModal(+this.dataset.bid)">View Kit</button>'
+        + '</div>';
+      bundleRow.appendChild(c);
+    });
+  }
+
+  // Skin guides strip
+  var guideStrip = document.getElementById('mob-guide-strip');
+  if (guideStrip && typeof GUIDES !== 'undefined') {
+    GUIDES.slice(0, 6).forEach(function(g) {
+      var c = document.createElement('div');
+      c.className = 'mob-guide-tile';
+      c.dataset.gid = g.id;
+      c.innerHTML = '<img src="' + g.image + '" alt="" loading="lazy">'
+        + '<div class="mob-guide-tile-body">'
+        + '<div class="mob-guide-tile-icon">' + g.icon + '</div>'
+        + '<div class="mob-guide-tile-name">' + g.title + '</div>'
+        + '</div>';
+      c.addEventListener('click', function() { openGuideModal(+this.dataset.gid); });
+      guideStrip.appendChild(c);
+    });
+  }
+
+  // Deal countdown (counts down to midnight)
+  var cdH = document.getElementById('mob-cd-h');
+  var cdM = document.getElementById('mob-cd-m');
+  var cdS = document.getElementById('mob-cd-s');
+  if (cdH && cdM && cdS) {
+    function mobTick() {
+      var now = new Date();
+      var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+      var diff = Math.max(0, end - now);
+      var hh = Math.floor(diff / 3600000);
+      var mm = Math.floor((diff % 3600000) / 60000);
+      var ss = Math.floor((diff % 60000) / 1000);
+      cdH.textContent = (hh < 10 ? '0' : '') + hh;
+      cdM.textContent = (mm < 10 ? '0' : '') + mm;
+      cdS.textContent = (ss < 10 ? '0' : '') + ss;
+    }
+    mobTick();
+    setInterval(mobTick, 1000);
+  }
+})();
 </script>
 @endsection

@@ -8,9 +8,79 @@
 <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 <link rel="alternate icon" href="{{ asset('favicon.ico') }}">
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<style>
+/* ─── Mobile App Chrome (hidden on desktop, shown ≤459px) ─── */
+.mob-sb,.mob-app-nav,.mob-tab-bar{display:none}
+@media(max-width:459px){
+  .announcement-bar,.nav,.mobile-nav,.mobile-nav-overlay,footer,.floating-quiz{display:none!important}
+  body{background:#F2F2F7;padding-bottom:76px}
+  .mob-sb{display:flex;align-items:center;justify-content:space-between;height:44px;padding:10px 20px 0;background:#F2F2F7;position:sticky;top:0;z-index:300}
+  .mob-sb-time{font-size:15px;font-weight:600;letter-spacing:-.3px;font-family:'Jost',system-ui,sans-serif}
+  .mob-sb-icons{display:flex;align-items:center;gap:6px}
+  .mob-sb-signal{display:flex;align-items:flex-end;gap:1.5px}
+  .mob-sb-bar{width:3px;border-radius:1px;background:currentColor}
+  .mob-sb-bar:nth-child(1){height:5px}.mob-sb-bar:nth-child(2){height:7px}.mob-sb-bar:nth-child(3){height:9px}.mob-sb-bar:nth-child(4){height:11px}
+  .mob-sb-wifi{width:15px;height:11px}
+  .mob-sb-battery{width:25px;height:12px;border:1.5px solid currentColor;border-radius:3px;padding:2px;position:relative;display:flex;align-items:center}
+  .mob-sb-battery::after{content:'';position:absolute;right:-5px;top:50%;transform:translateY(-50%);width:3px;height:5px;background:currentColor;border-radius:0 2px 2px 0}
+  .mob-sb-battery-fill{height:100%;width:75%;background:currentColor;border-radius:1px}
+  .mob-app-nav{display:block;background:#F2F2F7;position:sticky;top:44px;z-index:299}
+  .mob-app-nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:44px}
+  .mob-nav-logo{font-family:'Jost',sans-serif;font-size:20px;font-weight:800;letter-spacing:1px;text-decoration:none;color:#1C1416}
+  .mob-nav-logo span{color:#893941}
+  .mob-nav-btn{width:36px;height:36px;border-radius:50%;background:rgba(120,120,128,.12);display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;color:#1C1416;position:relative;flex-shrink:0}
+  .mob-nav-btn svg{width:18px;height:18px}
+  .mob-cart-dot{position:absolute;top:5px;right:5px;width:8px;height:8px;border-radius:50%;background:#893941;border:1.5px solid #F2F2F7}
+  .mob-nav-actions{display:flex;gap:8px}
+  .mob-tab-bar{display:flex;position:fixed;bottom:0;left:0;right:0;height:72px;background:rgba(249,249,249,.95);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-top:.5px solid rgba(60,60,67,.25);z-index:299;padding:8px 0 16px;align-items:flex-start;justify-content:space-around}
+  .mob-tab{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;color:rgba(60,60,67,.4);font-size:10px;font-weight:500;letter-spacing:.2px;text-decoration:none;cursor:pointer;transition:color .15s;position:relative;font-family:'Jost',sans-serif}
+  .mob-tab.active{color:#893941}
+  .mob-tab svg{width:24px;height:24px}
+  .mob-tab-badge{position:absolute;top:-2px;left:calc(50% + 6px);background:#FF3B30;color:#fff;font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:999px;padding:0 5px;display:flex;align-items:center;justify-content:center;border:2px solid rgba(249,249,249,.95)}
+}
+</style>
 @yield('head')
 </head>
 <body>
+
+{{-- Mobile: Status Bar --}}
+<div class="mob-sb" aria-hidden="true">
+  <span id="mob-sb-time" class="mob-sb-time">9:41</span>
+  <div class="mob-sb-icons">
+    <div class="mob-sb-signal">
+      <div class="mob-sb-bar"></div><div class="mob-sb-bar"></div><div class="mob-sb-bar"></div><div class="mob-sb-bar"></div>
+    </div>
+    <svg class="mob-sb-wifi" viewBox="0 0 15 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7.5 2.75C9.43 2.75 11.17 3.52 12.45 4.77L13.84 3.38C12.2 1.78 9.96.75 7.5.75s-4.7 1.03-6.34 2.63L2.55 4.77C3.83 3.52 5.57 2.75 7.5 2.75z" fill="currentColor"/>
+      <path d="M7.5 5.75c1.24 0 2.36.48 3.19 1.27L12.08 5.63C10.89 4.48 9.28 3.75 7.5 3.75S4.11 4.48 2.92 5.63l1.39 1.39A4.47 4.47 0 017.5 5.75z" fill="currentColor"/>
+      <path d="M7.5 8.75c.55 0 1.05.21 1.43.55L10.32 7.91A3.73 3.73 0 007.5 6.75c-1.04 0-1.97.42-2.66 1.1l1.33 1.45c.38-.34.88-.55 1.33-.55z" fill="currentColor"/>
+      <circle cx="7.5" cy="10.25" r="1" fill="currentColor"/>
+    </svg>
+    <div class="mob-sb-battery"><div class="mob-sb-battery-fill"></div></div>
+  </div>
+</div>
+
+{{-- Mobile: App Top Nav --}}
+<nav class="mob-app-nav" aria-label="App navigation">
+  <div class="mob-app-nav-inner">
+    <div class="mob-nav-actions">
+      <button class="mob-nav-btn" aria-label="Search" onclick="document.getElementById('search-overlay').classList.add('open');setTimeout(function(){var i=document.querySelector('.search-input');if(i)i.focus();},100)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+    </div>
+    <a href="{{ route('home') }}" class="mob-nav-logo">KOMIN<span>H</span>OO</a>
+    <div class="mob-nav-actions">
+      <button class="mob-nav-btn" id="mob-cart-btn" aria-label="Cart" onclick="document.getElementById('cart-drawer').classList.add('open');document.getElementById('cart-overlay').classList.add('open')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span class="mob-cart-dot" id="mob-cart-dot" style="display:none"></span>
+      </button>
+    </div>
+  </div>
+</nav>
 
 <!-- Announcement Bar -->
 @if(data_get($siteContent, 'announcement_bar.visible', true))
@@ -409,5 +479,70 @@
 })();
 </script>
 @yield('scripts')
+
+{{-- Mobile: Bottom Tab Bar --}}
+<nav class="mob-tab-bar" aria-label="Bottom navigation">
+  <a href="{{ route('home') }}" class="mob-tab {{ request()->routeIs('home') ? 'active' : '' }}" aria-label="Home">
+    <svg viewBox="0 0 24 24" fill="{{ request()->routeIs('home') ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+    Home
+  </a>
+  <a href="{{ route('shop') }}" class="mob-tab {{ request()->routeIs('shop*') ? 'active' : '' }}" aria-label="Shop">
+    <svg viewBox="0 0 24 24" fill="{{ request()->routeIs('shop*') ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+    </svg>
+    Shop
+  </a>
+  <a href="{{ route('community') }}" class="mob-tab {{ request()->routeIs('community*') ? 'active' : '' }}" aria-label="Explore">
+    <svg viewBox="0 0 24 24" fill="{{ request()->routeIs('community*') ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
+    </svg>
+    Explore
+  </a>
+  <button class="mob-tab {{ request()->routeIs('cart*') ? 'active' : '' }}" aria-label="Cart" onclick="document.getElementById('cart-drawer').classList.add('open');document.getElementById('cart-overlay').classList.add('open')" style="background:none;border:none;padding:0">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:relative">
+      <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+    </svg>
+    <span class="mob-tab-badge" id="mob-tab-cart-badge" style="display:none">0</span>
+    Cart
+  </button>
+  <a href="{{ session('api_token') ? route('dashboard.index') : route('login') }}" class="mob-tab {{ request()->routeIs('dashboard*','login','register') ? 'active' : '' }}" aria-label="Profile">
+    <svg viewBox="0 0 24 24" fill="{{ request()->routeIs('dashboard*') ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+    </svg>
+    Profile
+  </a>
+</nav>
+<script>
+(function(){
+  // Status bar clock
+  function updateClock(){
+    var el=document.getElementById('mob-sb-time');
+    if(!el)return;
+    var d=new Date(),h=d.getHours(),m=d.getMinutes();
+    var ampm=h>=12?'PM':'AM';h=h%12||12;
+    el.textContent=h+':'+(m<10?'0'+m:m)+' '+ampm;
+  }
+  updateClock();
+  setInterval(updateClock,30000);
+
+  // Cart badge sync — patch after app.js updateCartUI
+  var _origUpdateCartUI=window.updateCartUI;
+  window.updateCartUI=function(count){
+    if(_origUpdateCartUI)_origUpdateCartUI.apply(this,arguments);
+    var dot=document.getElementById('mob-cart-dot');
+    var badge=document.getElementById('mob-tab-cart-badge');
+    var n=parseInt(count)||0;
+    if(dot){dot.style.display=n>0?'':'none';}
+    if(badge){badge.style.display=n>0?'flex':'none';badge.textContent=n>9?'9+':n;}
+  };
+  // Run once on load to sync from existing cart state
+  if(window.cart&&window.cart.items){
+    var total=window.cart.items.reduce(function(s,i){return s+(i.qty||1);},0);
+    window.updateCartUI(total);
+  }
+})();
+</script>
 </body>
 </html>
