@@ -12,9 +12,10 @@
   }
   /* Panel Tabs */
   .panel-tabs { display:flex; gap:0; border-bottom:2px solid #e8eaed; margin-bottom:24px; }
-  .panel-tab { padding:10px 20px; font-size:.85rem; font-weight:600; cursor:pointer; color:rgba(10,10,10,.45); border-bottom:2px solid transparent; margin-bottom:-2px; transition:all .2s; white-space:nowrap; }
+  .panel-tab { padding:10px 18px; font-size:.83rem; font-weight:600; cursor:pointer; color:rgba(10,10,10,.45); border-bottom:2px solid transparent; margin-bottom:-2px; transition:all .2s; white-space:nowrap; }
   .panel-tab:hover { color:var(--black); }
   .panel-tab.active { color:var(--rose); border-bottom-color:var(--rose); }
+  #cmsTabBar::-webkit-scrollbar { display:none; }
   .panel-tab-content { display:none; }
   .panel-tab-content.active { display:block; }
   /* Wallet bonus form labels */
@@ -396,17 +397,21 @@
       </div>
 
       <!-- CMS Tab Bar -->
-      <div class="panel-tabs" id="cmsTabBar" style="overflow-x:auto;flex-wrap:nowrap;white-space:nowrap;">
-        <div class="panel-tab active" onclick="cmSwitchTab('cms-hero',this)">Hero</div>
-        <div class="panel-tab" onclick="cmSwitchTab('cms-slides',this)">Slides &amp; Pins</div>
-        <div class="panel-tab" onclick="cmSwitchTab('cms-why',this)">Why Kominhoo</div>
-        <div class="panel-tab" onclick="cmSwitchTab('cms-quiz-banner',this)">Quiz Banner</div>
-        <div class="panel-tab" onclick="cmSwitchTab('cms-deal',this)">Deal of the Day</div>
-        <div class="panel-tab" onclick="cmSwitchTab('cms-new-drops',this)">New Drops</div>
-        <div class="panel-tab" onclick="cmSwitchTab('cms-newsletter',this)">Newsletter</div>
-        <div class="panel-tab" onclick="cmSwitchTab('cms-quiz-popup',this)">Quiz Popup</div>
-        <div class="panel-tab" onclick="cmSwitchTab('cms-sections',this)">Sections</div>
-        <div class="panel-tab" onclick="cmSwitchTab('cms-announcement',this)">Announcement</div>
+      <div style="position:relative;display:flex;align-items:stretch;border-bottom:2px solid #e8eaed;margin-bottom:24px;">
+        <button id="cmsTabPrev" onclick="cmsTabScroll(-1)" style="flex-shrink:0;border:none;background:#fff;padding:0 10px;cursor:pointer;color:rgba(10,10,10,.4);font-size:1rem;display:none;border-right:1px solid #e8eaed;" aria-label="Scroll tabs left">&#8592;</button>
+        <div id="cmsTabBar" style="display:flex;flex:1;overflow-x:auto;gap:0;scrollbar-width:none;-ms-overflow-style:none;min-width:0;">
+          <div class="panel-tab active" style="border-bottom:none;margin-bottom:0;" onclick="cmSwitchTab('cms-hero',this)">Hero</div>
+          <div class="panel-tab" style="border-bottom:none;margin-bottom:0;" onclick="cmSwitchTab('cms-slides',this)">Slides &amp; Pins</div>
+          <div class="panel-tab" style="border-bottom:none;margin-bottom:0;" onclick="cmSwitchTab('cms-why',this)">Why Kominhoo</div>
+          <div class="panel-tab" style="border-bottom:none;margin-bottom:0;" onclick="cmSwitchTab('cms-quiz-banner',this)">Quiz Banner</div>
+          <div class="panel-tab" style="border-bottom:none;margin-bottom:0;" onclick="cmSwitchTab('cms-deal',this)">Deal of the Day</div>
+          <div class="panel-tab" style="border-bottom:none;margin-bottom:0;" onclick="cmSwitchTab('cms-new-drops',this)">New Drops</div>
+          <div class="panel-tab" style="border-bottom:none;margin-bottom:0;" onclick="cmSwitchTab('cms-newsletter',this)">Newsletter</div>
+          <div class="panel-tab" style="border-bottom:none;margin-bottom:0;" onclick="cmSwitchTab('cms-quiz-popup',this)">Quiz Popup</div>
+          <div class="panel-tab" style="border-bottom:none;margin-bottom:0;" onclick="cmSwitchTab('cms-sections',this)">Sections</div>
+          <div class="panel-tab" style="border-bottom:none;margin-bottom:0;" onclick="cmSwitchTab('cms-announcement',this)">Announcement</div>
+        </div>
+        <button id="cmsTabNext" onclick="cmsTabScroll(1)" style="flex-shrink:0;border:none;background:#fff;padding:0 10px;cursor:pointer;color:rgba(10,10,10,.4);font-size:1rem;border-left:1px solid #e8eaed;" aria-label="Scroll tabs right">&#8594;</button>
       </div>
 
       <!-- ─ HERO ─ -->
@@ -777,11 +782,26 @@
       const cmsContent = @json($cmsContent);
 
       // ── Tab switching ───────────────────────────────────────────────────────
+      function cmsTabScroll(dir) {
+        var bar = document.getElementById('cmsTabBar');
+        if (bar) bar.scrollBy({ left: dir * 160, behavior: 'smooth' });
+        setTimeout(cmsTabArrows, 200);
+      }
+      function cmsTabArrows() {
+        var bar  = document.getElementById('cmsTabBar');
+        var prev = document.getElementById('cmsTabPrev');
+        var next = document.getElementById('cmsTabNext');
+        if (!bar || !prev || !next) return;
+        prev.style.display = bar.scrollLeft > 4 ? '' : 'none';
+        next.style.display = bar.scrollLeft + bar.clientWidth < bar.scrollWidth - 4 ? '' : 'none';
+      }
       function cmSwitchTab(id, el) {
         document.querySelectorAll('#panel-content .panel-tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('#cmsTabBar .panel-tab').forEach(t => t.classList.remove('active'));
         const target = document.getElementById(id);
         if (target) target.classList.add('active');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+        setTimeout(cmsTabArrows, 200);
         if (el) el.classList.add('active');
       }
 
@@ -1130,6 +1150,11 @@
 
       document.addEventListener('DOMContentLoaded', function() {
         cmPopulateAll();
+        var bar = document.getElementById('cmsTabBar');
+        if (bar) {
+          bar.addEventListener('scroll', cmsTabArrows);
+          cmsTabArrows();
+        }
       });
     </script>
 

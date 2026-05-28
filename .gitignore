@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Claude / local dev
+.agent/
+.claude/
+SESSION_NOTES.md
+set-ngrok-url.ps1
+start-ngrok.ps1
+install.php
+.installed
+.impeccable.md
