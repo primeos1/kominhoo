@@ -9,9 +9,9 @@
 <link rel="alternate icon" href="{{ asset('favicon.ico') }}">
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 <style>
-/* ─── Mobile App Chrome (hidden on desktop, shown ≤459px) ─── */
+/* ─── Mobile App Chrome (hidden on desktop, shown ≤767px) ─── */
 .mob-app-nav,.mob-tab-bar{display:none}
-@media(max-width:459px){
+@media(max-width:767px){
   .announcement-bar,.nav,.mobile-nav,.mobile-nav-overlay,footer,.floating-quiz{display:none!important}
   body{background:#F2F2F7;padding-bottom:76px}
   .mob-app-nav{display:block;background:#F2F2F7;position:sticky;top:0;z-index:299}
@@ -495,7 +495,9 @@
     if(_origUpdateCartUI)_origUpdateCartUI.apply(this,arguments);
     var dot=document.getElementById('mob-cart-dot');
     var badge=document.getElementById('mob-tab-cart-badge');
-    var n=parseInt(count)||0;
+    var n=0;
+    if(typeof cart!=='undefined'&&Array.isArray(cart)){n=cart.reduce(function(s,i){return s+(i.qty||1);},0);}
+    else{n=parseInt(count)||0;}
     if(dot){dot.style.display=n>0?'':'none';}
     if(badge){badge.style.display=n>0?'flex':'none';badge.textContent=n>9?'9+':n;}
   };

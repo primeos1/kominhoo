@@ -1278,7 +1278,7 @@
 
 /* ─── Mobile App Home ─── */
 .mob-home{display:none}
-@media(max-width:459px){
+@media(max-width:767px){
   .home-page,#page-skeleton{display:none!important}
   .mob-home{
     display:block;
@@ -1289,10 +1289,11 @@
     color:var(--m-black);
     background:var(--m-bg);
   }
-  /* Announcement ticker */
-  .mob-ann-bar{background:var(--m-rose);color:#fff;font-size:12px;font-weight:500;padding:7px 0;overflow:hidden;white-space:nowrap}
-  .mob-ann-inner{display:inline-flex;animation:mobMarquee 25s linear infinite;will-change:transform}
-  @keyframes mobMarquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  /* Announcement bar */
+  .mob-ann-bar{background:linear-gradient(110deg,#6B252B,#893941 45%,#A84B54);color:#fff;display:flex;align-items:center;justify-content:center;gap:7px;padding:0 16px;height:36px;position:relative;overflow:hidden}
+  .mob-ann-bar::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.07) 50%,transparent 100%);pointer-events:none}
+  .mob-ann-icon{flex-shrink:0;opacity:.92}
+  .mob-ann-text{font-size:12px;font-weight:600;letter-spacing:.35px;white-space:nowrap}
   /* Greeting */
   .mob-greeting-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 6px}
   .mob-greeting-text{font-size:22px;font-weight:700;line-height:1.2}
@@ -1361,22 +1362,29 @@
   .mob-row::-webkit-scrollbar{display:none}
   /* Small product card */
   .mob-pcard{flex-shrink:0;scroll-snap-align:start;width:148px;background:var(--m-card);border-radius:12px;overflow:hidden}
-  .mob-pcard img{width:148px;height:148px;object-fit:cover;display:block}
+  .mob-card-img-wrap{position:relative;display:block}
+  .mob-pcard .mob-card-img-wrap img{width:148px;height:148px;object-fit:cover;display:block}
   .mob-pcard-body{padding:8px 10px 10px}
   .mob-pcard-brand{font-size:10px;font-weight:600;color:var(--m-rose);text-transform:uppercase;letter-spacing:.5px}
   .mob-pcard-name{font-size:13px;font-weight:600;color:var(--m-black);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:2px 0 5px}
   .mob-pcard-price{font-size:14px;font-weight:700;color:var(--m-rose)}
   .mob-pcard-btn{width:100%;margin-top:7px;padding:7px;background:var(--m-rose);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Jost',sans-serif;transition:opacity .15s}
   .mob-pcard-btn:active{opacity:.8}
+  /* Wishlist heart button on mobile product cards */
+  .mob-card-wish{position:absolute;top:7px;right:7px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.9);border:none;display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;line-height:1;z-index:2;box-shadow:0 1px 4px rgba(0,0,0,.12);transition:transform .15s;color:var(--m-black)}
+  .mob-card-wish:active{transform:scale(.85)}
+  .mob-card-wish.saved{color:var(--m-rose)}
   /* 2-col grid */
   .mob-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 4px}
   .mob-pgrid-card{background:var(--m-card);border-radius:12px;overflow:hidden}
-  .mob-pgrid-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+  .mob-pgrid-card .mob-card-img-wrap img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
   .mob-pgrid-body{padding:8px 10px 10px}
   .mob-pgrid-brand{font-size:10px;font-weight:600;color:var(--m-rose);text-transform:uppercase;letter-spacing:.5px}
   .mob-pgrid-name{font-size:13px;font-weight:600;color:var(--m-black);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;margin:2px 0 5px}
   .mob-pgrid-price{font-size:14px;font-weight:700;color:var(--m-rose)}
   .mob-pgrid-badge{display:inline-block;margin-bottom:3px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--m-chart);color:var(--m-olive)}
+  .mob-pgrid-btn{width:100%;margin-top:7px;padding:7px;background:var(--m-rose);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Jost',sans-serif;transition:opacity .15s}
+  .mob-pgrid-btn:active{opacity:.8}
   /* Bundle card */
   .mob-bundle-card{flex-shrink:0;scroll-snap-align:start;width:210px;background:var(--m-card);border-radius:12px;overflow:hidden}
   .mob-bundle-card img{width:100%;height:130px;object-fit:cover;display:block}
@@ -1384,14 +1392,12 @@
   .mob-bundle-tag{font-size:10px;font-weight:700;color:var(--m-olive);background:var(--m-chart);padding:2px 7px;border-radius:999px;display:inline-block;margin-bottom:5px}
   .mob-bundle-name{font-size:14px;font-weight:700;color:var(--m-black);margin-bottom:3px}
   .mob-bundle-desc{font-size:12px;color:var(--m-text2);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;margin-bottom:8px}
-  .mob-bundle-price{font-size:14px;font-weight:700;color:var(--m-rose);margin-bottom:8px}
+  .mob-bundle-count{font-size:11px;color:var(--m-text2);margin-bottom:6px}
+  .mob-bundle-price{font-size:14px;font-weight:700;color:var(--m-rose);margin-bottom:8px;display:flex;align-items:baseline;gap:5px}
+  .mob-bundle-orig{font-size:11px;color:var(--m-text2);text-decoration:line-through;font-weight:400}
   .mob-bundle-btn{width:100%;padding:8px;background:var(--m-black);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Jost',sans-serif;transition:opacity .15s}
   .mob-bundle-btn:active{opacity:.8}
   /* Category grid */
-  .mob-cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 4px}
-  .mob-cat-tile{border-radius:12px;overflow:hidden;position:relative;height:100px;display:block;text-decoration:none;background:linear-gradient(135deg,var(--m-rose),var(--m-blush))}
-  .mob-cat-tile img{width:100%;height:100%;object-fit:cover;display:block}
-  .mob-cat-tile-label{position:absolute;inset:0;display:flex;align-items:flex-end;padding:8px 11px;background:linear-gradient(to top,rgba(28,20,22,.72) 0%,transparent 65%);font-size:14px;font-weight:700;color:#fff}
   /* Story ring gradient classes (one per ring, matches $mobStories order) */
   .mob-sr-0{background:linear-gradient(135deg,#893941,#CB7885)}
   .mob-sr-1{background:linear-gradient(135deg,#D4D994,#5E6623)}
@@ -1406,7 +1412,11 @@
   .mob-guide-tile img{width:100%;height:108px;object-fit:cover;display:block}
   .mob-guide-tile-body{padding:8px 10px 10px}
   .mob-guide-tile-icon{font-size:16px;margin-bottom:2px}
-  .mob-guide-tile-name{font-size:13px;font-weight:700;color:var(--m-black);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .mob-guide-tile-name{font-size:13px;font-weight:700;color:var(--m-black);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;margin-bottom:3px}
+  .mob-guide-tile-desc{font-size:11px;color:var(--m-text2);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;margin-bottom:5px}
+  .mob-guide-tile-footer{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+  .mob-guide-tile-count{font-size:10px;color:var(--m-text2)}
+  .mob-guide-tile-arrow{font-size:11px;font-weight:700;color:var(--m-rose)}
   /* Community grid */
   .mob-comm-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:8px;overflow:hidden}
   .mob-comm-cell:first-child{grid-column:1/-1;height:180px}
@@ -1433,6 +1443,81 @@
   .mob-nl-input:focus{border-color:var(--m-rose)}
   .mob-nl-btn{padding:11px 14px;background:var(--m-rose);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'Jost',sans-serif}
   .mob-nl-note{font-size:11px;color:var(--m-text2);margin-top:7px;text-align:center}
+  /* Subscription */
+  .mob-sub{margin:0 16px 12px;border-radius:var(--m-r);background:linear-gradient(135deg,#893941,#CB7885);padding:20px 16px}
+  .mob-sub-kicker{font-size:11px;font-weight:600;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
+  .mob-sub-title{font-size:17px;font-weight:700;color:#fff;margin-bottom:3px}
+  .mob-sub-desc{font-size:13px;color:rgba(255,255,255,.75);margin-bottom:14px}
+  .mob-sub-plans{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+  .mob-sub-plans::-webkit-scrollbar{display:none}
+  .mob-sub-plan{flex-shrink:0;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:14px;min-width:148px}
+  .mob-sub-plan.featured{background:rgba(255,255,255,.22);border-color:var(--m-chart)}
+  .mob-sub-plan-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,255,255,.65);margin-bottom:4px}
+  .mob-sub-plan.featured .mob-sub-plan-badge{color:var(--m-chart)}
+  .mob-sub-plan-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:6px}
+  .mob-sub-plan-price{font-size:20px;font-weight:800;color:#fff;line-height:1;margin-bottom:2px;font-family:'Bodoni Moda',Georgia,serif}
+  .mob-sub-plan-period{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:10px}
+  .mob-sub-plan-features{display:flex;flex-direction:column;gap:4px}
+  .mob-sub-plan-feat{font-size:11px;color:rgba(255,255,255,.8);display:flex;align-items:flex-start;gap:4px}
+  .mob-sub-cta{display:block;width:100%;margin-top:14px;padding:11px;background:var(--m-chart);color:var(--m-olive);border:none;border-radius:10px;font-size:14px;font-weight:700;text-align:center;text-decoration:none;cursor:pointer;font-family:'Jost',sans-serif;box-sizing:border-box}
+  /* ── Mobile Hero Slider ──────────────────────────────────────────── */
+  .mob-hero-slider{position:relative;overflow:hidden;border-radius:18px;margin:0 16px 14px;height:clamp(200px,54vw,280px);touch-action:pan-y;background:var(--m-black)}
+  .mob-hero-track{display:flex;height:100%;transition:transform .42s cubic-bezier(.4,0,.2,1);will-change:transform}
+  .mob-hero-slide{flex-shrink:0;width:100%;height:100%;background-size:cover;background-position:center top;position:relative}
+  .mob-hero-content{position:absolute;inset:0;background:linear-gradient(to top,rgba(28,20,22,.9) 0%,rgba(28,20,22,.52) 45%,rgba(28,20,22,.06) 100%);padding:20px;display:flex;flex-direction:column;justify-content:flex-end}
+  .mob-hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--m-chart);margin-bottom:6px}
+  .mob-hero-h{font-family:'Bodoni Moda',Georgia,serif;font-size:clamp(1.5rem,5.5vw,2.1rem);font-weight:700;color:#fff;line-height:1.1;letter-spacing:-.02em;margin-bottom:12px}
+  .mob-hero-h em{color:var(--m-blush);font-style:italic}
+  .mob-hero-btn{display:inline-flex;align-items:center;background:var(--m-chart);color:var(--m-olive);font-size:12px;font-weight:700;padding:8px 16px;border-radius:999px;text-decoration:none;font-family:'Jost',sans-serif;letter-spacing:.02em;white-space:nowrap;transition:opacity .15s}
+  .mob-hero-btn:active{opacity:.8}
+  .mob-hero-indicators{position:absolute;bottom:12px;right:14px;display:flex;gap:5px;z-index:2;pointer-events:none}
+  .mob-hero-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.4);transition:all .3s ease;pointer-events:auto;cursor:pointer}
+  .mob-hero-dot.is-active{background:var(--m-chart);width:18px;border-radius:99px}
+  /* ── Mob home safe-area + extra spacing ─────────────────────────── */
+  .mob-home{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 4px)}
+}
+
+/* ─── Wider phone responsive (460px–767px) ──────────────────────── */
+@media(min-width:460px) and (max-width:767px){
+  .mob-hero-slider{height:clamp(240px,40vw,340px)}
+  .mob-hero-h{font-size:clamp(1.7rem,4.5vw,2.5rem)}
+  .mob-hero-content{padding:24px}
+  .mob-hero-btn{font-size:13px;padding:10px 20px}
+  .mob-pcard{width:clamp(162px,38vw,204px)}
+  .mob-pcard .mob-card-img-wrap img{width:100%;height:auto;aspect-ratio:1/1}
+  .mob-bundle-card{width:clamp(225px,47vw,270px)}
+  .mob-guide-tile{width:clamp(188px,42vw,225px)}
+  .mob-guide-tile img{height:clamp(112px,23vw,145px)}
+  .mob-story-ring{width:70px;height:70px}
+  .mob-feat-img{height:clamp(240px,44vw,330px)}
+  .mob-sec-title{font-size:20px}
+  .mob-sec-link{font-size:14px}
+  .mob-greeting-text{font-size:24px}
+  .mob-greeting-avatar{width:42px;height:42px}
+  .mob-quiz-nudge{padding:16px 18px}
+  .mob-quiz-title{font-size:15px}
+  .mob-quiz-sub{font-size:13px}
+  .mob-feat-name{font-size:18px}
+  .mob-feat-price{font-size:24px}
+  .mob-feat-cta{font-size:16px;padding:14px}
+  .mob-cd-num{font-size:24px;min-width:38px}
+  .mob-trust-chip span{font-size:13px}
+  .mob-trust-chip{padding:9px 14px}
+  .mob-cat-pill{font-size:14px;padding:8px 18px}
+  .mob-ann-bar{height:38px}
+  .mob-ann-text{font-size:13px}
+  .mob-loyalty{padding:22px 20px}
+  .mob-loyalty-title{font-size:18px}
+  .mob-newsletter{padding:22px 20px}
+  .mob-nl-title{font-size:20px}
+  .mob-search-bar{margin:4px 16px 12px;padding:12px 16px}
+  .mob-search-ph{font-size:15px}
+  .mob-pcard-body{padding:10px 12px 12px}
+  .mob-pcard-name{font-size:14px}
+  .mob-pcard-price{font-size:15px}
+  .mob-pcard-btn{font-size:13px;padding:8px}
+  .mob-pgrid-name{font-size:14px}
+  .mob-pgrid-price{font-size:15px}
 }
 </style>
 @endsection
@@ -1547,6 +1632,7 @@
       'desc'  => data_get($whySection, "cards.$i.desc",  $default['desc']),
     ];
   }
+
 @endphp
 
 {{-- ── Hero Slider ──────────────────────────────────────────────── --}}
@@ -2077,7 +2163,9 @@
 </div>
 @endif
 
-{{-- ── Bundle Modal ──────────────────────────────────────────────── --}}
+</div>{{-- /.home-page --}}
+
+{{-- ── Bundle Modal (outside .home-page so it works on mobile too) ── --}}
 <div class="guide-modal-overlay" id="bundleModalOverlay" onclick="if(event.target===this)closeBundleModal()" role="dialog" aria-modal="true">
   <div class="guide-modal">
     <button class="guide-modal-close" onclick="closeBundleModal()" aria-label="Close">✕</button>
@@ -2099,7 +2187,7 @@
   </div>
 </div>
 
-{{-- ── Guide Products Modal ────────────────────────────────────── --}}
+{{-- ── Guide Products Modal (outside .home-page so it works on mobile too) --}}
 <div class="guide-modal-overlay" id="guideModalOverlay" onclick="if(event.target===this)closeGuideModal()" role="dialog" aria-modal="true">
   <div class="guide-modal">
     <button class="guide-modal-close" onclick="closeGuideModal()" aria-label="Close">✕</button>
@@ -2113,8 +2201,6 @@
     <div class="guide-modal-products"></div>
   </div>
 </div>
-
-</div>{{-- /.home-page --}}
 
 {{-- ────────────────────────────────────────────────────────────────────
      Mobile App Home  (≤459px only — hidden on desktop via CSS)
@@ -2130,52 +2216,58 @@
   $mobNl        = $newsletterSection ?? [];
 
   $mobAnnItems  = data_get($siteContent ?? [], 'announcement_bar.items', []);
-  $mobAnnText   = collect($mobAnnItems)->pluck('text')->filter()->implode(' · ');
+  $mobAnnText   = collect($mobAnnItems)
+      ->map(fn ($i) => trim(($i['emoji'] ?? '') . ' ' . ($i['text'] ?? '')))
+      ->filter()
+      ->implode(' · ');
   if (empty(trim($mobAnnText))) {
     $mobAnnText = 'Free shipping over ₦15,000 · Authentic K-Beauty · 7-day returns';
   }
+  $mobAnnSpeed  = data_get($siteContent ?? [], 'announcement_bar.speed', 'normal');
+  $mobAnnClass  = match($mobAnnSpeed) {
+      'static' => 'mob-ann-static',
+      'slow'   => 'mob-ann-slow',
+      'fast'   => 'mob-ann-fast',
+      default  => '',
+  };
 
   $shopUrl = route('shop');
 
   $mobCatPills = [
     ['label' => 'All',          'url' => $shopUrl],
-    ['label' => 'Serums',       'url' => $shopUrl . '?category=serums'],
-    ['label' => 'Cleansers',    'url' => $shopUrl . '?category=cleansers'],
-    ['label' => 'Moisturisers', 'url' => $shopUrl . '?category=moisturisers'],
-    ['label' => 'Toners',       'url' => $shopUrl . '?category=toners'],
-    ['label' => 'Sunscreen',    'url' => $shopUrl . '?category=sunscreen'],
-    ['label' => 'Sets',         'url' => $shopUrl . '?category=sets'],
+    ['label' => 'Cleansers',    'url' => $shopUrl . '?category=Cleanser'],
+    ['label' => 'Toners',       'url' => $shopUrl . '?category=Toner'],
+    ['label' => 'Serums',       'url' => $shopUrl . '?category=Serum'],
+    ['label' => 'Moisturisers', 'url' => $shopUrl . '?category=Moisturizer'],
+    ['label' => 'Sunscreen',    'url' => $shopUrl . '?category=Sunscreen'],
+    ['label' => 'Masks',        'url' => $shopUrl . '?category=Mask'],
+    ['label' => 'Treatments',   'url' => $shopUrl . '?category=Treatment'],
+    ['label' => 'Makeup',       'url' => $shopUrl . '?category=Makeup'],
+    ['label' => 'Haircare',     'url' => $shopUrl . '?category=Haircare'],
+    ['label' => 'Sets',         'url' => route('shop', ['tab' => 'bundles'])],
   ];
 
   $mobStories = [
-    ['label' => 'All Skin',  'gradient' => 'linear-gradient(135deg,#893941,#CB7885)', 'url' => $shopUrl,                             'media' => $slotMedia('mob_story_all',       '', 'All Skin')],
-    ['label' => 'Oily',      'gradient' => 'linear-gradient(135deg,#D4D994,#5E6623)', 'url' => $shopUrl . '?skin=oily',              'media' => $slotMedia('mob_story_oily',      '', 'Oily')],
-    ['label' => 'Dry',       'gradient' => 'linear-gradient(135deg,#CB7885,#893941)', 'url' => $shopUrl . '?skin=dry',               'media' => $slotMedia('mob_story_dry',       '', 'Dry')],
-    ['label' => 'Combo',     'gradient' => 'linear-gradient(135deg,#5E6623,#D4D994)', 'url' => $shopUrl . '?skin=combination',       'media' => $slotMedia('mob_story_combo',     '', 'Combo')],
-    ['label' => 'Sensitive', 'gradient' => 'linear-gradient(135deg,#893941,#D4D994)', 'url' => $shopUrl . '?skin=sensitive',         'media' => $slotMedia('mob_story_sensitive', '', 'Sensitive')],
-    ['label' => 'Serums',    'gradient' => 'linear-gradient(135deg,#D4D994,#893941)', 'url' => $shopUrl . '?category=serums',        'media' => $slotMedia('mob_story_serums',    '', 'Serums')],
-    ['label' => 'SPF',       'gradient' => 'linear-gradient(135deg,#CB7885,#5E6623)', 'url' => $shopUrl . '?category=sunscreen',     'media' => $slotMedia('mob_story_spf',       '', 'SPF')],
-    ['label' => 'Sets',      'gradient' => 'linear-gradient(135deg,#5E6623,#893941)', 'url' => $shopUrl . '?category=sets',          'media' => $slotMedia('mob_story_sets',      '', 'Sets')],
+    ['label' => 'All Skin',  'gradient' => 'linear-gradient(135deg,#893941,#CB7885)', 'url' => $shopUrl,                           'media' => $slotMedia('mob_story_all',       'https://images.unsplash.com/photo-1713207524097-596f3c17afc3?w=200&h=200&fit=crop&q=70', 'All Skin')],
+    ['label' => 'Oily',      'gradient' => 'linear-gradient(135deg,#D4D994,#5E6623)', 'url' => $shopUrl . '?skin_type=Oily',       'media' => $slotMedia('mob_story_oily',      'https://images.unsplash.com/photo-1623225088166-eea1cdc9775a?w=200&h=200&fit=crop&q=70', 'Oily Skin')],
+    ['label' => 'Dry',       'gradient' => 'linear-gradient(135deg,#CB7885,#893941)', 'url' => $shopUrl . '?skin_type=Dry',        'media' => $slotMedia('mob_story_dry',       'https://images.unsplash.com/photo-1693004927824-f2623bbedc8b?w=200&h=200&fit=crop&q=70', 'Dry Skin')],
+    ['label' => 'Combo',     'gradient' => 'linear-gradient(135deg,#5E6623,#D4D994)', 'url' => $shopUrl . '?skin_type=Combination','media' => $slotMedia('mob_story_combo',     'https://images.unsplash.com/photo-1648203276014-20f97ba1f817?w=200&h=200&fit=crop&q=70', 'Combo Skin')],
+    ['label' => 'Sensitive', 'gradient' => 'linear-gradient(135deg,#893941,#D4D994)', 'url' => $shopUrl . '?skin_type=Sensitive',  'media' => $slotMedia('mob_story_sensitive', 'https://images.unsplash.com/photo-1601065874033-aa9138d9f155?w=200&h=200&fit=crop&q=70', 'Sensitive Skin')],
+    ['label' => 'Serums',    'gradient' => 'linear-gradient(135deg,#D4D994,#893941)', 'url' => $shopUrl . '?category=Serum',       'media' => $slotMedia('mob_story_serums',    'https://images.unsplash.com/photo-1770732766528-d0e9fd0df233?w=200&h=200&fit=crop&q=70', 'Serums')],
+    ['label' => 'SPF',       'gradient' => 'linear-gradient(135deg,#CB7885,#5E6623)', 'url' => $shopUrl . '?category=Sunscreen',   'media' => $slotMedia('mob_story_spf',       'https://images.unsplash.com/photo-1679394270597-e90694d70350?w=200&h=200&fit=crop&q=70', 'SPF / Sunscreen')],
+    ['label' => 'Masks',     'gradient' => 'linear-gradient(135deg,#5E6623,#CB7885)', 'url' => $shopUrl . '?category=Mask',        'media' => $slotMedia('mob_story_masks',     'https://images.unsplash.com/photo-1743931370903-8a5ca3807e2d?w=200&h=200&fit=crop&q=70', 'Masks')],
+    ['label' => 'Sets',      'gradient' => 'linear-gradient(135deg,#5E6623,#893941)', 'url' => route('shop', ['tab' => 'bundles']), 'media' => $slotMedia('mob_story_sets',      'https://images.unsplash.com/photo-1557053910-d9eadeed1c58?w=200&h=200&fit=crop&q=70', 'Sets & Bundles')],
   ];
 
-  $mobCatGrid = [
-    ['label' => 'Serums',       'url' => $shopUrl . '?category=serums',       'media' => $slotMedia('mob_cat_serums',       '', 'Serums')],
-    ['label' => 'Cleansers',    'url' => $shopUrl . '?category=cleansers',    'media' => $slotMedia('mob_cat_cleansers',    '', 'Cleansers')],
-    ['label' => 'Moisturisers', 'url' => $shopUrl . '?category=moisturisers', 'media' => $slotMedia('mob_cat_moisturisers', '', 'Moisturisers')],
-    ['label' => 'Sunscreen',    'url' => $shopUrl . '?category=sunscreen',    'media' => $slotMedia('mob_cat_sunscreen',    '', 'Sunscreen')],
-  ];
 @endphp
 
 <div class="mob-home" aria-label="Mobile home">
 
-  {{-- Announcement ticker --}}
-  @if(data_get($siteContent, 'announcement_bar.visible', true))
-  <div class="mob-ann-bar" aria-hidden="true">
-    <div class="mob-ann-inner">
-      <span>{{ $mobAnnText }}&emsp;·&emsp;</span><span>{{ $mobAnnText }}&emsp;·&emsp;</span>
-    </div>
+  {{-- Announcement bar --}}
+  <div class="mob-ann-bar" role="note" aria-label="Promotion">
+    <svg class="mob-ann-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+    <span class="mob-ann-text">Free shipping on orders above &#x20A6;50,000</span>
   </div>
-  @endif
 
   {{-- Greeting --}}
   <div class="mob-greeting-row">
@@ -2203,6 +2295,44 @@
     </svg>
     <span class="mob-search-ph">Search serums, cleansers, brands…</span>
   </div>
+
+  {{-- Mobile Hero Slider --}}
+  @if(data_get($hero, 'visible', true))
+  <div class="mob-hero-slider" id="mob-hero-slider" aria-label="Featured">
+    <div class="mob-hero-track" id="mob-hero-track">
+
+      <div class="mob-hero-slide" style="background-image:url('{{ $heroSlide1['url'] }}')">
+        <div class="mob-hero-content">
+          <div class="mob-hero-eyebrow">{{ data_get($hero, 'eyebrow', 'Personalized K-Beauty') }}</div>
+          <div class="mob-hero-h">{{ data_get($hero, 'title_line_1', 'Your Skin,') }}<br><em>{{ data_get($hero, 'title_line_2', 'Decoded.') }}</em></div>
+          <a href="{{ route('quiz') }}" class="mob-hero-btn">{{ data_get($hero, 'primary_cta_text', '✨ Skin Quiz') }}</a>
+        </div>
+      </div>
+
+      <div class="mob-hero-slide" style="background-image:url('{{ $heroSlide2['url'] }}')">
+        <div class="mob-hero-content">
+          <div class="mob-hero-eyebrow">Authentic K-Beauty</div>
+          <div class="mob-hero-h">Glow-Up<br><em>Routine Awaits</em></div>
+          <a href="{{ route('shop') }}" class="mob-hero-btn">Shop Now →</a>
+        </div>
+      </div>
+
+      <div class="mob-hero-slide" style="background-image:url('{{ $heroSlide3['url'] }}')">
+        <div class="mob-hero-content">
+          <div class="mob-hero-eyebrow">New This Season</div>
+          <div class="mob-hero-h">Fresh Drops<br><em>Just Arrived</em></div>
+          <a href="{{ route('shop') }}" class="mob-hero-btn">Explore →</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="mob-hero-indicators" id="mob-hero-dots" aria-hidden="true">
+      <span class="mob-hero-dot is-active"></span>
+      <span class="mob-hero-dot"></span>
+      <span class="mob-hero-dot"></span>
+    </div>
+  </div>
+  @endif
 
   {{-- Quiz nudge --}}
   @if(data_get($visibility, 'quiz_banner', true))
@@ -2281,51 +2411,75 @@
   @endif
   @endif
 
-  {{-- Trust chips --}}
+  {{-- Trust chips — text from why_section.cards managed in admin CMS --}}
+  @php
+    $mobTrustCards    = array_values(data_get($siteContent ?? [], 'why_section.cards', []));
+    $mobTrustDefaults = ['Free ship ₦15k+', '100% Authentic', '7-Day Returns', 'Secure Checkout'];
+  @endphp
   <div class="mob-trust-row" aria-label="Store promises">
     <div class="mob-trust-chip">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
       </svg>
-      <span>Free ship ₦15k+</span>
+      <span>{{ data_get($mobTrustCards, '0.title', $mobTrustDefaults[0]) }}</span>
     </div>
     <div class="mob-trust-chip">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
       </svg>
-      <span>100% Authentic</span>
+      <span>{{ data_get($mobTrustCards, '1.title', $mobTrustDefaults[1]) }}</span>
     </div>
     <div class="mob-trust-chip">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
       </svg>
-      <span>7-Day Returns</span>
+      <span>{{ data_get($mobTrustCards, '2.title', $mobTrustDefaults[2]) }}</span>
     </div>
     <div class="mob-trust-chip">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
       </svg>
-      <span>Secure Checkout</span>
+      <span>{{ data_get($mobTrustCards, '3.title', $mobTrustDefaults[3]) }}</span>
     </div>
   </div>
 
-  {{-- Recommended products (populated by JS from PRODUCTS array) --}}
+  {{-- Recommended products — featured products from API --}}
+  @if(!empty($products))
   <div class="mob-sec-head">
     <span class="mob-sec-title">Recommended</span>
     <a href="{{ $shopUrl }}" class="mob-sec-link">See all →</a>
   </div>
-  <div class="mob-row" id="mob-rec-row" aria-label="Recommended products"></div>
+  <div class="mob-row" aria-label="Recommended products">
+    @foreach(array_slice($products, 0, 8) as $rp)
+      <a href="{{ route('product', $rp['id']) }}" class="mob-pcard" style="text-decoration:none;color:inherit">
+        <div class="mob-card-img-wrap">
+          <img src="{{ data_get($rp, 'images.0', data_get($rp, 'image', '')) }}" alt="{{ $rp['name'] ?? '' }}" loading="lazy">
+          <button class="mob-card-wish" data-pid="{{ $rp['id'] }}" onclick="event.preventDefault();toggleSave(+this.dataset.pid,this)" aria-label="Save to wishlist">♡</button>
+        </div>
+        <div class="mob-pcard-body">
+          <div class="mob-pcard-brand">{{ $rp['brand'] ?? '' }}</div>
+          <div class="mob-pcard-name">{{ $rp['name'] ?? '' }}</div>
+          <div class="mob-pcard-price">₦{{ number_format((float)($rp['price'] ?? 0)) }}</div>
+          <button class="mob-pcard-btn" data-pid="{{ $rp['id'] }}" onclick="event.preventDefault();addToCart(+this.dataset.pid,event)">Add to Cart</button>
+        </div>
+      </a>
+    @endforeach
+  </div>
+  @endif
 
   {{-- New drops grid --}}
   @if(!empty($newDropProducts))
   <div class="mob-sec-head">
-    <span class="mob-sec-title">New Drops</span>
+    <span class="mob-sec-title">{{ data_get($newDrops, 'title', 'New Drops') }}</span>
     <a href="{{ $shopUrl }}" class="mob-sec-link">See all →</a>
   </div>
   <div class="mob-grid-2">
     @foreach(array_slice($newDropProducts, 0, 4) as $np)
-      <div class="mob-pgrid-card">
-        <img src="{{ data_get($np, 'images.0', data_get($np, 'image', '')) }}" alt="{{ $np['name'] ?? '' }}" loading="lazy">
+      <a href="{{ route('product', $np['id']) }}" class="mob-pgrid-card" style="text-decoration:none;color:inherit;display:block">
+        <div class="mob-card-img-wrap">
+          <img src="{{ data_get($np, 'images.0', data_get($np, 'image', '')) }}" alt="{{ $np['name'] ?? '' }}" loading="lazy">
+          <button class="mob-card-wish" data-pid="{{ $np['id'] }}" onclick="event.preventDefault();toggleSave(+this.dataset.pid,this)" aria-label="Save to wishlist">♡</button>
+        </div>
         <div class="mob-pgrid-body">
           @if(!empty($np['badge']))
             <div class="mob-pgrid-badge">{{ $np['badge'] }}</div>
@@ -2333,61 +2487,63 @@
           <div class="mob-pgrid-brand">{{ $np['brand'] ?? '' }}</div>
           <div class="mob-pgrid-name">{{ $np['name'] ?? '' }}</div>
           <div class="mob-pgrid-price">₦{{ number_format((float)($np['price'] ?? 0)) }}</div>
+          <button class="mob-pgrid-btn" data-pid="{{ $np['id'] }}" onclick="event.preventDefault();addToCart(+this.dataset.pid,event)">Add to Cart</button>
         </div>
-      </div>
+      </a>
     @endforeach
   </div>
   @endif
 
   {{-- Bundles & Kits (populated by JS from BUNDLES array) --}}
+  @if(data_get($visibility, 'bundle_kits', true))
   <div class="mob-sec-head">
     <span class="mob-sec-title">Bundles & Kits</span>
-    <a href="{{ $shopUrl }}" class="mob-sec-link">See all →</a>
+    <a href="{{ route('shop', ['tab' => 'bundles']) }}" class="mob-sec-link">View all →</a>
   </div>
   <div class="mob-row" id="mob-bundle-row" aria-label="Bundle kits"></div>
+  @endif
 
-  {{-- Shop by Category grid --}}
+  {{-- Buying Guides (populated by JS from GUIDES array) --}}
+  @if(data_get($visibility, 'buying_guides', true))
   <div class="mob-sec-head">
-    <span class="mob-sec-title">Shop by Category</span>
-    <a href="{{ $shopUrl }}" class="mob-sec-link">All →</a>
+    <span class="mob-sec-title">Buying Guides</span>
   </div>
-  <div class="mob-cat-grid">
-    @foreach($mobCatGrid as $cat)
-      <a href="{{ $cat['url'] }}" class="mob-cat-tile">
-        @if($cat['media']['url'])
-          <img src="{{ $cat['media']['url'] }}" alt="{{ $cat['media']['alt'] }}" loading="lazy">
-        @endif
-        <span class="mob-cat-tile-label">{{ $cat['label'] }}</span>
-      </a>
-    @endforeach
-  </div>
+  <div class="mob-row" id="mob-guide-strip" aria-label="Buying guides"></div>
+  @endif
 
-  {{-- Skin Guides (populated by JS from GUIDES array) --}}
+  {{-- Subscription Plans --}}
+  @if(data_get($visibility, 'subscription_cta', true) && !empty($subscriptionPlans))
+  @php $mobSubSection = data_get($siteContent, 'subscription_section', []); @endphp
   <div class="mob-sec-head">
-    <span class="mob-sec-title">Skin Guides</span>
-    <a href="{{ route('community') }}" class="mob-sec-link">See all →</a>
+    <span class="mob-sec-title">{{ data_get($mobSubSection, 'kicker', 'Quarterly Subscription') }}</span>
   </div>
-  <div class="mob-row" id="mob-guide-strip" aria-label="Skin guides"></div>
-
-  {{-- Community gallery --}}
-  @if(!empty($communityGalleryItems))
-  <div class="mob-sec-head">
-    <span class="mob-sec-title">Community</span>
-    <a href="{{ route('community') }}" class="mob-sec-link">See all →</a>
-  </div>
-  <div class="mob-comm-grid">
-    @foreach(array_slice($communityGalleryItems, 0, 5) as $cell)
-      <div class="mob-comm-cell">
-        <img src="{{ $cell['url'] ?? '' }}" alt="{{ $cell['alt'] ?? 'Community photo' }}" loading="lazy">
+  <div class="mob-sub">
+    <div class="mob-sub-title">{{ data_get($mobSubSection, 'heading', 'Your Skin Expert, On Autopilot') }}</div>
+    <div class="mob-sub-desc">{{ data_get($mobSubSection, 'description', 'Expert-curated routines delivered every 3 months — personalized, free shipping, easy to pause.') }}</div>
+    <div class="mob-sub-plans">
+      @foreach($subscriptionPlans as $mobPlan)
+      @php $mobPlanFeatured = $mobPlan['is_popular'] ?? false; @endphp
+      <div class="mob-sub-plan {{ $mobPlanFeatured ? 'featured' : '' }}">
+        <div class="mob-sub-plan-badge">{{ $mobPlanFeatured ? '⭐ Most Popular' : ($mobPlan['badge'] ?? ucfirst($mobPlan['billing_cycle'] ?? 'Standard')) }}</div>
+        <div class="mob-sub-plan-name">{{ $mobPlan['name'] }}</div>
+        <div class="mob-sub-plan-price">₦{{ number_format($mobPlan['price']) }}</div>
+        <div class="mob-sub-plan-period">{{ $mobPlan['frequency_label'] ?? 'per quarter' }}</div>
+        <div class="mob-sub-plan-features">
+          @foreach(array_slice($mobPlan['features'] ?? [], 0, 3) as $mobFeat)
+          <div class="mob-sub-plan-feat"><span>✓</span> {{ $mobFeat }}</div>
+          @endforeach
+        </div>
       </div>
-    @endforeach
+      @endforeach
+    </div>
+    <a href="{{ route('shop', ['tab' => 'subscription']) }}" class="mob-sub-cta">Subscribe Now →</a>
   </div>
   @endif
 
   {{-- Loyalty strip --}}
   @if(data_get($visibility, 'loyalty_tiers', true) && !empty($loyaltyTiers))
   <div class="mob-sec-head">
-    <span class="mob-sec-title">Rewards</span>
+    <span class="mob-sec-title">{{ data_get($mobLoyalty, 'kicker', 'Rewards') }}</span>
   </div>
   <div class="mob-loyalty">
     <div class="mob-loyalty-title">{{ data_get($mobLoyalty, 'heading', 'Earn & Redeem Rewards') }}</div>
@@ -2623,9 +2779,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 <script>
-// ── Mobile home JS (≤459px) ──────────────────────────────────────
+// ── Mobile home JS (≤767px) ──────────────────────────────────────
 (function() {
-  if (window.innerWidth > 459) return;
+  if (window.innerWidth > 767) return;
 
   // Greeting
   var greetEl = document.getElementById('mob-greeting');
@@ -2636,42 +2792,31 @@ document.addEventListener('DOMContentLoaded', () => {
     greetEl.innerHTML = word + (first ? ', <em>' + first + '</em>!' : '<em>!</em>');
   }
 
-  // Recommended products row
-  var recRow = document.getElementById('mob-rec-row');
-  if (recRow && typeof PRODUCTS !== 'undefined') {
-    PRODUCTS.slice(0, 8).forEach(function(p) {
-      var c = document.createElement('div');
-      c.className = 'mob-pcard';
-      c.innerHTML = '<img src="' + p.image + '" alt="" loading="lazy">'
-        + '<div class="mob-pcard-body">'
-        + '<div class="mob-pcard-brand">' + p.brand + '</div>'
-        + '<div class="mob-pcard-name">' + p.name + '</div>'
-        + '<div class="mob-pcard-price">&#x20A6;' + p.price.toLocaleString() + '</div>'
-        + '<button class="mob-pcard-btn" data-pid="' + p.id + '" onclick="addToCart(+this.dataset.pid,event)">Add to Cart</button>'
-        + '</div>';
-      recRow.appendChild(c);
-    });
-  }
-
   // Bundles & Kits row
   var bundleRow = document.getElementById('mob-bundle-row');
   if (bundleRow && typeof BUNDLES !== 'undefined') {
     BUNDLES.slice(0, 6).forEach(function(b) {
       var c = document.createElement('div');
       c.className = 'mob-bundle-card';
+      c.style.cursor = 'pointer';
+      var origHtml = b.originalPrice
+        ? '<span class="mob-bundle-orig">&#x20A6;' + b.originalPrice.toLocaleString() + '</span>'
+        : '';
       c.innerHTML = '<img src="' + b.image + '" alt="" loading="lazy">'
         + '<div class="mob-bundle-body">'
         + '<span class="mob-bundle-tag">' + b.tag + '</span>'
         + '<div class="mob-bundle-name">' + b.name + '</div>'
         + '<div class="mob-bundle-desc">' + b.desc + '</div>'
-        + '<div class="mob-bundle-price">&#x20A6;' + b.price.toLocaleString() + '</div>'
-        + '<button class="mob-bundle-btn" data-bid="' + b.id + '" onclick="openBundleModal(+this.dataset.bid)">View Kit</button>'
+        + '<div class="mob-bundle-count">' + (b.products || []).length + ' products · Complete routine</div>'
+        + '<div class="mob-bundle-price">&#x20A6;' + b.price.toLocaleString() + origHtml + '</div>'
+        + '<button class="mob-bundle-btn" data-bid="' + b.id + '" onclick="event.stopPropagation();openBundleModal(+this.dataset.bid)">View Bundle →</button>'
         + '</div>';
+      c.addEventListener('click', function() { openBundleModal(b.id); });
       bundleRow.appendChild(c);
     });
   }
 
-  // Skin guides strip
+  // Buying Guides strip
   var guideStrip = document.getElementById('mob-guide-strip');
   if (guideStrip && typeof GUIDES !== 'undefined') {
     GUIDES.slice(0, 6).forEach(function(g) {
@@ -2680,12 +2825,49 @@ document.addEventListener('DOMContentLoaded', () => {
       c.dataset.gid = g.id;
       c.innerHTML = '<img src="' + g.image + '" alt="" loading="lazy">'
         + '<div class="mob-guide-tile-body">'
-        + '<div class="mob-guide-tile-icon">' + g.icon + '</div>'
+        + '<div class="mob-guide-tile-icon">' + (g.icon || '📖') + '</div>'
         + '<div class="mob-guide-tile-name">' + g.title + '</div>'
+        + '<div class="mob-guide-tile-desc">' + (g.desc || '') + '</div>'
+        + '<div class="mob-guide-tile-footer">'
+        + '<span class="mob-guide-tile-count">' + (g.products || []).length + ' products</span>'
+        + '<span class="mob-guide-tile-arrow">Explore →</span>'
+        + '</div>'
         + '</div>';
       c.addEventListener('click', function() { openGuideModal(+this.dataset.gid); });
       guideStrip.appendChild(c);
     });
+  }
+
+  // Initialise wishlist hearts from localStorage
+  var mobSavedIds = JSON.parse(localStorage.getItem('kominhoo_saved') || '[]');
+  document.querySelectorAll('.mob-card-wish').forEach(function(btn) {
+    if (mobSavedIds.includes(+btn.dataset.pid)) {
+      btn.classList.add('saved');
+      btn.textContent = '♥';
+    }
+  });
+
+  // Mobile hero slider
+  var mhs = document.getElementById('mob-hero-slider');
+  var mhTrack = document.getElementById('mob-hero-track');
+  var mhDots = document.querySelectorAll('#mob-hero-dots .mob-hero-dot');
+  if (mhs && mhTrack && mhDots.length) {
+    var mhCur = 0, mhTotal = mhDots.length, mhTimer;
+    function mhGo(i) {
+      mhDots[mhCur].classList.remove('is-active');
+      mhCur = ((i % mhTotal) + mhTotal) % mhTotal;
+      mhTrack.style.transform = 'translateX(-' + (mhCur * 100) + '%)';
+      mhDots[mhCur].classList.add('is-active');
+    }
+    function mhAuto() { clearInterval(mhTimer); mhTimer = setInterval(function(){ mhGo(mhCur + 1); }, 5200); }
+    var mhTx = 0;
+    mhs.addEventListener('touchstart', function(e){ mhTx = e.changedTouches[0].clientX; }, {passive:true});
+    mhs.addEventListener('touchend', function(e){
+      var dx = e.changedTouches[0].clientX - mhTx;
+      if (Math.abs(dx) > 40) { mhGo(mhCur + (dx < 0 ? 1 : -1)); mhAuto(); }
+    }, {passive:true});
+    mhDots.forEach(function(dot, i){ dot.addEventListener('click', function(){ mhGo(i); mhAuto(); }); });
+    mhAuto();
   }
 
   // Deal countdown (counts down to midnight)

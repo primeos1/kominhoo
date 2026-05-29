@@ -190,6 +190,16 @@ class CmsContent
                         ['id' => 'community-floating-1', 'page' => 'community', 'slot' => 'hero_floating_1', 'url' => 'https://images.unsplash.com/photo-1557053910-d9eadeed1c58?w=350&h=450&fit=crop', 'alt' => 'Community floating image 1', 'enabled' => true],
                         ['id' => 'community-floating-2', 'page' => 'community', 'slot' => 'hero_floating_2', 'url' => 'https://images.unsplash.com/photo-1555487505-8603a1a69755?w=260&h=340&fit=crop', 'alt' => 'Community floating image 2', 'enabled' => true],
                         ['id' => 'community-featured-main', 'page' => 'community', 'slot' => 'featured_main', 'url' => 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&h=550&fit=crop', 'alt' => 'Featured transformation', 'enabled' => true],
+                        // Mobile story ring images (uploadable via admin media library)
+                        ['id' => 'mob-story-all',       'page' => 'home', 'slot' => 'mob_story_all',       'url' => 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=200&h=200&fit=crop&q=70', 'alt' => 'All Skin',         'enabled' => true],
+                        ['id' => 'mob-story-oily',      'page' => 'home', 'slot' => 'mob_story_oily',      'url' => 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=200&h=200&fit=crop&q=70', 'alt' => 'Oily Skin',        'enabled' => true],
+                        ['id' => 'mob-story-dry',       'page' => 'home', 'slot' => 'mob_story_dry',       'url' => 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=200&h=200&fit=crop&q=70', 'alt' => 'Dry Skin',         'enabled' => true],
+                        ['id' => 'mob-story-combo',     'page' => 'home', 'slot' => 'mob_story_combo',     'url' => 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=200&h=200&fit=crop&q=70', 'alt' => 'Combo Skin',       'enabled' => true],
+                        ['id' => 'mob-story-sensitive', 'page' => 'home', 'slot' => 'mob_story_sensitive', 'url' => 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=200&h=200&fit=crop&q=70', 'alt' => 'Sensitive Skin',   'enabled' => true],
+                        ['id' => 'mob-story-serums',    'page' => 'home', 'slot' => 'mob_story_serums',    'url' => 'https://images.unsplash.com/photo-1770732766528-d0e9fd0df233?w=200&h=200&fit=crop&q=70', 'alt' => 'Serums',           'enabled' => true],
+                        ['id' => 'mob-story-spf',       'page' => 'home', 'slot' => 'mob_story_spf',       'url' => 'https://images.unsplash.com/photo-1679394270597-e90694d70350?w=200&h=200&fit=crop&q=70', 'alt' => 'SPF / Sunscreen',  'enabled' => true],
+                        ['id' => 'mob-story-masks',     'page' => 'home', 'slot' => 'mob_story_masks',     'url' => 'https://images.unsplash.com/photo-1582560475093-ba66accbc095?w=200&h=200&fit=crop&q=70', 'alt' => 'Masks',            'enabled' => true],
+                        ['id' => 'mob-story-sets',      'page' => 'home', 'slot' => 'mob_story_sets',      'url' => 'https://images.unsplash.com/photo-1557053910-d9eadeed1c58?w=200&h=200&fit=crop&q=70', 'alt' => 'Sets & Bundles',   'enabled' => true],
                     ],
                 ],
                 'pages' => [

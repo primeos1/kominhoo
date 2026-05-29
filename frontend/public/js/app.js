@@ -489,8 +489,19 @@ function buildProductCard(p, width = '280px') {
 // ── Save / Wishlist ─────────────────────────────────────────
 let saved = JSON.parse(localStorage.getItem('kominhoo_saved') || '[]');
 function toggleSave(id, btn) {
-  if (saved.includes(id)) { saved = saved.filter(s => s !== id); btn.textContent = '♡'; showToast('♡', 'Removed from wishlist'); }
-  else { saved.push(id); btn.textContent = '♥'; btn.style.color = 'var(--red)'; showToast('♥', 'Saved to wishlist!'); }
+  if (saved.includes(id)) {
+    saved = saved.filter(s => s !== id);
+    btn.textContent = '♡';
+    btn.style.color = '';
+    btn.classList.remove('saved');
+    showToast('♡', 'Removed from wishlist');
+  } else {
+    saved.push(id);
+    btn.textContent = '♥';
+    btn.style.color = 'var(--red)';
+    btn.classList.add('saved');
+    showToast('♥', 'Saved to wishlist!');
+  }
   localStorage.setItem('kominhoo_saved', JSON.stringify(saved));
 }
 
