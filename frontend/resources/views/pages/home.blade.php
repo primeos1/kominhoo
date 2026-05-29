@@ -1564,10 +1564,10 @@
       </h1>
       <p class="hero-desc">{{ data_get($hero, 'description', 'Authentic K-beauty formulas, matched to your unique skin profile. Delivered to your door across Nigeria.') }}</p>
       <div class="hero-actions">
-        <a href="{{ data_get($hero, 'primary_cta_link', route('quiz')) }}" class="btn btn-primary btn-xl">
-          {{ data_get($hero, 'primary_cta_text', ' Take the Skin Quiz') }}
+        <a href="{{ route('quiz') }}" class="btn btn-primary btn-xl">
+          {{ data_get($hero, 'primary_cta_text', '✨ Take the Skin Quiz') }}
         </a>
-        <a href="{{ data_get($hero, 'secondary_cta_link', route('shop')) }}" class="btn btn-outline btn-xl" style="color:#fff" onmouseover="this.style.color='#D4D994'" onmouseout="this.style.color='#fff'">
+        <a href="{{ route('shop') }}" class="btn btn-outline btn-xl" style="color:#fff" onmouseover="this.style.color='#D4D994'" onmouseout="this.style.color='#fff'">
           {{ data_get($hero, 'secondary_cta_text', 'Browse Products') }}
         </a>
       </div>

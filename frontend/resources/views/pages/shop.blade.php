@@ -147,7 +147,10 @@
 
 @section('content')
 
-@php($shopCms = data_get($siteContent, 'pages.shop', []))
+@php
+  $shopCms    = data_get($siteContent, 'pages.shop', []);
+  $subSection = data_get($siteContent, 'subscription_section', []);
+@endphp
 
 {{-- ── Shop Hero ── --}}
 <div class="shop-hero">
