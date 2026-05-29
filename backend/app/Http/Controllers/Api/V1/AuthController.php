@@ -214,7 +214,7 @@ class AuthController extends Controller
 
         $user = $request->user();
         $disk = config('filesystems.default') === 's3' ? 's3' : 'public';
-        $path = $request->file('avatar')->store('avatars', $disk);
+        $path = $request->file('avatar')->storePublicly('avatars', ['disk' => $disk]);
         $url  = Storage::disk($disk)->url($path);
 
         $user->update(['avatar' => $url]);
