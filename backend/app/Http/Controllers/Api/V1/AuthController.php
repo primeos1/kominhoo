@@ -10,6 +10,7 @@ use App\Services\LoyaltyService;
 use App\Services\PromoEngineService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -212,8 +213,9 @@ class AuthController extends Controller
         ]);
 
         $user = $request->user();
-        $path = $request->file('avatar')->store('avatars', 'public');
-        $url  = url('storage/' . $path);
+        $disk = config('filesystems.default') === 's3' ? 's3' : 'public';
+        $path = $request->file('avatar')->store('avatars', $disk);
+        $url  = Storage::disk($disk)->url($path);
 
         $user->update(['avatar' => $url]);
 
