@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Support\CommunityStore;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -190,8 +191,9 @@ class DashboardController extends Controller
             'avatar' => 'required|image|max:2048|mimes:jpg,jpeg,png,webp',
         ]);
 
-        $path = $request->file('avatar')->store('avatars', 'public');
-        $url  = asset("storage/{$path}");
+        $disk = config('filesystems.default') === 's3' ? 's3' : 'public';
+        $path = $request->file('avatar')->storePublicly('avatars', ['disk' => $disk]);
+        $url  = Storage::disk($disk)->url($path);
 
         $response = Http::withToken(session('api_token'))
             ->patch("{$this->api}/auth/me", ['avatar' => $url]);
