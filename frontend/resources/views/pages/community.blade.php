@@ -102,10 +102,9 @@
   max-width: 1280px; margin: 0 auto;
   padding: 14px 24px;
   display: flex; align-items: center;
-  justify-content: space-between; gap: 16px; flex-wrap: nowrap;
+  justify-content: space-between; gap: 16px; flex-wrap: wrap;
 }
-.filter-pills { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; }
-.filter-pills::-webkit-scrollbar { display: none; }
+.filter-pills { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .fpill {
   padding: 7px 18px; border-radius: var(--r-pill);
   font-size: 0.78rem; font-weight: 600;
@@ -232,9 +231,16 @@
 #post-modal::-webkit-scrollbar-thumb, #c-lightbox-content::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 10px; }
 
 /* Responsive */
-@media (max-width: 1024px) { .masonry { columns: 2; } .c-main { grid-template-columns: 1fr; } .c-sidebar { position: static; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); } }
+@media (max-width: 1024px) {
+  .masonry { columns: 2; }
+  .c-main { grid-template-columns: 1fr; }
+  .c-sidebar { position: static; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); }
+}
 @media (max-width: 768px) {
   .featured-card { grid-template-columns: 1fr; }
+  .featured-img-side { max-height: 300px; }
+  .featured-img-side img { height: 300px; object-fit: cover; }
+  .featured-quote { font-size: 1.3rem; }
   .c-hero-photo { display: none; }
   .masonry { columns: 1; }
   .c-hero { min-height: 460px; }
@@ -243,15 +249,13 @@
   .c-hero-stat-num { font-size: 1.6rem; }
   .c-hero-title { font-size: clamp(2rem, 8vw, 3.5rem); }
   .c-hero-desc { font-size: .92rem; max-width: 100%; }
-}
-@media (max-width: 540px) {
-  .c-filters-inner { flex-direction: column; align-items: stretch; }
-  .c-hero-stats { gap: 16px; }
-  .c-hero-collage { grid-template-columns: repeat(3, 1fr); }
+  .c-main { padding: 0 20px 60px; margin-top: 28px; gap: 28px; }
+  .featured-wrap { padding: 32px 20px 0; }
+  .scard { padding: 18px; }
 }
 @media (max-width: 680px) {
   #c-lightbox-content { grid-template-columns: 1fr !important; max-height: 100vh; border-radius: 20px !important; }
-  #lb-media { min-height: 260px !important; border-radius: 20px 20px 0 0 !important; }
+  #lb-media { min-height: 240px !important; border-radius: 20px 20px 0 0 !important; }
 }
 @media (max-width: 640px) {
   /* Post creation modal — collapse all multi-column panel grids */
@@ -272,11 +276,53 @@
   .share-cta-inner { flex-direction: column; align-items: stretch; text-align: center; }
   .share-cta h2 { font-size: 1.9rem; }
 }
+@media (max-width: 540px) {
+  /* Filters */
+  .c-filters-inner { flex-direction: column; align-items: stretch; gap: 10px; }
+  .filter-pills { overflow-x: auto; scrollbar-width: none; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+  .filter-pills::-webkit-scrollbar { display: none; }
+  .c-sort { flex: 1; font-size: .8rem; }
+  .c-post-count { font-size: .75rem; }
+  /* Hero */
+  .c-hero { min-height: 400px; }
+  .c-hero-content { padding: 40px 16px 48px; }
+  .c-hero-stats { gap: 16px; }
+  .c-hero-collage { grid-template-columns: repeat(3, 1fr); }
+  .c-hero-actions { flex-direction: column !important; align-items: stretch !important; gap: 12px !important; }
+  .c-hero-actions > .btn { width: 100%; justify-content: center; }
+  .c-hero-actions > .live-dot { justify-content: center; }
+  /* Featured card */
+  .featured-img-side { max-height: 250px; }
+  .featured-img-side img { height: 250px; }
+  .featured-quote { font-size: 1.1rem !important; }
+  /* Main layout */
+  .c-main { padding: 0 16px 48px; margin-top: 20px; gap: 20px; }
+  .featured-wrap { padding: 20px 16px 0; }
+  .c-sidebar { grid-template-columns: 1fr !important; }
+  /* Cards */
+  .mc-body { padding: 14px 12px; }
+  /* Post modal — bottom sheet */
+  #post-modal { padding: 0 !important; align-items: flex-end !important; }
+  #post-modal > div { border-radius: 28px 28px 0 0 !important; max-height: 95vh !important; }
+  /* Lightbox — bottom sheet */
+  #c-lightbox { padding: 0 !important; align-items: flex-end !important; }
+  #c-lightbox-content { border-radius: 20px 20px 0 0 !important; max-height: 95vh !important; }
+  /* Toast — iOS safe-area */
+  #c-toast { bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important; font-size: .82rem !important; padding: 11px 20px !important; }
+}
 @media (max-width: 400px) {
-  #post-modal > div { border-radius: 20px; }
   .c-hero-title { font-size: clamp(1.8rem, 9vw, 2.4rem); }
   .c-hero-stats { gap: 12px; }
   .c-hero-stat-num { font-size: 1.4rem; }
+  .c-main { padding: 0 12px 40px; }
+  .featured-wrap { padding: 14px 12px 0; }
+  .featured-body { padding: 18px 14px !important; }
+  .featured-quote { font-size: 1rem !important; }
+  .scard { padding: 14px 12px; border-radius: 22px; }
+  .mcard, .review-mcard { border-radius: 22px; }
+  .share-cta { padding: 32px 14px; }
+  .share-cta h2 { font-size: 1.5rem !important; }
+  #post-modal > div { border-radius: 20px 20px 0 0 !important; }
 }
 .lb-ba-grid { display: grid; height: 100%; gap: 3px; }
 .lb-ba-side { position: relative; overflow: hidden; min-height: 200px; }
@@ -405,8 +451,8 @@
       @endforeach
     </div>
     <div class="c-hero-actions" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
-      <button class="btn btn-primary btn-lg" onclick="openPostModal()"> Share Your Glow</button>
-      <a href="{{ route('quiz') }}" class="btn btn-outline-lime btn-lg">Take Skin Quiz →</a>
+      <button class="btn btn-primary btn-lg" onclick="openPostModal()">{{ data_get($communityCms, 'hero_primary_cta_text', '✨ Share Your Glow') }}</button>
+      <a href="{{ route('quiz') }}" class="btn btn-outline-lime btn-lg">{{ data_get($communityCms, 'hero_secondary_cta_text', 'Take Skin Quiz →') }}</a>
       <span class="live-dot">{{ data_get($communityCms, 'live_label', '247 sharing now') }}</span>
     </div>
   </div>
@@ -510,9 +556,9 @@
     </div>
     <div class="scard" style="background:#0A0A0A;">
       <div style="font-size:1.6rem;">✨</div>
-      <div style="font-family:var(--font-display);color:white;font-size:1.2rem;">Share your glow-up</div>
-      <div style="color:#aaa;font-size:0.8rem;margin:8px 0 16px;">Post your skin journey and inspire 50K+ lovers.</div>
-      <button class="btn btn-primary" onclick="openPostModal()" style="width:100%;justify-content:center;">Post Your Glow →</button>
+      <div style="font-family:var(--font-display);color:white;font-size:1.2rem;">{{ data_get($communityCms, 'share_title', 'Share your glow-up') }}</div>
+      <div style="color:#aaa;font-size:0.8rem;margin:8px 0 16px;">{{ data_get($communityCms, 'share_description', 'Post your skin journey and inspire the community.') }}</div>
+      <button class="btn btn-primary" onclick="openPostModal()" style="width:100%;justify-content:center;">{{ data_get($communityCms, 'share_button_text', 'Post Your Glow →') }}</button>
     </div>
   </div>
 </div>
@@ -597,9 +643,7 @@
                 <input class="pm-input" placeholder="#GlassSkin" id="pm-htag-input" onkeydown="pmAddHashtag(event)" style="flex:1">
                 <button class="btn btn-outline btn-sm" onclick="pmAddHashtag({key:'Enter',target:document.getElementById('pm-htag-input')})">Add</button>
               </div>
-              <div id="pm-hashtag-cloud" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
-                <span class="pm-htag-chip">#KominhooResults <button onclick="this.parentElement.remove()">×</button></span>
-              </div>
+              <div id="pm-hashtag-cloud" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"></div>
             </div>
             <div>
               <label class="pm-field-label">Skin Type</label>
@@ -703,7 +747,7 @@
               </div>
             </div>
             <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="submitPost('review')">⭐ Submit Review → +10 pts</button>
-            <div style="font-size:.74rem;color:#9CA3AF;text-align:center;line-height:1.6">Reviews are shown to 50K+ community members.</div>
+            <div style="font-size:.74rem;color:#9CA3AF;text-align:center;line-height:1.6">Reviews are shown to {{ data_get($communityCms, 'stats.0.value', '50K+') }} community members.</div>
           </div>
         </div>
       </div>
@@ -714,7 +758,7 @@
           <div style="display:flex;flex-direction:column;gap:14px">
             <div>
               <label class="pm-field-label">Routine Title</label>
-              <input id="pm-rt-title" class="pm-input" placeholder="e.g. My Glass Skin AM Routine" value="My AM Skincare Routine">
+              <input id="pm-rt-title" class="pm-input" placeholder="e.g. My Glass Skin AM Routine" value="">
             </div>
             <div>
               <label class="pm-field-label">Routine Type</label>
@@ -1808,15 +1852,7 @@ function pmAddHashtag(e) {
 }
 
 // Product tag search (photo panel)
-const PM_PROD_LIST = [
-  { name:'COSRX Snail Mucin Essence', brand:'COSRX', img:'https://images.unsplash.com/photo-1620916566396-4c7aa9a87879?w=64&h=64&fit=crop' },
-  { name:'Beauty of Joseon Relief Sun SPF 50+', brand:'Beauty of Joseon', img:'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=64&h=64&fit=crop' },
-  { name:'The Ordinary Niacinamide 10%', brand:'The Ordinary', img:'https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=64&h=64&fit=crop' },
-  { name:'Laneige Water Sleeping Mask', brand:'Laneige', img:'https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=64&h=64&fit=crop' },
-  { name:'Innisfree Green Tea Cream', brand:'Innisfree', img:'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=64&h=64&fit=crop' },
-  { name:'Some By Mi AHA BHA PHA Toner', brand:'Some By Mi', img:'https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=64&h=64&fit=crop' },
-  { name:'Medicube Age-R Booster Pro', brand:'Medicube', img:'https://images.unsplash.com/photo-1620916566396-4c7aa9a87879?w=64&h=64&fit=crop' },
-];
+const PM_PROD_LIST = {!! json_encode($communityProducts) !!};
 const pmTaggedProds = [];
 function pmFilterProds(val) {
   const dd = document.getElementById('pm-prod-dropdown');

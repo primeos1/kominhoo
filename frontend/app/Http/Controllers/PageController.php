@@ -153,7 +153,22 @@ class PageController extends Controller
             ];
         }
 
-        return view('pages.community', compact('featuredPost', 'topGlowers', 'trendingTagsJs', 'skinDistribution'));
+        // ── Products for post-creation modal (product tagging) ────────────
+        $communityProducts = [];
+        try {
+            $rawProducts = Http::get("{$this->api}/products", ['per_page' => 60, 'is_active' => 1])->json('data.data') ?? [];
+            foreach ($rawProducts as $p) {
+                if (empty($p['name'])) continue;
+                $img = is_array($p['images'] ?? null) ? ($p['images'][0] ?? '') : ($p['image'] ?? '');
+                $communityProducts[] = [
+                    'name'  => $p['name'],
+                    'brand' => $p['brand'] ?? '',
+                    'img'   => $img,
+                ];
+            }
+        } catch (\Throwable $e) {}
+
+        return view('pages.community', compact('featuredPost', 'topGlowers', 'trendingTagsJs', 'skinDistribution', 'communityProducts'));
     }
 
     public function results()

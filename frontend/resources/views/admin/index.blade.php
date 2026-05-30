@@ -18,6 +18,25 @@
   #cmsTabBar::-webkit-scrollbar { display:none; }
   .panel-tab-content { display:none; }
   .panel-tab-content.active { display:block; }
+  /* CMS Responsive — collapse inline grids at breakpoints */
+  @media (max-width:1100px) {
+    #panel-content [style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns:repeat(2,1fr) !important; }
+  }
+  @media (max-width:768px) {
+    #panel-content [style*="grid-template-columns:1fr 1fr"],
+    #panel-content [style*="grid-template-columns:repeat(2,1fr)"],
+    #panel-content [style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns:1fr !important; }
+    #panel-content .section-card-header { flex-wrap:wrap; gap:8px; }
+    .ann-item { flex-wrap:wrap; }
+    .ann-link-field { width:100% !important; }
+    #panel-content .content-block-header { flex-direction:column; align-items:flex-start; }
+  }
+  @media (max-width:480px) {
+    #panel-content [style*="grid-template-columns:1fr 1fr"],
+    #panel-content [style*="grid-template-columns:repeat(2,1fr)"],
+    #panel-content [style*="grid-template-columns:repeat(3,1fr)"] { gap:12px !important; }
+    #panel-content [style*="padding:16px 22px"] { padding:12px 14px !important; }
+  }
   /* Wallet bonus form labels */
   .w-cfg-lbl { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:rgba(10,10,10,.45); display:block; margin-bottom:6px; }
   .w-cfg-hint { font-size:.72rem; color:#9CA3AF; margin-top:4px; }
@@ -411,7 +430,7 @@
           <div class="panel-tab" style="border-bottom:none;margin-bottom:0;" onclick="cmSwitchTab('cms-sections',this)">Sections</div>
           <div class="panel-tab" style="border-bottom:none;margin-bottom:0;" onclick="cmSwitchTab('cms-announcement',this)">Announcement</div>
         </div>
-        <button id="cmsTabNext" onclick="cmsTabScroll(1)" style="flex-shrink:0;border:none;background:#fff;padding:0 10px;cursor:pointer;color:rgba(10,10,10,.4);font-size:1rem;border-left:1px solid #e8eaed;" aria-label="Scroll tabs right">&#8594;</button>
+        <button id="cmsTabNext" onclick="cmsTabScroll(1)" style="flex-shrink:0;border:none;background:#fff;padding:0 12px;cursor:pointer;color:rgba(10,10,10,.55);font-size:1rem;border-left:1px solid #e8eaed;" aria-label="Scroll tabs right">&#8594;</button>
       </div>
 
       <!-- ─ HERO ─ -->
@@ -790,10 +809,8 @@
       function cmsTabArrows() {
         var bar  = document.getElementById('cmsTabBar');
         var prev = document.getElementById('cmsTabPrev');
-        var next = document.getElementById('cmsTabNext');
-        if (!bar || !prev || !next) return;
+        if (!bar || !prev) return;
         prev.style.display = bar.scrollLeft > 4 ? '' : 'none';
-        next.style.display = bar.scrollLeft + bar.clientWidth < bar.scrollWidth - 4 ? '' : 'none';
       }
       function cmSwitchTab(id, el) {
         document.querySelectorAll('#panel-content .panel-tab-content').forEach(t => t.classList.remove('active'));
@@ -4118,6 +4135,7 @@ function switchAdminPanel(id, el) {
   document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
   const panel = document.getElementById('panel-' + id);
   if (panel) panel.classList.add('active');
+  if (id === 'content' && typeof cmsTabArrows === 'function') setTimeout(cmsTabArrows, 50);
 
   document.querySelectorAll('.admin-nav-item').forEach(n => n.classList.remove('active'));
   if (el) {
