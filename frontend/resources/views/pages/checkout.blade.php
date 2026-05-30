@@ -5,18 +5,29 @@
 <style>
 @media (max-width: 900px) {
   #checkout-body { grid-template-columns: 1fr !important; gap: 24px !important; }
-  #checkout-body > div:last-child { order: -1; }
+  /* Move order summary above form but never let it stick — sticky + order:-1 causes overlap */
+  #checkout-body > div:last-child {
+    order: -1;
+    position: static !important;
+  }
 }
 @media (max-width: 600px) {
   #checkout-body { padding: 0 !important; }
-  [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
-  [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
-  [style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
-  [style*="grid-template-columns: 1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
-  .section { padding: 24px 0 !important; }
-  /* Checkout cards compact padding on mobile */
-  [style*="padding:32px"] { padding: 20px !important; }
-  [style*="padding: 32px"] { padding: 20px !important; }
+  /* Collapse 2- and 3-column form field grids to single column on phones */
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns:1fr 1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  .section { padding: 16px 0 !important; }
+  /* Reduce card padding */
+  [style*="padding:32px"] { padding: 18px !important; }
+  [style*="padding: 32px"] { padding: 18px !important; }
+  [style*="padding:28px"] { padding: 16px !important; }
+  [style*="padding: 28px"] { padding: 16px !important; }
+  /* Bank modal inner card */
+  #bankModalOverlay > div { padding: 24px 20px !important; }
 }
 @media (max-width: 400px) {
   /* Very small phones: stack payment option label and recommended badge */

@@ -336,28 +336,28 @@
   position: sticky;
   top: var(--nav-h);
   z-index: 400;
-  background: var(--black);
-  color: #fff;
+  background: #fff;
+  color: var(--black);
   height: 52px;
   padding: 0 16px;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  border-bottom: 1px solid rgba(255,255,255,.1);
+  border-bottom: 1px solid var(--border);
 }
 .dash-mobile-menu-btn {
   width: 38px; height: 38px;
   border-radius: 10px;
-  background: rgba(255,255,255,.1);
-  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(0,0,0,.06);
+  border: 1px solid var(--border);
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem; cursor: pointer; color: #fff;
+  font-size: 1.1rem; cursor: pointer; color: var(--black);
   flex-shrink: 0;
   transition: background .15s;
 }
-.dash-mobile-menu-btn:hover { background: rgba(255,255,255,.2); }
+.dash-mobile-menu-btn:hover { background: rgba(0,0,0,.1); }
 .dash-mobile-title {
-  font-size: .92rem; font-weight: 700; color: #fff;
+  font-size: .92rem; font-weight: 700; color: var(--black);
   flex: 1; text-align: center;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
@@ -462,24 +462,24 @@
   padding: 9px 14px;
   border-radius: 10px;
   font-size: .83rem; font-weight: 600;
-  color: rgba(255,255,255,.5);
+  color: rgba(28,20,22,.5);
   cursor: pointer;
   transition: color .18s ease, background .18s ease;
   border-left: 2.5px solid transparent;
   margin-left: -2.5px;
 }
 .dash-nav-item:hover {
-  color: rgba(255,255,255,.85);
-  background: rgba(255,255,255,.08);
+  color: var(--black);
+  background: rgba(0,0,0,.05);
 }
 .dash-nav-item.active {
-  color: #fff;
-  background: rgba(212,217,148,.15);
-  border-left-color: var(--lime);
+  color: var(--black);
+  background: rgba(212,217,148,.3);
+  border-left-color: var(--lime-dark);
 }
 .dash-nav-item.active .dash-nav-icon {
-  color: var(--lime);
-  filter: drop-shadow(0 0 5px rgba(212,217,148,.45));
+  color: var(--lime-dark);
+  filter: drop-shadow(0 0 5px rgba(150,170,0,.3));
 }
 .dash-nav-icon { font-size: 1rem; flex-shrink: 0; width: 18px; text-align: center; }
 .dash-nav-label {
@@ -487,13 +487,13 @@
   font-weight: 700;
   letter-spacing: .15em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.2);
+  color: rgba(28,20,22,.35);
   padding: 12px 14px 3px;
 }
-.dash-nav-sep { height: 1px; background: rgba(255,255,255,.06); margin: 5px 0; }
+.dash-nav-sep { height: 1px; background: var(--border); margin: 5px 0; }
 .dash-user {
   padding: 0 8px 24px;
-  border-bottom: 1px solid rgba(255,255,255,.07);
+  border-bottom: 1px solid var(--border);
   margin-bottom: 4px;
 }
 .dash-avatar {
@@ -504,8 +504,8 @@
   font-size: 1.3rem; font-weight: 700; margin-bottom: 12px;
   box-shadow: 0 4px 14px rgba(212,217,148,.28);
 }
-.dash-user-name { font-size: .9rem; font-weight: 700; margin-bottom: 3px; }
-.dash-user-tier { font-size: .72rem; color: var(--lime); font-weight: 700; letter-spacing: .04em; }
+.dash-user-name { font-size: .9rem; font-weight: 700; margin-bottom: 3px; color: var(--black); }
+.dash-user-tier { font-size: .72rem; color: var(--lime-dark); font-weight: 700; letter-spacing: .04em; }
 
 /* ── Welcome / Section Header ───────────────────── */
 .dash-welcome {
@@ -1068,7 +1068,7 @@
       @endif
       <div class="dash-user-name">{{ $user['name'] ?? 'Adaeze Okonkwo' }}</div>
       <div class="dash-user-tier">{{ $tierLabel }}</div>
-      <div style="font-size:.75rem;color:rgba(255,255,255,.3);margin-top:4px">Member since {{ $memberSince }}</div>
+      <div style="font-size:.75rem;color:rgba(28,20,22,.45);margin-top:4px">Member since {{ $memberSince }}</div>
     </div>
 
     <div class="dash-nav-label">Overview</div>

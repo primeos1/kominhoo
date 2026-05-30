@@ -514,6 +514,47 @@
 @endsection
 
 @section('scripts')
+@if(!empty($bundles) && count($bundles) > 0)
+<script>
+(function() {
+  var srvBundles = @json($bundles);
+  if (!Array.isArray(srvBundles) || !srvBundles.length) return;
+  var normalized = srvBundles.map(function(b) {
+    var productIds = (b.products || []).map(function(p) { return typeof p === 'object' ? p.id : p; });
+    return {
+      id:            b.id,
+      name:          b.name,
+      tag:           b.skin_type || '',
+      desc:          b.description || '',
+      price:         parseFloat(b.price) || 0,
+      originalPrice: b.original_price ? parseFloat(b.original_price) : null,
+      image:         b.image || '',
+      products:      productIds,
+    };
+  });
+  if (typeof BUNDLES !== 'undefined') { BUNDLES.length = 0; normalized.forEach(function(b) { BUNDLES.push(b); }); }
+})();
+</script>
+@endif
+@if(!empty($guides) && count($guides) > 0)
+<script>
+(function() {
+  var srvGuides = @json($guides);
+  if (!Array.isArray(srvGuides) || !srvGuides.length) return;
+  var normalized = srvGuides.map(function(g) {
+    return {
+      id:       g.id,
+      icon:     g.icon || '📖',
+      title:    g.title,
+      desc:     g.excerpt || '',
+      image:    g.image || '',
+      products: Array.isArray(g.product_ids) ? g.product_ids : [],
+    };
+  });
+  if (typeof GUIDES !== 'undefined') { GUIDES.length = 0; normalized.forEach(function(g) { GUIDES.push(g); }); }
+})();
+</script>
+@endif
 @if(!empty($products) && count($products) > 0)
 <script>
 // Replace static PRODUCTS with live DB products before DOMContentLoaded fires

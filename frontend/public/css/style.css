@@ -2,12 +2,12 @@
    KOMINHOO BEAUTY — Global Design System
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500;1,6..96,600&family=Jost:wght@300;400;500;600;700;800&display=swap');
 
 :root {
   /* Fonts */
-  --font-body:    'Cormorant Garamond', Georgia, serif;
-  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Jost', system-ui, sans-serif;
+  --font-display: 'Bodoni Moda', Georgia, serif;
 
   /* Homepage palette (promoted to global theme) */
   --rose:        #893941;
@@ -973,33 +973,33 @@ h1,h2,h3,h4,h5,h6 { line-height: 1.15; font-weight: 700; font-family: var(--font
 /* ── Dashboard ── */
 .dashboard-layout { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - var(--nav-h)); }
 .dashboard-sidebar {
-  background: var(--black); color: #fff;
+  background: #fff; color: var(--black);
   padding: 40px 24px; display: flex; flex-direction: column; gap: 8px;
   position: sticky; top: var(--nav-h); height: calc(100vh - var(--nav-h));
-  overflow-y: auto;
+  overflow-y: auto; border-right: 1px solid var(--border);
 }
-.dash-user { padding: 0 12px 32px; border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 8px; }
+.dash-user { padding: 0 12px 32px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
 .dash-avatar {
   width: 60px; height: 60px; border-radius: 50%;
   background: var(--lime); color: var(--black);
   display: grid; place-items: center;
   font-size: 1.4rem; font-weight: 700; margin-bottom: 12px;
 }
-.dash-user-name { font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
-.dash-user-tier { font-size: .78rem; color: var(--lime); font-weight: 600; }
+.dash-user-name { font-size: 1rem; font-weight: 700; margin-bottom: 2px; color: var(--black); }
+.dash-user-tier { font-size: .78rem; color: var(--lime-dark); font-weight: 600; }
 
 .dash-nav-item {
   display: flex; align-items: center; gap: 12px;
   padding: 12px 16px; border-radius: var(--r-md);
-  font-size: .88rem; font-weight: 600; color: rgba(255,255,255,.6);
+  font-size: .88rem; font-weight: 600; color: rgba(28,20,22,.5);
   cursor: pointer; transition: var(--t-fast);
 }
-.dash-nav-item:hover   { color: #fff; background: rgba(255,255,255,.08); }
-.dash-nav-item.active  { color: #fff; background: rgba(212,217,148,.15); }
-.dash-nav-item.active .dash-nav-icon { color: var(--lime); }
+.dash-nav-item:hover   { color: var(--black); background: rgba(0,0,0,.05); }
+.dash-nav-item.active  { color: var(--black); background: rgba(212,217,148,.3); }
+.dash-nav-item.active .dash-nav-icon { color: var(--lime-dark); }
 .dash-nav-icon { font-size: 1.1rem; flex-shrink: 0; }
-.dash-nav-sep  { height: 1px; background: rgba(255,255,255,.08); margin: 8px 0; }
-.dash-nav-label { font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.3); padding: 8px 16px 4px; }
+.dash-nav-sep  { height: 1px; background: var(--border); margin: 8px 0; }
+.dash-nav-label { font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(28,20,22,.4); padding: 8px 16px 4px; }
 
 .dashboard-main { padding: 40px 48px; background: var(--bg-primary); overflow-y: auto; }
 .dashboard-panel { display: none; }

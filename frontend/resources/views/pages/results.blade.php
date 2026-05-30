@@ -12,8 +12,8 @@
 /* —— Disclaimer —— */
 .disclaimer { background: var(--lime-pale); border: 1.5px solid var(--lime-dark); border-radius: var(--r-md); padding: 14px 18px; font-size: .82rem; color: var(--gray-700); display: flex; gap: 10px; align-items: flex-start; }
 
-/* —— Path Cards Grid —— */
-.paths-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 32px; align-items: start; }
+/* —— Path Cards Grid — always 3 columns —— */
+.paths-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 0; align-items: start; }
 
 .path-card {
   background: #fff;
@@ -78,6 +78,53 @@
 .path-card-cta-chevron { font-size: 1rem; transition: transform var(--t-fast); }
 .path-card.active .path-card-cta-chevron { transform: rotate(180deg); }
 
+/* —— Inline Dropdown Panels —— */
+#path-dropdown-area { margin-top: 20px; margin-bottom: 32px; }
+
+.path-dropdown-panel {
+  display: none;
+  border: 2px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 36px 32px;
+  background: #fff;
+  position: relative;
+  animation: panelIn .35s cubic-bezier(.4,0,.2,1);
+}
+.path-dropdown-panel.open { display: block; }
+
+/* Caret pointing upward toward active card */
+.path-dropdown-panel::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: var(--caret-pos, 50%);
+  transform: translateX(-50%) rotate(45deg);
+  width: 18px; height: 18px;
+  background: #fff;
+  border-top: 2px solid var(--border);
+  border-left: 2px solid var(--border);
+  border-radius: 3px 0 0 0;
+}
+
+/* Per-panel border accents */
+#panel-routine.path-dropdown-panel   { border-color: rgba(59,130,246,.4); }
+#panel-routine.path-dropdown-panel::before { border-top-color: rgba(59,130,246,.4); border-left-color: rgba(59,130,246,.4); }
+#panel-subscription.path-dropdown-panel   { border-color: var(--lime-dark); background: var(--lime-pale); }
+#panel-subscription.path-dropdown-panel::before { border-top-color: var(--lime-dark); border-left-color: var(--lime-dark); background: var(--lime-pale); }
+#panel-products.path-dropdown-panel   { border-color: rgba(245,158,11,.45); }
+#panel-products.path-dropdown-panel::before { border-top-color: rgba(245,158,11,.45); border-left-color: rgba(245,158,11,.45); }
+
+@keyframes panelIn { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+
+.panel-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
+.panel-close {
+  display: flex; align-items: center; gap: 6px;
+  padding: 9px 20px; border: 1.5px solid var(--border); border-radius: var(--r-pill);
+  font-size: .82rem; font-weight: 700; cursor: pointer; transition: var(--t-fast);
+  background: #fff; color: var(--text-primary);
+}
+.panel-close:hover { background: var(--rose-dark); color: #fff; border-color: var(--rose-dark); }
+
 /* —— Comparison Table —— */
 .paths-compare {
   border: 1.5px solid var(--border); border-radius: var(--r-lg);
@@ -92,20 +139,6 @@
 .compare-head.featured-head { background: var(--lime-pale) !important; color: #4a5e00 !important; }
 .compare-row .featured-col { background: var(--lime-pale); font-weight: 600 !important; color: var(--text-primary) !important; }
 
-/* —— Detail Panels —— */
-.detail-panel { display: none; padding: 56px 0; border-top: 3px solid var(--rose); animation: panelIn .35s cubic-bezier(.4,0,.2,1); }
-.detail-panel.open { display: block; }
-@keyframes panelIn { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
-
-.panel-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
-.panel-close {
-  display: flex; align-items: center; gap: 6px;
-  padding: 9px 20px; border: 1.5px solid var(--border); border-radius: var(--r-pill);
-  font-size: .82rem; font-weight: 700; cursor: pointer; transition: var(--t-fast);
-  background: #fff; color: var(--text-primary);
-}
-.panel-close:hover { background: var(--rose-dark); color: #fff; border-color: var(--rose-dark); }
-
 /* —— Routine Steps —— */
 .routine-steps { display: flex; flex-direction: column; gap: 10px; }
 .routine-step { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: #fff; border: 1.5px solid var(--border); border-radius: var(--r-md); transition: var(--t-fast); }
@@ -118,7 +151,7 @@
 /* —— Subscription Tiers —— */
 .sub-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .sub-tier { border: 2px solid var(--border); border-radius: var(--r-xl); padding: 28px 24px; display: flex; flex-direction: column; gap: 14px; background: #fff; }
-.sub-tier.popular { border-color: var(--lime-dark); background: var(--lime-pale); }
+.sub-tier.popular { border-color: var(--lime-dark); background: rgba(168,194,24,.08); }
 .sub-tier-badge { display: inline-block; background: var(--rose-dark); color: var(--lime); font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 4px 14px; border-radius: var(--r-pill); width: fit-content; }
 .sub-tier-name { font-size: 1.3rem; font-weight: 700; }
 .sub-tier-desc { font-size: .85rem; color: var(--text-secondary); line-height: 1.5; }
@@ -131,23 +164,49 @@
 
 /* —— Responsive —— */
 @media (max-width: 1024px) {
-  .paths-grid { grid-template-columns: 1fr; gap: 16px; }
+  .paths-grid { gap: 16px; }
   .sub-tiers { grid-template-columns: 1fr; }
+  .path-card { padding: 22px 18px; }
 }
+
+/* -- Tablet: tighten cards, keep 3 cols -- */
 @media (max-width: 768px) {
   .paths-compare { display: none; }
   .results-hero { padding: 40px 0; }
   .skin-profile-card { padding: 24px; }
+
+  /* 3 cols stay — strip non-essential card content */
+  .paths-grid { gap: 10px; }
+  .path-card { padding: 16px 10px; gap: 10px; }
+  .path-source { display: none; }
+  .path-card-desc { display: none; }
+  .path-highlights { display: none; }
+  .path-card-sub { display: none; }
+  .path-card-title { font-size: .85rem; line-height: 1.2; }
+  .path-icon-wrap { width: 40px; height: 40px; font-size: 1.4rem; }
+  .path-price { font-size: .8rem; padding-top: 8px; }
+  .path-card-cta { padding: 8px 10px; font-size: .74rem; }
+
+  /* Dropdown panel: full-width readable content */
+  .path-dropdown-panel { padding: 24px 16px; }
+  .panel-header { flex-direction: column; align-items: flex-start; margin-bottom: 20px; }
+  .routine-cols { grid-template-columns: 1fr !important; gap: 24px !important; }
+  .sub-tiers { grid-template-columns: 1fr !important; }
 }
-@media (min-width: 641px) and (max-width: 900px) {
-  .paths-grid { grid-template-columns: repeat(2, 1fr); }
-}
+
+/* -- Mobile: very compact cards, 3 cols -- */
 @media (max-width: 480px) {
-  .paths-grid { grid-template-columns: 1fr; gap: 12px; }
-  .path-card { padding: 22px 18px; }
-  .results-hero { padding: 32px 0; }
-  .skin-profile-card { padding: 20px; gap: 24px; }
-  .skin-type-badge { font-size: .72rem; }
+  .paths-grid { gap: 6px; }
+  .path-card { padding: 12px 8px; gap: 8px; }
+  .path-card-title { font-size: .76rem; }
+  .path-card-header { gap: 6px; }
+  .path-icon-wrap { width: 30px; height: 30px; font-size: 1.1rem; }
+  .path-price { font-size: .72rem; padding-top: 6px; }
+  .path-card-cta { padding: 6px 8px; font-size: .68rem; }
+  .path-card-cta-chevron { display: none; }
+  .path-badge-recommended { font-size: .55rem; padding: 3px 8px; top: -11px; }
+  .path-dropdown-panel { padding: 20px 14px; }
+  .panel-header h3 { font-size: 1.2rem !important; }
 }
 </style>
 @endsection
@@ -331,7 +390,7 @@
   </div>
 </div>
 
-<!-- —— 3 PATH CARDS —— -->
+<!-- —— 3 PATH CARDS + INLINE DROPDOWNS —— -->
 <section class="section" id="paths" style="background:var(--cream)">
   <div class="container">
 
@@ -339,10 +398,10 @@
     <div class="section-header centered reveal" style="margin-bottom:48px">
       <div class="section-eyebrow"><span class="dot"></span> Act on Your Results</div>
       <h2 class="display-sm section-title">3 Ways to <em class="serif" style="font-weight:400">Transform Your Skin</em></h2>
-      <p class="section-desc">Each option is personalized to your {{ $skinLabel }} skin. Click any card to explore the full breakdown.</p>
+      <p class="section-desc">Each option is personalized to your {{ $skinLabel }} skin. Click any card to expand the full details.</p>
     </div>
 
-    <!-- Cards -->
+    <!-- Cards — always 3 in a row -->
     <div class="paths-grid">
 
       <!-- Card 1: AI Routine -->
@@ -426,6 +485,257 @@
 
     </div>
 
+    <!-- ————————————————————————————————————————————————— -->
+    <!-- INLINE DROPDOWN PANELS                            -->
+    <!-- ————————————————————————————————————————————————— -->
+    <div id="path-dropdown-area">
+
+      <!-- Panel A: AI Routine — caret under card 1 (left third) -->
+      <div id="panel-routine" class="path-dropdown-panel" style="--caret-pos: 16.67%">
+
+        <div class="panel-header">
+          <div>
+            <div class="path-source ai-source" style="display:inline-flex;margin-bottom:14px">
+              <span>⚡</span> Autogenerated by Kominhoo Skin OS
+            </div>
+            <h3 style="font-family:var(--font-display);font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:6px">Your Personalized Routine</h3>
+            <p style="font-size:.9rem;color:var(--text-muted)">Built for {{ $skinLabel }} skin · Nigerian climate optimized · 9 products total</p>
+          </div>
+          <button class="panel-close" onclick="closePanels()">✕ &nbsp;Close</button>
+        </div>
+
+        <div class="disclaimer" style="margin-bottom:36px">
+          <span>⚠️</span>
+          <span><strong>Disclaimer:</strong> This routine is auto-generated by our Skin OS based on your quiz answers. Individual results may vary. If you have a skin condition, please consult a dermatologist. For a human-curated routine, consider our Subscription Plan above.</span>
+        </div>
+
+        <div class="routine-cols" style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+          <!-- AM Routine -->
+          <div class="reveal">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+              <div style="background:var(--lime);color:var(--black);padding:6px 16px;border-radius:var(--r-pill);font-size:.82rem;font-weight:700">☀️ AM Routine</div>
+              <span style="font-size:.82rem;color:var(--text-muted)">5 steps · 3–5 mins</span>
+            </div>
+            <div class="routine-steps">
+              <div class="routine-step">
+                <div class="step-num">1</div>
+                <div style="flex:1">
+                  <div class="step-name">Cleanser</div>
+                  <div class="step-product">COSRX Low pH Cleanser — Gentle, pH-balanced</div>
+                </div>
+                <button class="step-action btn btn-sm btn-outline" onclick="addToCart(1)">+ Add</button>
+              </div>
+              <div class="routine-step">
+                <div class="step-num">2</div>
+                <div style="flex:1">
+                  <div class="step-name">Toner</div>
+                  <div class="step-product">Some By Mi AHA BHA PHA Toner — Exfoliating &amp; clarifying</div>
+                </div>
+                <button class="step-action btn btn-sm btn-outline" onclick="addToCart(4)">+ Add</button>
+              </div>
+              <div class="routine-step">
+                <div class="step-num">3</div>
+                <div style="flex:1">
+                  <div class="step-name">Serum</div>
+                  <div class="step-product">The Ordinary Niacinamide 10% — Pore control, oil balance</div>
+                </div>
+                <button class="step-action btn btn-sm btn-outline" onclick="addToCart(5)">+ Add</button>
+              </div>
+              <div class="routine-step">
+                <div class="step-num">4</div>
+                <div style="flex:1">
+                  <div class="step-name">Moisturizer</div>
+                  <div class="step-product">COSRX Oil-Free Gel Moisturizer — Lightweight, non-comedogenic</div>
+                </div>
+                <button class="step-action btn btn-sm btn-outline" onclick="addToCart(13)">+ Add</button>
+              </div>
+              <div class="routine-step" style="border-color:var(--lime)">
+                <div class="step-num" style="background:var(--lime);color:var(--black)">5</div>
+                <div style="flex:1">
+                  <div class="step-name">SPF <span class="badge badge-lime" style="font-size:.65rem;padding:2px 8px;margin-left:6px">CRITICAL</span></div>
+                  <div class="step-product">Beauty of Joseon Tone Up SPF 50+ — Must for Nigerian sun!</div>
+                </div>
+                <button class="step-action btn btn-sm btn-primary" onclick="addToCart(6)">+ Add</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- PM Routine -->
+          <div class="reveal reveal-delay-2">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+              <div style="background:var(--dark);color:#fff;padding:6px 16px;border-radius:var(--r-pill);font-size:.82rem;font-weight:700">🌙 PM Routine</div>
+              <span style="font-size:.82rem;color:var(--text-muted)">4 steps · 2–3 mins</span>
+            </div>
+            <div class="routine-steps">
+              <div class="routine-step">
+                <div class="step-num">1</div>
+                <div style="flex:1">
+                  <div class="step-name">Cleanser</div>
+                  <div class="step-product">COSRX Low pH Cleanser — Double cleanse if you wore SPF</div>
+                </div>
+                <button class="step-action btn btn-sm btn-outline" onclick="addToCart(1)">+ Add</button>
+              </div>
+              <div class="routine-step">
+                <div class="step-num">2</div>
+                <div style="flex:1">
+                  <div class="step-name">Treatment</div>
+                  <div class="step-product">Anua Heartleaf Serum — Calming, pore-tightening, anti-acne</div>
+                </div>
+                <button class="step-action btn btn-sm btn-outline" onclick="addToCart(7)">+ Add</button>
+              </div>
+              <div class="routine-step">
+                <div class="step-num">3</div>
+                <div style="flex:1">
+                  <div class="step-name">Moisturizer</div>
+                  <div class="step-product">COSRX Oil-Free Gel Moisturizer — Seal hydration in overnight</div>
+                </div>
+                <button class="step-action btn btn-sm btn-outline" onclick="addToCart(13)">+ Add</button>
+              </div>
+              <div class="routine-step" style="background:var(--lime-pale);border-color:var(--lime)">
+                <div class="step-num" style="background:var(--rose-dark);color:var(--lime)">+</div>
+                <div style="flex:1">
+                  <div class="step-name">Weekly Treatment (2×/week PM)</div>
+                  <div class="step-product">The Ordinary Retinol 0.2% — Start slow, build tolerance</div>
+                </div>
+                <button class="step-action btn btn-sm btn-outline" onclick="addToCart(18)">+ Add</button>
+              </div>
+            </div>
+            <div style="margin-top:20px;padding:16px;background:var(--gray-100);border-radius:var(--r-lg);border:1.5px solid var(--border)">
+              <div style="font-size:.82rem;font-weight:700;margin-bottom:8px">💡 Pro Tip for Your Skin</div>
+              <p style="font-size:.82rem;color:var(--text-secondary);line-height:1.5">With {{ strtolower($skinType) }} skin in Nigeria's humidity, use lightweight products in AM. You can use a slightly richer moisturizer at night since AC can dehydrate your skin. Always patch test new actives for 7 days.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-top:36px;display:flex;flex-direction:column;align-items:center;gap:10px">
+          <button class="btn btn-dark btn-lg" onclick="addAllRoutine()">🛒 Add Full Routine to Cart</button>
+          <div style="font-size:.82rem;color:var(--text-muted)">9 products · Total: ₦152,500 · Free shipping on orders over ₦30K</div>
+        </div>
+
+      </div>
+
+
+      <!-- Panel B: Expert Subscription — caret under card 2 (center) -->
+      <div id="panel-subscription" class="path-dropdown-panel" style="--caret-pos: 50%">
+
+        <div class="panel-header">
+          <div>
+            <div class="path-source expert-source" style="display:inline-flex;margin-bottom:14px">
+              <span>👩‍⚕️</span> Curated by cosmetic doctors &amp; skin experts
+            </div>
+            <h3 style="font-family:var(--font-display);font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:6px">Expert Subscription Plans</h3>
+            <p style="font-size:.9rem;color:var(--text-muted)">Quarterly delivery · Free shipping · Cancel anytime · Human-reviewed for every skin type</p>
+          </div>
+          <button class="panel-close" onclick="closePanels()">✕ &nbsp;Close</button>
+        </div>
+
+        <div style="background:rgba(168,194,24,.15);border:1.5px solid var(--lime-dark);border-radius:var(--r-md);padding:18px 22px;display:flex;gap:14px;align-items:flex-start;margin-bottom:40px">
+          <div style="font-size:1.5rem;flex-shrink:0">👩‍⚕️</div>
+          <div>
+            <div style="font-weight:700;font-size:.95rem;margin-bottom:4px">Why choose expert curation over an algorithm?</div>
+            <p style="font-size:.85rem;color:var(--text-secondary);line-height:1.6">Our team of cosmetic doctors and certified skin experts review your profile, research the latest formulations, and hand-pick products that work synergistically — not just individually. They also consider product interactions, seasonal skin changes in Nigeria, and emerging clinical research. This is the difference between software and skin science.</p>
+          </div>
+        </div>
+
+        <!-- 3 Tiers -->
+        <div class="sub-tiers">
+
+          <!-- Tier 1: Essential -->
+          <div class="sub-tier">
+            <div class="sub-tier-name">Essential</div>
+            <div class="sub-tier-desc">Perfect entry point. Core products for your skin type, reviewed by a certified skin expert.</div>
+            <div class="sub-tier-price">₦40,000 <span>/ quarter</span></div>
+            <hr class="sub-tier-divider">
+            <ul class="sub-tier-features">
+              <li>3–4 expert-selected products</li>
+              <li>Full-size products, no samples</li>
+              <li>Personalized product card inside box</li>
+              <li>Free standard shipping</li>
+              <li>Access to skin expert chat (once/quarter)</li>
+              <li>Cancel anytime</li>
+            </ul>
+            <button class="btn btn-outline" style="width:100%;margin-top:auto" onclick="showToast('📦','Essential plan — checkout coming in full build!')">Start Essential Plan →</button>
+          </div>
+
+          <!-- Tier 2: Advanced (POPULAR) -->
+          <div class="sub-tier popular">
+            <div class="sub-tier-badge">Most Popular</div>
+            <div class="sub-tier-name">Advanced</div>
+            <div class="sub-tier-desc">Deeper treatment. More products, a dedicated skin expert review, and treatment boosters.</div>
+            <div class="sub-tier-price">₦65,000 <span>/ quarter</span></div>
+            <hr class="sub-tier-divider">
+            <ul class="sub-tier-features">
+              <li>5–6 expert-selected products</li>
+              <li>Includes 1 targeted treatment serum</li>
+              <li>Dedicated skin expert profile review</li>
+              <li>Seasonal adjustment notes included</li>
+              <li>Free express shipping</li>
+              <li>Priority skin expert chat (2×/quarter)</li>
+              <li>10% off any additional shop purchases</li>
+            </ul>
+            <button class="btn btn-dark" style="width:100%;margin-top:auto" onclick="showToast('📦','Advanced plan — checkout coming in full build!')">Start Advanced Plan →</button>
+          </div>
+
+          <!-- Tier 3: Master -->
+          <div class="sub-tier">
+            <div class="sub-tier-name">Master</div>
+            <div class="sub-tier-desc">The complete experience. Premium products, cosmetic doctor consultation, and monthly skin check-ins.</div>
+            <div class="sub-tier-price">₦90,000 <span>/ quarter</span></div>
+            <hr class="sub-tier-divider">
+            <ul class="sub-tier-features">
+              <li>7–8 premium expert-selected products</li>
+              <li>Includes luxury treatment + eye/lip care</li>
+              <li>Cosmetic doctor 1-on-1 consultation call</li>
+              <li>Monthly skin progress check-in</li>
+              <li>Free express shipping, gift-wrapped</li>
+              <li>Unlimited expert chat access</li>
+              <li>15% off any additional shop purchases</li>
+              <li>Early access to new product launches</li>
+            </ul>
+            <button class="btn btn-outline" style="width:100%;margin-top:auto" onclick="showToast('📦','Master plan — checkout coming in full build!')">Start Master Plan →</button>
+          </div>
+
+        </div>
+
+        <div style="text-align:center;margin-top:24px;font-size:.82rem;color:var(--text-muted)">
+          All plans include free cancellation · Products are fully personalized to your skin profile · Delivered every 3 months
+        </div>
+
+      </div>
+
+
+      <!-- Panel C: Individual Products — caret under card 3 (right third) -->
+      <div id="panel-products" class="path-dropdown-panel" style="--caret-pos: 83.33%">
+
+        <div class="panel-header">
+          <div>
+            <div class="path-source shop-source" style="display:inline-flex;margin-bottom:14px">
+              <span>🏪</span> Matched to your skin profile by Skin OS
+            </div>
+            <h3 style="font-family:var(--font-display);font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:6px">Products Matched to You</h3>
+            <p style="font-size:.9rem;color:var(--text-muted)">8 products filtered for {{ $skinLabel }} skin · Buy one, a few, or all of them</p>
+          </div>
+          <button class="panel-close" onclick="closePanels()">✕ &nbsp;Close</button>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px">
+          <div style="font-size:.88rem;color:var(--text-muted)">Showing products matched to your skin concerns</div>
+          <div class="carousel-nav">
+            <button class="carousel-btn" onclick="scrollTrack('results-track',-1)">←</button>
+            <button class="carousel-btn" onclick="scrollTrack('results-track',1)">→</button>
+          </div>
+        </div>
+        <div class="scroll-track" id="results-track"></div>
+
+        <div style="text-align:center;margin-top:28px">
+          <a href="{{ route('shop') }}" class="btn btn-dark btn-lg">View Full Catalog →</a>
+          <div style="font-size:.82rem;color:var(--text-muted);margin-top:8px">Browse all products filtered to your skin profile in our full shop</div>
+        </div>
+
+      </div>
+
+    </div><!-- /#path-dropdown-area -->
+
     <!-- Comparison Table -->
     <div class="paths-compare reveal">
       <div class="compare-row">
@@ -474,263 +784,6 @@
 
   </div>
 </section>
-
-
-<!-- ————————————————————————————————————————————————— -->
-<!-- DETAIL PANEL A — Routine Builder -->
-<!-- ————————————————————————————————————————————————— -->
-<div id="panel-routine" class="detail-panel" style="background:var(--cream)" data-panel="routine">
-  <div class="container">
-
-    <div class="panel-header">
-      <div>
-        <div class="path-source ai-source" style="display:inline-flex;margin-bottom:14px">
-          <span>⚡</span> Autogenerated by Kominhoo Skin OS
-        </div>
-        <h3 style="font-family:var(--font-display);font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:6px">Your Personalized Routine</h3>
-        <p style="font-size:.9rem;color:var(--text-muted)">Built for {{ $skinLabel }} skin · Nigerian climate optimized · 9 products total</p>
-      </div>
-      <button class="panel-close" onclick="closePanels()">✕ &nbsp;Close</button>
-    </div>
-
-    <div class="disclaimer" style="margin-bottom:36px">
-      <span>⚠️</span>
-      <span><strong>Disclaimer:</strong> This routine is auto-generated by our Skin OS based on your quiz answers. Individual results may vary. If you have a skin condition, please consult a dermatologist. For a human-curated routine, consider our Subscription Plan above.</span>
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
-      <!-- AM Routine -->
-      <div class="reveal">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
-          <div style="background:var(--lime);color:var(--black);padding:6px 16px;border-radius:var(--r-pill);font-size:.82rem;font-weight:700">☀️ AM Routine</div>
-          <span style="font-size:.82rem;color:var(--text-muted)">5 steps · 3–5 mins</span>
-        </div>
-        <div class="routine-steps">
-          <div class="routine-step">
-            <div class="step-num">1</div>
-            <div style="flex:1">
-              <div class="step-name">Cleanser</div>
-              <div class="step-product">COSRX Low pH Cleanser — Gentle, pH-balanced</div>
-            </div>
-            <button class="step-action btn btn-sm btn-outline" onclick="addToCart(1)">+ Add</button>
-          </div>
-          <div class="routine-step">
-            <div class="step-num">2</div>
-            <div style="flex:1">
-              <div class="step-name">Toner</div>
-              <div class="step-product">Some By Mi AHA BHA PHA Toner — Exfoliating &amp; clarifying</div>
-            </div>
-            <button class="step-action btn btn-sm btn-outline" onclick="addToCart(4)">+ Add</button>
-          </div>
-          <div class="routine-step">
-            <div class="step-num">3</div>
-            <div style="flex:1">
-              <div class="step-name">Serum</div>
-              <div class="step-product">The Ordinary Niacinamide 10% — Pore control, oil balance</div>
-            </div>
-            <button class="step-action btn btn-sm btn-outline" onclick="addToCart(5)">+ Add</button>
-          </div>
-          <div class="routine-step">
-            <div class="step-num">4</div>
-            <div style="flex:1">
-              <div class="step-name">Moisturizer</div>
-              <div class="step-product">COSRX Oil-Free Gel Moisturizer — Lightweight, non-comedogenic</div>
-            </div>
-            <button class="step-action btn btn-sm btn-outline" onclick="addToCart(13)">+ Add</button>
-          </div>
-          <div class="routine-step" style="border-color:var(--lime)">
-            <div class="step-num" style="background:var(--lime);color:var(--black)">5</div>
-            <div style="flex:1">
-              <div class="step-name">SPF <span class="badge badge-lime" style="font-size:.65rem;padding:2px 8px;margin-left:6px">CRITICAL</span></div>
-              <div class="step-product">Beauty of Joseon Tone Up SPF 50+ — Must for Nigerian sun!</div>
-            </div>
-            <button class="step-action btn btn-sm btn-primary" onclick="addToCart(6)">+ Add</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- PM Routine -->
-      <div class="reveal reveal-delay-2">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
-          <div style="background:var(--dark);color:#fff;padding:6px 16px;border-radius:var(--r-pill);font-size:.82rem;font-weight:700">🌙 PM Routine</div>
-          <span style="font-size:.82rem;color:var(--text-muted)">4 steps · 2–3 mins</span>
-        </div>
-        <div class="routine-steps">
-          <div class="routine-step">
-            <div class="step-num">1</div>
-            <div style="flex:1">
-              <div class="step-name">Cleanser</div>
-              <div class="step-product">COSRX Low pH Cleanser — Double cleanse if you wore SPF</div>
-            </div>
-            <button class="step-action btn btn-sm btn-outline" onclick="addToCart(1)">+ Add</button>
-          </div>
-          <div class="routine-step">
-            <div class="step-num">2</div>
-            <div style="flex:1">
-              <div class="step-name">Treatment</div>
-              <div class="step-product">Anua Heartleaf Serum — Calming, pore-tightening, anti-acne</div>
-            </div>
-            <button class="step-action btn btn-sm btn-outline" onclick="addToCart(7)">+ Add</button>
-          </div>
-          <div class="routine-step">
-            <div class="step-num">3</div>
-            <div style="flex:1">
-              <div class="step-name">Moisturizer</div>
-              <div class="step-product">COSRX Oil-Free Gel Moisturizer — Seal hydration in overnight</div>
-            </div>
-            <button class="step-action btn btn-sm btn-outline" onclick="addToCart(13)">+ Add</button>
-          </div>
-          <div class="routine-step" style="background:var(--lime-pale);border-color:var(--lime)">
-            <div class="step-num" style="background:var(--rose-dark);color:var(--lime)">+</div>
-            <div style="flex:1">
-              <div class="step-name">Weekly Treatment (2×/week PM)</div>
-              <div class="step-product">The Ordinary Retinol 0.2% — Start slow, build tolerance</div>
-            </div>
-            <button class="step-action btn btn-sm btn-outline" onclick="addToCart(18)">+ Add</button>
-          </div>
-        </div>
-        <div style="margin-top:20px;padding:16px;background:#fff;border-radius:var(--r-lg);border:1.5px solid var(--border)">
-          <div style="font-size:.82rem;font-weight:700;margin-bottom:8px">💡 Pro Tip for Your Skin</div>
-          <p style="font-size:.82rem;color:var(--text-secondary);line-height:1.5">With {{ strtolower($skinType) }} skin in Nigeria's humidity, use lightweight products in AM. You can use a slightly richer moisturizer at night since AC can dehydrate your skin. Always patch test new actives for 7 days.</p>
-        </div>
-      </div>
-    </div>
-
-    <div style="text-align:center;margin-top:36px;display:flex;flex-direction:column;align-items:center;gap:10px">
-      <button class="btn btn-dark btn-lg" onclick="addAllRoutine()">🛒 Add Full Routine to Cart</button>
-      <div style="font-size:.82rem;color:var(--text-muted)">9 products · Total: ₦152,500 · Free shipping on orders over ₦30K</div>
-    </div>
-
-  </div>
-</div>
-
-
-<!-- ————————————————————————————————————————————————— -->
-<!-- DETAIL PANEL B — Expert Subscription -->
-<!-- ————————————————————————————————————————————————— -->
-<div id="panel-subscription" class="detail-panel" style="background:#fff" data-panel="subscription">
-  <div class="container">
-
-    <div class="panel-header">
-      <div>
-        <div class="path-source expert-source" style="display:inline-flex;margin-bottom:14px">
-          <span>👩‍⚕️</span> Curated by cosmetic doctors &amp; skin experts
-        </div>
-        <h3 style="font-family:var(--font-display);font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:6px">Expert Subscription Plans</h3>
-        <p style="font-size:.9rem;color:var(--text-muted)">Quarterly delivery · Free shipping · Cancel anytime · Human-reviewed for every skin type</p>
-      </div>
-      <button class="panel-close" onclick="closePanels()">✕ &nbsp;Close</button>
-    </div>
-
-    <div style="background:var(--lime-pale);border:1.5px solid var(--lime-dark);border-radius:var(--r-md);padding:18px 22px;display:flex;gap:14px;align-items:flex-start;margin-bottom:40px">
-      <div style="font-size:1.5rem;flex-shrink:0">👩‍⚕️</div>
-      <div>
-        <div style="font-weight:700;font-size:.95rem;margin-bottom:4px">Why choose expert curation over an algorithm?</div>
-        <p style="font-size:.85rem;color:var(--text-secondary);line-height:1.6">Our team of cosmetic doctors and certified skin experts review your profile, research the latest formulations, and hand-pick products that work synergistically — not just individually. They also consider product interactions, seasonal skin changes in Nigeria, and emerging clinical research. This is the difference between software and skin science.</p>
-      </div>
-    </div>
-
-    <!-- 3 Tiers -->
-    <div class="sub-tiers">
-
-      <!-- Tier 1: Essential -->
-      <div class="sub-tier">
-        <div class="sub-tier-name">Essential</div>
-        <div class="sub-tier-desc">Perfect entry point. Core products for your skin type, reviewed by a certified skin expert.</div>
-        <div class="sub-tier-price">₦40,000 <span>/ quarter</span></div>
-        <hr class="sub-tier-divider">
-        <ul class="sub-tier-features">
-          <li>3–4 expert-selected products</li>
-          <li>Full-size products, no samples</li>
-          <li>Personalized product card inside box</li>
-          <li>Free standard shipping</li>
-          <li>Access to skin expert chat (once/quarter)</li>
-          <li>Cancel anytime</li>
-        </ul>
-        <button class="btn btn-outline" style="width:100%;margin-top:auto" onclick="showToast('📦','Essential plan — checkout coming in full build!')">Start Essential Plan →</button>
-      </div>
-
-      <!-- Tier 2: Advanced (POPULAR) -->
-      <div class="sub-tier popular">
-        <div class="sub-tier-badge">Most Popular</div>
-        <div class="sub-tier-name">Advanced</div>
-        <div class="sub-tier-desc">Deeper treatment. More products, a dedicated skin expert review, and treatment boosters.</div>
-        <div class="sub-tier-price">₦65,000 <span>/ quarter</span></div>
-        <hr class="sub-tier-divider">
-        <ul class="sub-tier-features">
-          <li>5–6 expert-selected products</li>
-          <li>Includes 1 targeted treatment serum</li>
-          <li>Dedicated skin expert profile review</li>
-          <li>Seasonal adjustment notes included</li>
-          <li>Free express shipping</li>
-          <li>Priority skin expert chat (2×/quarter)</li>
-          <li>10% off any additional shop purchases</li>
-        </ul>
-        <button class="btn btn-dark" style="width:100%;margin-top:auto" onclick="showToast('📦','Advanced plan — checkout coming in full build!')">Start Advanced Plan →</button>
-      </div>
-
-      <!-- Tier 3: Master -->
-      <div class="sub-tier">
-        <div class="sub-tier-name">Master</div>
-        <div class="sub-tier-desc">The complete experience. Premium products, cosmetic doctor consultation, and monthly skin check-ins.</div>
-        <div class="sub-tier-price">₦90,000 <span>/ quarter</span></div>
-        <hr class="sub-tier-divider">
-        <ul class="sub-tier-features">
-          <li>7–8 premium expert-selected products</li>
-          <li>Includes luxury treatment + eye/lip care</li>
-          <li>Cosmetic doctor 1-on-1 consultation call</li>
-          <li>Monthly skin progress check-in</li>
-          <li>Free express shipping, gift-wrapped</li>
-          <li>Unlimited expert chat access</li>
-          <li>15% off any additional shop purchases</li>
-          <li>Early access to new product launches</li>
-        </ul>
-        <button class="btn btn-outline" style="width:100%;margin-top:auto" onclick="showToast('📦','Master plan — checkout coming in full build!')">Start Master Plan →</button>
-      </div>
-
-    </div>
-
-    <div style="text-align:center;margin-top:24px;font-size:.82rem;color:var(--text-muted)">
-      All plans include free cancellation · Products are fully personalized to your skin profile · Delivered every 3 months
-    </div>
-
-  </div>
-</div>
-
-
-<!-- ————————————————————————————————————————————————— -->
-<!-- DETAIL PANEL C — Individual Products -->
-<!-- ————————————————————————————————————————————————— -->
-<div id="panel-products" class="detail-panel" style="background:var(--cream)" data-panel="products">
-  <div class="container">
-
-    <div class="panel-header">
-      <div>
-        <div class="path-source shop-source" style="display:inline-flex;margin-bottom:14px">
-          <span>🏪</span> Matched to your skin profile by Skin OS
-        </div>
-        <h3 style="font-family:var(--font-display);font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:6px">Products Matched to You</h3>
-        <p style="font-size:.9rem;color:var(--text-muted)">8 products filtered for {{ $skinLabel }} skin · Buy one, a few, or all of them</p>
-      </div>
-      <button class="panel-close" onclick="closePanels()">✕ &nbsp;Close</button>
-    </div>
-
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px">
-      <div style="font-size:.88rem;color:var(--text-muted)">Showing products matched to your skin concerns</div>
-      <div class="carousel-nav">
-        <button class="carousel-btn" onclick="scrollTrack('results-track',-1)">←</button>
-        <button class="carousel-btn" onclick="scrollTrack('results-track',1)">→</button>
-      </div>
-    </div>
-    <div class="scroll-track" id="results-track"></div>
-
-    <div style="text-align:center;margin-top:28px">
-      <a href="{{ route('shop') }}" class="btn btn-dark btn-lg">View Full Catalog →</a>
-      <div style="font-size:.82rem;color:var(--text-muted);margin-top:8px">Browse all products filtered to your skin profile in our full shop</div>
-    </div>
-
-  </div>
-</div>
 
 
 <!-- —— Save Profile CTA —— -->
@@ -836,28 +889,29 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-/* —— Path selection —— */
+/* —— Path selection — inline dropdown —— */
 function selectPath(name) {
   const card  = document.getElementById('card-' + name);
   const panel = document.getElementById('panel-' + name);
   const isOpen = panel.classList.contains('open');
 
-  document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('open'));
+  // Close all panels + deactivate all cards
+  document.querySelectorAll('.path-dropdown-panel').forEach(p => p.classList.remove('open'));
   document.querySelectorAll('.path-card').forEach(c => c.classList.remove('active'));
 
   if (!isOpen) {
     card.classList.add('active');
     panel.classList.add('open');
+    // Scroll so the top of the dropdown is visible, keeping cards above in view
     setTimeout(() => {
-      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 60);
   }
 }
 
 function closePanels() {
-  document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.path-dropdown-panel').forEach(p => p.classList.remove('open'));
   document.querySelectorAll('.path-card').forEach(c => c.classList.remove('active'));
-  document.getElementById('paths').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function addAllRoutine() {

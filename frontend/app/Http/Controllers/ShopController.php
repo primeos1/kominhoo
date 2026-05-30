@@ -25,9 +25,11 @@ class ShopController extends Controller
             $response = Http::get("{$this->api}/products", $params)->json('data') ?? [];
             $products = $response['data'] ?? $response ?? [];
             $bundles  = Http::get("{$this->api}/bundles")->json('data.data') ?? [];
+            $guides   = Http::get("{$this->api}/guides")->json('data.data') ?? [];
         } catch (\Exception $e) {
             $products = [];
             $bundles  = [];
+            $guides   = [];
         }
 
         $subscriptionPlans = [];
@@ -41,7 +43,7 @@ class ShopController extends Controller
             }
         } catch (\Throwable $e) {}
 
-        return view('pages.shop', compact('products', 'bundles', 'subscriptionPlans'));
+        return view('pages.shop', compact('products', 'bundles', 'guides', 'subscriptionPlans'));
     }
 
     public function product($id)

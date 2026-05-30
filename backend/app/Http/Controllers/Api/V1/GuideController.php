@@ -25,17 +25,22 @@ class GuideController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'category' => 'required|string',
-            'excerpt' => 'nullable|string',
-            'body' => 'required|string',
-            'image' => 'nullable|string',
-            'author' => 'nullable|string',
-            'read_time' => 'nullable|integer',
+            'title'        => 'required|string|max:255',
+            'category'     => 'nullable|string',
+            'excerpt'      => 'nullable|string',
+            'body'         => 'nullable|string',
+            'image'        => 'nullable|string',
+            'icon'         => 'nullable|string|max:10',
+            'product_ids'  => 'nullable|array',
+            'product_ids.*'=> 'integer',
+            'author'       => 'nullable|string',
+            'read_time'    => 'nullable|integer',
             'is_published' => 'boolean',
         ]);
 
-        $data['slug'] = Str::slug($data['title']) . '-' . Str::random(5);
+        $data['slug']     = Str::slug($data['title']) . '-' . Str::random(5);
+        $data['category'] = $data['category'] ?? 'general';
+        $data['body']     = $data['body'] ?? ($data['excerpt'] ?? '');
         return $this->apiResponse(Guide::create($data), 'Guide created', true, 201);
     }
 
@@ -48,13 +53,16 @@ class GuideController extends Controller
     {
         $guide = Guide::findOrFail($id);
         $guide->update($request->validate([
-            'title' => 'sometimes|string',
-            'category' => 'sometimes|string',
-            'excerpt' => 'nullable|string',
-            'body' => 'sometimes|string',
-            'image' => 'nullable|string',
-            'author' => 'nullable|string',
-            'read_time' => 'nullable|integer',
+            'title'        => 'sometimes|string',
+            'category'     => 'nullable|string',
+            'excerpt'      => 'nullable|string',
+            'body'         => 'nullable|string',
+            'image'        => 'nullable|string',
+            'icon'         => 'nullable|string|max:10',
+            'product_ids'  => 'nullable|array',
+            'product_ids.*'=> 'integer',
+            'author'       => 'nullable|string',
+            'read_time'    => 'nullable|integer',
             'is_published' => 'boolean',
         ]));
         return $this->apiResponse($guide, 'Guide updated');

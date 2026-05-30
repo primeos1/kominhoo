@@ -23,10 +23,24 @@
   .mob-cart-dot{position:absolute;top:5px;right:5px;width:8px;height:8px;border-radius:50%;background:#893941;border:1.5px solid #F2F2F7}
   .mob-nav-actions{display:flex;gap:8px}
   .mob-tab-bar{display:flex;position:fixed;bottom:0;left:0;right:0;height:72px;background:rgba(249,249,249,.95);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-top:.5px solid rgba(60,60,67,.25);z-index:299;padding:8px 0 16px;align-items:flex-start;justify-content:space-around}
-  .mob-tab{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;color:rgba(60,60,67,.4);font-size:10px;font-weight:500;letter-spacing:.2px;text-decoration:none;cursor:pointer;transition:color .15s;position:relative;font-family:'Jost',sans-serif}
+  .mob-tab{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;color:rgba(60,60,67,.4);font-size:10px;font-weight:800;letter-spacing:.2px;text-decoration:none;cursor:pointer;transition:color .15s;position:relative;font-family:'Jost',sans-serif}
   .mob-tab.active{color:#893941}
   .mob-tab svg{width:24px;height:24px}
   .mob-tab-badge{position:absolute;top:-2px;left:calc(50% + 6px);background:#FF3B30;color:#fff;font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:999px;padding:0 5px;display:flex;align-items:center;justify-content:center;border:2px solid rgba(249,249,249,.95)}
+  /* ── Shop category overlay ── */
+  .mob-shop-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:499;opacity:0;pointer-events:none;transition:opacity .28s}
+  .mob-shop-overlay.open{opacity:1;pointer-events:auto}
+  .mob-shop-sheet{position:fixed;left:0;right:0;bottom:0;background:#fff;border-radius:20px 20px 0 0;z-index:500;transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:max(env(safe-area-inset-bottom,0px),16px)}
+  .mob-shop-sheet.open{transform:translateY(0)}
+  .mob-shop-drag{width:36px;height:4px;background:rgba(60,60,67,.18);border-radius:2px;margin:10px auto 0}
+  .mob-shop-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 13px;border-bottom:.5px solid rgba(60,60,67,.14);position:sticky;top:0;background:#fff;z-index:1}
+  .mob-shop-hdr-title{font-family:'Jost',sans-serif;font-size:18px;font-weight:800;color:#1C1416;letter-spacing:.2px}
+  .mob-shop-close{width:32px;height:32px;border-radius:50%;background:rgba(120,120,128,.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#1C1416;flex-shrink:0;padding:0}
+  .mob-shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px 20px}
+  .mob-shop-cat{background:#FAFAFA;border:1px solid rgba(60,60,67,.08);border-radius:14px;padding:14px;min-height:110px;display:flex;flex-direction:column;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:background .15s}
+  .mob-shop-cat:active{background:#F0E8E9}
+  .mob-shop-cat-name{font-family:'Jost',sans-serif;font-size:14px;font-weight:700;color:#1C1416;line-height:1.3}
+  .mob-shop-cat-icon{margin-top:auto;padding-top:6px;align-self:flex-end}
 }
 </style>
 @yield('head')
@@ -461,12 +475,12 @@
     </svg>
     Home
   </a>
-  <a href="{{ route('shop') }}" class="mob-tab {{ request()->routeIs('shop*') ? 'active' : '' }}" aria-label="Shop">
+  <button onclick="openMobShop()" class="mob-tab {{ request()->routeIs('shop*') ? 'active' : '' }}" aria-label="Shop" style="background:none;border:none;padding:0">
     <svg viewBox="0 0 24 24" fill="{{ request()->routeIs('shop*') ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
     </svg>
     Shop
-  </a>
+  </button>
   <a href="{{ route('community') }}" class="mob-tab {{ request()->routeIs('community*') ? 'active' : '' }}" aria-label="Explore">
     <svg viewBox="0 0 24 24" fill="{{ request()->routeIs('community*') ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
@@ -487,7 +501,212 @@
     Profile
   </a>
 </nav>
+
+{{-- Mobile: Shop Category Overlay --}}
+<div class="mob-shop-overlay" id="mob-shop-overlay" onclick="closeMobShop()" aria-hidden="true"></div>
+<div class="mob-shop-sheet" id="mob-shop-sheet" role="dialog" aria-modal="true" aria-label="Shop by category">
+  <div class="mob-shop-drag" aria-hidden="true"></div>
+  <div class="mob-shop-hdr">
+    <span class="mob-shop-hdr-title">Shop</span>
+    <button class="mob-shop-close" onclick="closeMobShop()" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M2 2l12 12M14 2L2 14"/></svg>
+    </button>
+  </div>
+  <div class="mob-shop-grid">
+
+    {{-- All Products --}}
+    <a href="{{ route('shop') }}" class="mob-shop-cat">
+      <span class="mob-shop-cat-name">All<br>Products</span>
+      <span class="mob-shop-cat-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#1C1416" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 8l-3 8h30l-3-8H10z" fill="#1C1416" fill-opacity=".1"/>
+          <path d="M10 8l-3 8h30l-3-8H10z"/>
+          <rect x="7" y="16" width="30" height="22" rx="3" fill="#1C1416" fill-opacity=".06"/>
+          <rect x="7" y="16" width="30" height="22" rx="3"/>
+          <path d="M16 16v5a6 6 0 0012 0v-5"/>
+        </svg>
+      </span>
+    </a>
+
+    {{-- Buying Guides --}}
+    <a href="{{ route('home') }}#mob-guide-strip" class="mob-shop-cat">
+      <span class="mob-shop-cat-name">Buying<br>Guides</span>
+      <span class="mob-shop-cat-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#5E6623" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="8" y="6" width="22" height="32" rx="3" fill="#5E6623" fill-opacity=".1"/>
+          <rect x="8" y="6" width="22" height="32" rx="3"/>
+          <path d="M30 10h4a2 2 0 012 2v24a2 2 0 01-2 2H14" stroke-width="1.6"/>
+          <line x1="14" y1="14" x2="24" y2="14"/>
+          <line x1="14" y1="20" x2="24" y2="20"/>
+          <line x1="14" y1="26" x2="20" y2="26"/>
+          <circle cx="26" cy="31" r="5" fill="#D4D994" fill-opacity=".6" stroke="#5E6623" stroke-width="1.6"/>
+          <path d="M24 31l1.5 1.5 3-3" stroke-width="1.6"/>
+        </svg>
+      </span>
+    </a>
+
+    {{-- Cleansers --}}
+    <a href="{{ route('shop') }}?category=Cleanser" class="mob-shop-cat">
+      <span class="mob-shop-cat-name">Cleansers</span>
+      <span class="mob-shop-cat-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#4A8FA3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 8V5h10v3"/>
+          <rect x="13" y="8" width="18" height="30" rx="5" fill="#4A8FA3" fill-opacity=".1"/>
+          <rect x="13" y="8" width="18" height="30" rx="5"/>
+          <circle cx="22" cy="24" r="4" fill="#4A8FA3" fill-opacity=".25" stroke="none"/>
+          <circle cx="29" cy="15" r="2.5" fill="#4A8FA3" fill-opacity=".35" stroke="none"/>
+          <circle cx="15" cy="32" r="2" fill="#4A8FA3" fill-opacity=".3" stroke="none"/>
+        </svg>
+      </span>
+    </a>
+
+    {{-- Toners --}}
+    <a href="{{ route('shop') }}?category=Toner" class="mob-shop-cat">
+      <span class="mob-shop-cat-name">Toners</span>
+      <span class="mob-shop-cat-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#9B82B2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18v-4l5-6h4l5 6v4"/>
+          <rect x="13" y="18" width="18" height="20" rx="4" fill="#9B82B2" fill-opacity=".1"/>
+          <rect x="13" y="18" width="18" height="20" rx="4"/>
+          <path d="M31 22h5l1.5 3-6.5 1"/>
+          <circle cx="22" cy="28" r="3.5" fill="#9B82B2" fill-opacity=".25" stroke="none"/>
+        </svg>
+      </span>
+    </a>
+
+    {{-- Serums --}}
+    <a href="{{ route('shop') }}?category=Serum" class="mob-shop-cat">
+      <span class="mob-shop-cat-name">Serums</span>
+      <span class="mob-shop-cat-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#CB7885" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 5h6v8l5 7v16a4 4 0 01-8 0V20l5-7V5"/>
+          <path d="M19 5v4"/>
+          <path d="M19 13h6"/>
+          <ellipse cx="22" cy="32" rx="4" ry="2.5" fill="#CB7885" fill-opacity=".25" stroke="none"/>
+          <circle cx="22" cy="40" r="2" fill="#CB7885" fill-opacity=".4" stroke="none"/>
+        </svg>
+      </span>
+    </a>
+
+    {{-- Moisturisers --}}
+    <a href="{{ route('shop') }}?category=Moisturizer" class="mob-shop-cat">
+      <span class="mob-shop-cat-name">Moisturisers</span>
+      <span class="mob-shop-cat-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#C98A5E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="14" y="16" width="16" height="7" rx="2"/>
+          <path d="M10 23h24v12a4 4 0 01-4 4H14a4 4 0 01-4-4V23z" fill="#C98A5E" fill-opacity=".1"/>
+          <path d="M10 23h24v12a4 4 0 01-4 4H14a4 4 0 01-4-4V23z"/>
+          <ellipse cx="22" cy="31" rx="5" ry="2.5" fill="#C98A5E" fill-opacity=".25" stroke="none"/>
+        </svg>
+      </span>
+    </a>
+
+    {{-- Sunscreen --}}
+    <a href="{{ route('shop') }}?category=Sunscreen" class="mob-shop-cat">
+      <span class="mob-shop-cat-name">Sunscreen</span>
+      <span class="mob-shop-cat-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#8A9432" stroke-width="2" stroke-linecap="round">
+          <circle cx="22" cy="22" r="8" fill="#D4D994" fill-opacity=".35"/>
+          <circle cx="22" cy="22" r="8"/>
+          <line x1="22" y1="5" x2="22" y2="11"/>
+          <line x1="22" y1="33" x2="22" y2="39"/>
+          <line x1="5" y1="22" x2="11" y2="22"/>
+          <line x1="33" y1="22" x2="39" y2="22"/>
+          <line x1="10.5" y1="10.5" x2="14.5" y2="14.5"/>
+          <line x1="29.5" y1="29.5" x2="33.5" y2="33.5"/>
+          <line x1="33.5" y1="10.5" x2="29.5" y2="14.5"/>
+          <line x1="14.5" y1="29.5" x2="10.5" y2="33.5"/>
+        </svg>
+      </span>
+    </a>
+
+    {{-- Masks --}}
+    <a href="{{ route('shop') }}?category=Mask" class="mob-shop-cat">
+      <span class="mob-shop-cat-name">Masks</span>
+      <span class="mob-shop-cat-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#5E9A8A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="22" cy="24" rx="14" ry="16" fill="#5E9A8A" fill-opacity=".1"/>
+          <ellipse cx="22" cy="24" rx="14" ry="16"/>
+          <ellipse cx="16" cy="22" rx="3" ry="2.5" fill="white" stroke="#5E9A8A" stroke-width="1.5"/>
+          <ellipse cx="28" cy="22" rx="3" ry="2.5" fill="white" stroke="#5E9A8A" stroke-width="1.5"/>
+          <path d="M17 30c1.5 2 8.5 2 10 0" stroke-width="1.5"/>
+        </svg>
+      </span>
+    </a>
+
+    {{-- Treatments --}}
+    <a href="{{ route('shop') }}?category=Treatment" class="mob-shop-cat">
+      <span class="mob-shop-cat-name">Treatments</span>
+      <span class="mob-shop-cat-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#7A6BAD" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 8h12v10h10v12H28v10H16V30H6V18h10V8z" fill="#7A6BAD" fill-opacity=".12"/>
+          <path d="M16 8h12v10h10v12H28v10H16V30H6V18h10V8z"/>
+        </svg>
+      </span>
+    </a>
+
+    {{-- Makeup --}}
+    <a href="{{ route('shop') }}?category=Makeup" class="mob-shop-cat">
+      <span class="mob-shop-cat-name">Makeup</span>
+      <span class="mob-shop-cat-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#A02040" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="17" y="20" width="10" height="18" rx="2" fill="#A02040" fill-opacity=".12"/>
+          <rect x="17" y="20" width="10" height="18" rx="2"/>
+          <path d="M17 22v-7l3-9h4l3 9v7"/>
+          <path d="M17 26h10" stroke-width="1.2"/>
+          <rect x="17" y="20" width="10" height="6" fill="#A02040" fill-opacity=".2" stroke="none"/>
+        </svg>
+      </span>
+    </a>
+
+    {{-- Haircare --}}
+    <a href="{{ route('shop') }}?category=Haircare" class="mob-shop-cat">
+      <span class="mob-shop-cat-name">Haircare</span>
+      <span class="mob-shop-cat-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#C87840" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="7" y="17" width="24" height="10" rx="4" fill="#C87840" fill-opacity=".12"/>
+          <rect x="7" y="17" width="24" height="10" rx="4"/>
+          <line x1="12" y1="27" x2="12" y2="38"/>
+          <line x1="17" y1="27" x2="17" y2="38"/>
+          <line x1="22" y1="27" x2="22" y2="38"/>
+          <line x1="27" y1="27" x2="27" y2="38"/>
+          <path d="M31 22h7a2 2 0 010 4h-7"/>
+        </svg>
+      </span>
+    </a>
+
+    {{-- Sets & Bundles --}}
+    <a href="{{ route('shop') }}?tab=bundles" class="mob-shop-cat">
+      <span class="mob-shop-cat-name">Sets &<br>Bundles</span>
+      <span class="mob-shop-cat-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#CB7885" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="8" y="22" width="28" height="16" rx="2" fill="#CB7885" fill-opacity=".1"/>
+          <rect x="8" y="22" width="28" height="16" rx="2"/>
+          <rect x="6" y="16" width="32" height="8" rx="2" fill="#CB7885" fill-opacity=".18"/>
+          <rect x="6" y="16" width="32" height="8" rx="2"/>
+          <line x1="22" y1="16" x2="22" y2="38"/>
+          <path d="M22 16 Q18 8 12 12 Q8 16 16 18" stroke-linejoin="round"/>
+          <path d="M22 16 Q26 8 32 12 Q36 16 28 18" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+
+  </div>
+</div>
+
 <script>
+function openMobShop(){
+  document.getElementById('mob-shop-overlay').classList.add('open');
+  document.getElementById('mob-shop-sheet').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeMobShop(){
+  document.getElementById('mob-shop-overlay').classList.remove('open');
+  document.getElementById('mob-shop-sheet').classList.remove('open');
+  document.body.style.overflow='';
+}
+// Close overlay on Escape key
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMobShop();});
 (function(){
   // Cart badge sync — patch after app.js updateCartUI
   var _origUpdateCartUI=window.updateCartUI;

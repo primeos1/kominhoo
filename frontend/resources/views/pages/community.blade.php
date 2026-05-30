@@ -102,9 +102,10 @@
   max-width: 1280px; margin: 0 auto;
   padding: 14px 24px;
   display: flex; align-items: center;
-  justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  justify-content: space-between; gap: 16px; flex-wrap: nowrap;
 }
-.filter-pills { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.filter-pills { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; }
+.filter-pills::-webkit-scrollbar { display: none; }
 .fpill {
   padding: 7px 18px; border-radius: var(--r-pill);
   font-size: 0.78rem; font-weight: 600;
@@ -245,8 +246,6 @@
 }
 @media (max-width: 540px) {
   .c-filters-inner { flex-direction: column; align-items: stretch; }
-  .filter-pills { overflow-x: auto; scrollbar-width: none; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
-  .filter-pills::-webkit-scrollbar { display: none; }
   .c-hero-stats { gap: 16px; }
   .c-hero-collage { grid-template-columns: repeat(3, 1fr); }
 }
@@ -349,6 +348,31 @@
   $floating1 = $slotMedia('hero_floating_1', 'https://images.unsplash.com/photo-1557053910-d9eadeed1c58?w=350&h=450&fit=crop', 'Community floating image 1');
   $floating2 = $slotMedia('hero_floating_2', 'https://images.unsplash.com/photo-1555487505-8603a1a69755?w=260&h=340&fit=crop', 'Community floating image 2');
   $featuredMain = $slotMedia('featured_main', 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&h=550&fit=crop', 'Featured transformation');
+
+  // ── Featured post helpers ───────────────────────────────────────────────
+  $fp          = $featuredPost ?? null;
+  $fpType      = $fp['type']    ?? 'photo';
+  $fpCaption   = $fp ? ((!empty($fp['quote']) ? $fp['quote'] : null) ?? $fp['caption'] ?? '') : '3 months on the Kominhoo Glass Skin routine and I literally cannot believe this is my face. The COSRX snail serum changed everything.';
+  $fpTags      = $fp['tags']     ?? ['#GlassSkin', '#KominhooResults', '#SkincareJourney'];
+  $fpProducts  = $fp['products'] ?? ['COSRX Snail Mucin', 'Laneige Water Mask'];
+  $fpUser      = $fp['user']     ?? [];
+  $fpLikes     = number_format((int) ($fp['likes']    ?? 1247));
+  $fpComments  = (int) ($fp['comments'] ?? 89);
+  $fpAvColor      = $fpUser['color']     ?? 'var(--lime)';
+  $fpAvTextColor  = $fpUser['textColor'] ?? 'var(--black)';
+  $fpAv           = $fpUser['av']   ?? 'AO';
+  $fpName         = $fpUser['name'] ?? 'Kominhoo Member';
+  $fpSkin         = $fpUser['skin'] ?? 'Combination';
+  $fpBadge    = match($fpType) { 'review'=>'⭐ Product Review', 'routine'=>'🧴 Routine Share', 'before_after'=>'✨ Transformation', default=>'⭐ Post of the Week' };
+  $fpTypeLbl  = match($fpType) { 'review'=>'Featured Review', 'routine'=>'Featured Routine', 'before_after'=>'Featured Transformation', default=>'Featured Post' };
+  // Image: prefer post img, then after/before for B&A, then CMS media slot
+  $fpImgUrl = '';
+  if ($fp) {
+    if (!empty($fp['img']))                                           $fpImgUrl = $fp['img'];
+    elseif ($fpType === 'before_after' && !empty($fp['after_img']))  $fpImgUrl = $fp['after_img'];
+    elseif ($fpType === 'before_after' && !empty($fp['before_img'])) $fpImgUrl = $fp['before_img'];
+  }
+  if (empty($fpImgUrl)) $fpImgUrl = $featuredMain['url'];
 @endphp
 
 {{-- Hero --}}
@@ -373,18 +397,12 @@
     <h1 class="c-hero-title">{{ data_get($communityCms, 'hero_title_line_1', 'The Kominhoo') }}<br><em>{{ data_get($communityCms, 'hero_title_line_2', 'Community') }}</em></h1>
     <p class="c-hero-desc">{{ data_get($communityCms, 'hero_description', '50,000+ skin lovers sharing honest results, routines, and transformations. Your next favourite product is one post away.') }}</p>
     <div class="c-hero-stats">
+      @foreach(data_get($communityCms, 'stats', [['value'=>'50K+','label'=>'Members'],['value'=>'18K+','label'=>'Posts'],['value'=>'4.8★','label'=>'Avg Rating']]) as $stat)
       <div class="c-hero-stat">
-        <div class="c-hero-stat-num">50K+</div>
-        <div class="c-hero-stat-label">Members</div>
+        <div class="c-hero-stat-num">{{ $stat['value'] }}</div>
+        <div class="c-hero-stat-label">{{ $stat['label'] }}</div>
       </div>
-      <div class="c-hero-stat">
-        <div class="c-hero-stat-num">18K+</div>
-        <div class="c-hero-stat-label">Posts</div>
-      </div>
-      <div class="c-hero-stat">
-        <div class="c-hero-stat-num">4.8★</div>
-        <div class="c-hero-stat-label">Avg Rating</div>
-      </div>
+      @endforeach
     </div>
     <div class="c-hero-actions" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
       <button class="btn btn-primary btn-lg" onclick="openPostModal()"> Share Your Glow</button>
@@ -422,31 +440,36 @@
 <div class="featured-wrap">
   <div class="featured-card">
     <div class="featured-img-side" style="cursor:pointer" onclick="openFeaturedPost()">
-      <img src="{{ $featuredMain['url'] }}" alt="{{ $featuredMain['alt'] }}">
-      <div class="featured-pill">⭐ Post of the Week</div>
+      <img src="{{ $fpImgUrl }}" alt="{{ $featuredMain['alt'] }}">
+      <div class="featured-pill">{{ $fpBadge }}</div>
     </div>
     <div class="featured-body" style="cursor:pointer" onclick="openFeaturedPost()">
-      <div class="featured-ey">Featured Transformation</div>
-      <div class="featured-quote">3 months on the Kominhoo Glass Skin routine and I literally cannot believe this is my face. The COSRX snail serum changed everything.</div>
+      <div class="featured-ey">{{ $fpTypeLbl }}</div>
+      <div class="featured-quote">{{ $fpCaption }}</div>
+      @if(count($fpTags))
       <div class="tag-row">
-        <span class="ptag lime">#GlassSkin</span>
-        <span class="ptag">#KominhooResults</span>
-        <span class="ptag">#SkincareJourney</span>
+        @foreach($fpTags as $fpTag)
+          <span class="ptag{{ $loop->first ? ' lime' : '' }}">{{ $fpTag }}</span>
+        @endforeach
       </div>
+      @endif
+      @if(count($fpProducts))
       <div class="prod-tags">
-        <span class="prod-pill">COSRX Snail Mucin</span>
-        <span class="prod-pill">Laneige Water Mask</span>
+        @foreach($fpProducts as $fpProd)
+          <span class="prod-pill">{{ $fpProd }}</span>
+        @endforeach
       </div>
+      @endif
       <div class="featured-user">
-        <div class="uavatar" style="background:var(--lime);color:var(--black)">AO</div>
+        <div class="uavatar" style="background:{{ $fpAvColor }};color:{{ $fpAvTextColor }}">{{ $fpAv }}</div>
         <div>
-          <div style="color:white;font-weight:700">Adaeze Okonkwo</div>
-          <div><span style="color:var(--lime);font-size:.8rem">Combination</span><span style="color:gray;font-size:.8rem"> · Verified</span></div>
+          <div style="color:white;font-weight:700">{{ $fpName }}</div>
+          <div><span style="color:var(--lime);font-size:.8rem">{{ $fpSkin }}</span><span style="color:gray;font-size:.8rem"> · Verified</span></div>
         </div>
       </div>
       <div class="post-actions" onclick="event.stopPropagation()">
-        <button class="paction" id="feat-like">♥ 1,247</button>
-        <button class="paction" id="feat-comment">💬 89 comments</button>
+        <button class="paction" id="feat-like">♥ {{ $fpLikes }}</button>
+        <button class="paction" id="feat-comment">💬 {{ $fpComments }} {{ $fpComments === 1 ? 'comment' : 'comments' }}</button>
         <button class="paction" id="feat-share">↗ Share</button>
       </div>
     </div>
@@ -476,10 +499,13 @@
     <div class="scard">
       <div class="scard-title">👩‍🦱 Community Skin Types</div>
       <div class="sdist">
-        <div class="sdist-row"><span class="sdist-lbl">Combination</span><div class="sdist-bar-bg"><div class="sdist-bar" style="width:34%"></div></div><span>34%</span></div>
-        <div class="sdist-row"><span class="sdist-lbl">Oily</span><div class="sdist-bar-bg"><div class="sdist-bar" style="width:28%"></div></div><span>28%</span></div>
-        <div class="sdist-row"><span class="sdist-lbl">Dry</span><div class="sdist-bar-bg"><div class="sdist-bar" style="width:19%"></div></div><span>19%</span></div>
-        <div class="sdist-row"><span class="sdist-lbl">Sensitive</span><div class="sdist-bar-bg"><div class="sdist-bar" style="width:13%"></div></div><span>13%</span></div>
+        @foreach($skinDistribution as $dist)
+        <div class="sdist-row">
+          <span class="sdist-lbl">{{ $dist['name'] }}</span>
+          <div class="sdist-bar-bg"><div class="sdist-bar" style="width:{{ $dist['pct'] }}%"></div></div>
+          <span>{{ $dist['pct'] }}%</span>
+        </div>
+        @endforeach
       </div>
     </div>
     <div class="scard" style="background:#0A0A0A;">
@@ -496,11 +522,11 @@
   <div class="share-cta-inner">
     <div>
       <h2>{{ data_get($communityCms, 'share_title', 'Your Skin Story Deserves to Be Heard') }}</h2>
-      <p>Join thousands sharing honest Korean skincare journeys — before & afters, routine breakdowns, and real results.</p>
+      <p>{{ data_get($communityCms, 'share_description', 'Join thousands sharing honest Korean skincare journeys — before & afters, routine breakdowns, and real results.') }}</p>
     </div>
     <div>
-      <button class="btn btn-dark btn-lg" onclick="openPostModal()" style="background:#0A0A0A;color:#fff;">📸 Share My Story</button>
-      <div style="margin-top:12px;font-size:.85rem;">#KominhooSkin · #KominhooResults</div>
+      <button class="btn btn-dark btn-lg" onclick="openPostModal()" style="background:#0A0A0A;color:#fff;">{{ data_get($communityCms, 'share_button_text', '📸 Share My Story') }}</button>
+      <div style="margin-top:12px;font-size:.85rem;">{{ data_get($communityCms, 'share_tags_text', '#KominhooSkin · #KominhooResults') }}</div>
     </div>
   </div>
 </div>
@@ -789,37 +815,51 @@ window._kominhoo = <?php echo json_encode([
 </script>
 <script>
 // ── DATA (loaded from API) ────────────────────────────────────────────────────
-let FEATURED_POST_ID   = 11;   // default; overridden by API
+@php
+$fbPost = $featuredPost ?? null;
+$fbUser = array_diff_key($fbPost['user'] ?? [], ['email' => 1]);
+$fallbackFeaturedData = [
+    'id'          => $fbPost['id']       ?? 'seed_11',
+    'type'        => $fbPost['type']     ?? 'photo',
+    'caption'     => $fbPost ? ((!empty($fbPost['quote']) ? $fbPost['quote'] : null) ?? $fbPost['caption'] ?? '') : '3 months on the Kominhoo Glass Skin routine and I literally cannot believe this is my face. The COSRX snail serum changed everything.',
+    'tags'        => $fbPost['tags']     ?? ['#GlassSkin', '#KominhooResults', '#SkincareJourney'],
+    'products'    => $fbPost['products'] ?? ['COSRX Snail Mucin', 'Laneige Water Mask'],
+    'likes'       => (int) ($fbPost['likes']    ?? 1247),
+    'comments'    => (int) ($fbPost['comments'] ?? 89),
+    'time'        => $fbPost['time'] ?? '2d ago',
+    'user'        => $fbUser ?: ['name'=>'Adaeze Okonkwo','handle'=>'@adaeze_glows','skin'=>'Combination','av'=>'AO','color'=>'#D4D994','textColor'=>'#1C1416'],
+    'commentList' => $fbPost['comment_list'] ?? [
+        ['av'=>'CN','color'=>'#893941','name'=>'Chisom N.','time'=>'1d ago','text'=>'This is literally my goal! What cleanser were you using?'],
+        ['av'=>'KA','color'=>'#8B5CF6','name'=>'Kemi A.','time'=>'18h ago','text'=>'The COSRX snail serum is a complete game changer 🙌'],
+    ],
+];
+@endphp
+let FEATURED_POST_ID = {!! json_encode($fallbackFeaturedData['id']) !!};
 let GALLERY_OPEN       = true;
 let COMMUNITY_POSTS    = [];
 
-// Fallback featured post — mirrors the static HTML on this page.
-// Built after DOM is parsed so we can read the actual image src.
+// Fallback featured post — seeded from server-side data; img getter reads the DOM so it stays in sync.
+const _fbData = {!! json_encode($fallbackFeaturedData) !!};
 const FALLBACK_FEATURED = {
-  id: 11, type: 'photo',
-  get img() { return document.querySelector('.featured-img-side img')?.src || ''; },
-  caption: '3 months on the Kominhoo Glass Skin routine and I literally cannot believe this is my face. The COSRX snail serum changed everything.',
-  tags: ['#GlassSkin', '#KominhooResults', '#SkincareJourney'],
-  products: ['COSRX Snail Mucin', 'Laneige Water Mask'],
-  likes: 1247, comments: 89, time: '2d ago',
-  user: { name: 'Adaeze Okonkwo', handle: '@adaeze_glows', skin: 'Combination', av: 'AO', color: '#D4D994', textColor: '#1C1416' },
-  commentList: [
-    { av: 'CN', color: '#893941', name: 'Chisom N.', time: '1d ago', text: 'This is literally my goal! What cleanser were you using?' },
-    { av: 'KA', color: '#8B5CF6', name: 'Kemi A.',   time: '18h ago', text: 'The COSRX snail serum is a complete game changer 🙌' },
-  ],
+  id:          _fbData.id,
+  type:        _fbData.type,
+  get img()    { return document.querySelector('.featured-img-side img')?.src || ''; },
+  caption:     _fbData.caption,
+  tags:        _fbData.tags,
+  products:    _fbData.products,
+  likes:       _fbData.likes,
+  comments:    _fbData.comments,
+  time:        _fbData.time,
+  user:        _fbData.user,
+  commentList: _fbData.commentList,
 };
 const CSRF           = document.querySelector('meta[name="csrf-token"]')?.content || '';
 const COMMUNITY_API  = '{{ url("/community/post") }}';
 const IS_LOGGED_IN   = window._kominhoo?.loggedIn ?? false;
 const LOGIN_URL      = window._kominhoo?.loginUrl ?? '/login';
 
-const TOP_GLOWERS = [
-  { name:'Adaeze Okonkwo',   posts:48, pts:'12.4k', av:'AO', color:'#D4D994', textColor:'#1C1416', rank:'1', rankClass:'gold',   skin:'Combination' },
-  { name:'Chisom Nwachukwu', posts:39, pts:'9.8k',  av:'CN', color:'#893941', textColor:'#fff',    rank:'2', rankClass:'silver', skin:'Acne-Prone' },
-  { name:'Kemi Adeyemi',     posts:34, pts:'8.1k',  av:'KA', color:'#8B5CF6', textColor:'#fff',    rank:'3', rankClass:'bronze', skin:'Oily' },
-  { name:'Ebele Nwosu',      posts:31, pts:'7.5k',  av:'EN', color:'#0EA5E9', textColor:'#fff',    rank:'4', skin:'Combination' },
-];
-const TRENDING_TAGS = ['#GlassSkin 4.2k','#KominhooResults 3.1k','#AcneRecovery 2.4k','#KBeauty 2.1k','#DewySkin 1.7k','#COSRXLovers 1.3k'];
+const TOP_GLOWERS = {!! json_encode($topGlowers) !!};
+const TRENDING_TAGS = {!! json_encode($trendingTagsJs) !!};
 
 // Normalise API snake_case → camelCase used by card builders
 function normalisePost(p) {

@@ -11,8 +11,11 @@ class Guide extends Model
 
     protected $fillable = [
         'title', 'slug', 'category', 'excerpt', 'body',
-        'image', 'author', 'read_time', 'is_published',
+        'image', 'icon', 'product_ids', 'author', 'read_time', 'is_published',
     ];
 
-    protected $casts = ['is_published' => 'boolean'];
+    protected $casts = [
+        'is_published' => 'boolean',
+        'product_ids'  => 'array',
+    ];
 }

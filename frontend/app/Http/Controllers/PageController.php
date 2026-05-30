@@ -66,8 +66,94 @@ class PageController extends Controller
 
     public function community()
     {
-        $posts = Http::get("{$this->api}/community", ['per_page' => 12])->json('data.data') ?? [];
-        return view('pages.community', compact('posts'));
+        $settings    = $this->communityStore->getSettings();
+        $featuredId  = $settings['featured_post_id'] ?? null;
+        $featuredPost = $featuredId ? $this->communityStore->getPost($featuredId) : null;
+
+        // Strip sensitive fields before passing to view
+        if ($featuredPost) {
+            unset($featuredPost['liked_by'], $featuredPost['saved_by']);
+            unset($featuredPost['user']['email']);
+        }
+
+        $allPosts = $this->communityStore->getPosts('approved', false);
+
+        // ── Top glowers (by total likes across their posts) ───────────────
+        $glowerMap = [];
+        foreach ($allPosts as $p) {
+            $key = $p['user']['name'] ?? '';
+            if (!$key) continue;
+            if (!isset($glowerMap[$key])) {
+                $glowerMap[$key] = [
+                    'name'      => $p['user']['name']      ?? '',
+                    'av'        => $p['user']['av']        ?? 'U',
+                    'color'     => $p['user']['color']     ?? '#C8E634',
+                    'textColor' => $p['user']['textColor'] ?? '#0A0A0A',
+                    'skin'      => $p['user']['skin']      ?? '',
+                    'posts'     => 0,
+                    '_pts'      => 0,
+                ];
+            }
+            $glowerMap[$key]['posts']++;
+            $glowerMap[$key]['_pts'] += (int) ($p['likes'] ?? 0);
+        }
+        usort($glowerMap, fn ($a, $b) => $b['_pts'] - $a['_pts']);
+        $rankClasses = ['gold', 'silver', 'bronze', ''];
+        $topGlowers  = [];
+        foreach (array_slice($glowerMap, 0, 4) as $i => $g) {
+            $pts = $g['_pts'];
+            $topGlowers[] = [
+                'name'      => $g['name'],
+                'av'        => $g['av'],
+                'color'     => $g['color'],
+                'textColor' => $g['textColor'],
+                'skin'      => $g['skin'],
+                'posts'     => $g['posts'],
+                'pts'       => $pts >= 1000 ? round($pts / 1000, 1) . 'k' : (string) $pts,
+                'rank'      => (string) ($i + 1),
+                'rankClass' => $rankClasses[$i] ?? '',
+            ];
+        }
+
+        // ── Trending tags (by frequency across approved posts) ───────────
+        $tagCounts = [];
+        foreach ($allPosts as $p) {
+            foreach ($p['tags'] ?? [] as $tag) {
+                $tagCounts[$tag] = ($tagCounts[$tag] ?? 0) + 1;
+            }
+        }
+        arsort($tagCounts);
+        $trendingTagsJs = [];
+        foreach (array_slice($tagCounts, 0, 8, true) as $tag => $count) {
+            $trendingTagsJs[] = $tag . ' ' . ($count >= 1000 ? round($count / 1000, 1) . 'k' : $count);
+        }
+
+        // ── Skin type distribution ────────────────────────────────────────
+        $skinCounts = [];
+        $totalSkin  = 0;
+        foreach ($allPosts as $p) {
+            $skin = $p['user']['skin'] ?? '';
+            if ($skin) {
+                $skinCounts[$skin] = ($skinCounts[$skin] ?? 0) + 1;
+                $totalSkin++;
+            }
+        }
+        arsort($skinCounts);
+        $skinDistribution = [];
+        if ($totalSkin > 0) {
+            foreach (array_slice($skinCounts, 0, 4, true) as $name => $count) {
+                $skinDistribution[] = ['name' => $name, 'pct' => (int) round($count / $totalSkin * 100)];
+            }
+        } else {
+            $skinDistribution = [
+                ['name' => 'Combination', 'pct' => 34],
+                ['name' => 'Oily',        'pct' => 28],
+                ['name' => 'Dry',         'pct' => 19],
+                ['name' => 'Sensitive',   'pct' => 13],
+            ];
+        }
+
+        return view('pages.community', compact('featuredPost', 'topGlowers', 'trendingTagsJs', 'skinDistribution'));
     }
 
     public function results()

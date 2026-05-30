@@ -851,6 +851,35 @@
         });
       }
 
+      function guideImageThumb() {
+        var url = (document.getElementById('guideEditorImage') || {}).value || '';
+        var thumb = document.getElementById('guideEditorImageThumb');
+        if (!thumb) return;
+        if (url) { thumb.style.backgroundImage = 'url('+url+')'; thumb.style.display = 'block'; }
+        else { thumb.style.backgroundImage = ''; thumb.style.display = 'none'; }
+      }
+      function uploadGuideImage(inp) {
+        var file = inp.files[0]; if (!file) return;
+        uploadMedia(file, function(url) {
+          var el = document.getElementById('guideEditorImage');
+          if (el) { el.value = url; guideImageThumb(); }
+        });
+      }
+      function bundleImageThumb() {
+        var url = (document.getElementById('bundleEditorImage') || {}).value || '';
+        var thumb = document.getElementById('bundleEditorImageThumb');
+        if (!thumb) return;
+        if (url) { thumb.style.backgroundImage = 'url('+url+')'; thumb.style.display = 'block'; }
+        else { thumb.style.backgroundImage = ''; thumb.style.display = 'none'; }
+      }
+      function uploadBundleImage(inp) {
+        var file = inp.files[0]; if (!file) return;
+        uploadMedia(file, function(url) {
+          var el = document.getElementById('bundleEditorImage');
+          if (el) { el.value = url; bundleImageThumb(); }
+        });
+      }
+
       // ── Populate all tabs from cmsContent ────────────────────────────────────
       function cmPopulateAll() {
         var c   = cmsContent.content || {};
@@ -1282,8 +1311,12 @@
             <input class="form-input" id="bundleEditorDesc" placeholder="Short description of what this bundle is for…" style="width:100%;padding:9px 12px;font-size:.88rem;">
           </div>
           <div>
-            <label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:6px;">Cover Image URL</label>
-            <input class="form-input" id="bundleEditorImage" placeholder="https://images.unsplash.com/…" style="width:100%;padding:9px 12px;font-size:.88rem;">
+            <label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:6px;">Cover Image</label>
+            <div style="display:flex;gap:6px;margin-bottom:8px;">
+              <input class="form-input" id="bundleEditorImage" placeholder="https://images.unsplash.com/…" style="flex:1;padding:9px 12px;font-size:.88rem;" oninput="bundleImageThumb()">
+              <label class="action-btn" style="cursor:pointer;padding:9px 12px;white-space:nowrap;font-size:.82rem;">Upload<input type="file" accept="image/*" style="display:none;" onchange="uploadBundleImage(this)"></label>
+            </div>
+            <div id="bundleEditorImageThumb" style="height:80px;border-radius:10px;background:#f4f5f7;background-size:cover;background-position:center;display:none;"></div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
             <div>
@@ -1345,8 +1378,12 @@
             <input class="form-input" id="guideEditorDesc" placeholder="Short description of what this guide covers…" style="width:100%;padding:9px 12px;font-size:.88rem;">
           </div>
           <div>
-            <label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:6px;">Cover Image URL</label>
-            <input class="form-input" id="guideEditorImage" placeholder="https://images.unsplash.com/…" style="width:100%;padding:9px 12px;font-size:.88rem;">
+            <label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:6px;">Cover Image</label>
+            <div style="display:flex;gap:6px;margin-bottom:8px;">
+              <input class="form-input" id="guideEditorImage" placeholder="https://images.unsplash.com/…" style="flex:1;padding:9px 12px;font-size:.88rem;" oninput="guideImageThumb()">
+              <label class="action-btn" style="cursor:pointer;padding:9px 12px;white-space:nowrap;font-size:.82rem;">Upload<input type="file" accept="image/*" style="display:none;" onchange="uploadGuideImage(this)"></label>
+            </div>
+            <div id="guideEditorImageThumb" style="height:80px;border-radius:10px;background:#f4f5f7;background-size:cover;background-position:center;display:none;"></div>
           </div>
           <div>
             <label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:8px;">Products in this Guide <span id="guideProductCount" style="font-weight:400;color:rgba(10,10,10,.4);"></span></label>
@@ -4173,6 +4210,7 @@ function switchAdminPanel(id, el) {
   if (id === 'wallet')           walletLoadOverview();
   if (id === 'influencers')      loadInfluencers();
   if (id === 'bundles')          renderAdminBundles();
+  if (id === 'guides')           renderAdminGuides();
 }
 
 // ── Blog (CRUD) ───────────────────────────────────────────────────────────────
@@ -4805,26 +4843,44 @@ function loadRoutineStats() {
 }
 
 // ── Admin Buying Guides ────────────────────────────────
-let adminGuides = JSON.parse(localStorage.getItem('kominhoo_guides')) || (typeof GUIDES_DEFAULT !== 'undefined' ? [...GUIDES_DEFAULT] : []);
+let adminGuides = [];
 
-function renderAdminGuides() {
+function _normalizeGuide(g) {
+  return {
+    id:       g.id,
+    title:    g.title,
+    icon:     g.icon || '📖',
+    desc:     g.excerpt || '',
+    image:    g.image || '',
+    products: Array.isArray(g.product_ids) ? g.product_ids : [],
+  };
+}
+
+async function renderAdminGuides() {
   const list  = document.getElementById('guideAdminList');
   const label = document.getElementById('guidesCountLabel');
   if (!list) return;
+  list.innerHTML = '<div style="padding:24px;text-align:center;color:rgba(10,10,10,.4);">Loading…</div>';
+  try {
+    const r = await fetch(API_BASE + '/guides?per_page=50', { credentials: 'include' });
+    const d = await r.json();
+    adminGuides = (d?.data?.data || d?.data || []).map(_normalizeGuide);
+  } catch (e) { adminGuides = []; }
   if (label) label.textContent = adminGuides.length + ' guide' + (adminGuides.length !== 1 ? 's' : '') + ' live on the homepage';
   if (!adminGuides.length) {
     list.innerHTML = '<div style="padding:36px;text-align:center;color:rgba(10,10,10,.4);">No guides yet — click <strong>+ Create Guide</strong> to add your first one.</div>';
     return;
   }
+  const cmsProds = typeof CMS_PRODUCTS !== 'undefined' ? CMS_PRODUCTS : [];
   list.innerHTML = adminGuides.map(g => {
     const chips = (g.products || []).map(pid => {
-      const p = (typeof PRODUCTS !== 'undefined' ? PRODUCTS : []).find(x => x.id === pid);
+      const p = cmsProds.find(x => x.id == pid);
       return p ? `<span class="bundle-item-chip">${p.brand} — ${p.name.length > 26 ? p.name.slice(0,26)+'…' : p.name}</span>` : '';
     }).join('');
     return `<div class="bundle-row" id="guide-row-${g.id}">
       <div class="bundle-meta">
-        <strong>${g.icon || '📖'} ${g.title}</strong>
-        <p>${g.desc || ''}</p>
+        <strong>${g.icon} ${g.title}</strong>
+        <p>${g.desc}</p>
         <div class="bundle-items-list">${chips || '<span style="font-size:.75rem;color:rgba(10,10,10,.35);">No products assigned</span>'}</div>
         <div class="bundle-actions">
           <button class="action-btn edit" onclick="openGuideEditor(${g.id})">✏️ Edit</button>
@@ -4833,7 +4889,7 @@ function renderAdminGuides() {
         </div>
       </div>
       <div style="text-align:right;">
-        <div style="font-size:2rem;line-height:1;">${g.icon || '📖'}</div>
+        <div style="font-size:2rem;line-height:1;">${g.icon}</div>
         <div style="font-size:.75rem;color:rgba(10,10,10,.45);margin-top:8px;font-weight:600;">${(g.products||[]).length} products</div>
       </div>
     </div>`;
@@ -4847,25 +4903,23 @@ function openGuideEditor(id) {
   document.getElementById('guideEditorHeading').textContent = g ? 'Edit Buying Guide' : 'Create Buying Guide';
   document.getElementById('guideEditorId').value            = g ? g.id : '';
   document.getElementById('guideEditorTitleInput').value    = g ? g.title : '';
-  document.getElementById('guideEditorIcon').value          = g ? (g.icon || '') : '';
+  document.getElementById('guideEditorIcon').value          = g ? (g.icon === '📖' ? '' : g.icon) : '';
   document.getElementById('guideEditorDesc').value          = g ? (g.desc  || '') : '';
   document.getElementById('guideEditorImage').value         = g ? (g.image || '') : '';
+  guideImageThumb();
 
   const selectedIds = g ? (g.products || []) : [];
-  const products = typeof PRODUCTS !== 'undefined' ? PRODUCTS : [];
-  const countEl  = document.getElementById('guideProductCount');
-
-  const container = document.getElementById('guideProductCheckboxes');
-  container.innerHTML = products.map(p => {
-    const checked = selectedIds.includes(p.id);
-    return `<label style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:9px;cursor:pointer;border:1.5px solid ${checked ? 'var(--lime)' : '#e8eaed'};background:${checked ? '#f7ffe4' : '#fff'};font-size:.78rem;transition:all .15s;" onclick="">
+  const cmsProds    = typeof CMS_PRODUCTS !== 'undefined' ? CMS_PRODUCTS : [];
+  const countEl     = document.getElementById('guideProductCount');
+  document.getElementById('guideProductCheckboxes').innerHTML = cmsProds.map(p => {
+    const checked = selectedIds.includes(p.id) || selectedIds.includes(String(p.id));
+    return `<label style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:9px;cursor:pointer;border:1.5px solid ${checked ? 'var(--lime)' : '#e8eaed'};background:${checked ? '#f7ffe4' : '#fff'};font-size:.78rem;transition:all .15s;">
       <input type="checkbox" value="${p.id}" ${checked ? 'checked' : ''} style="accent-color:#6ab04c;flex-shrink:0;"
         onchange="this.closest('label').style.borderColor=this.checked?'var(--lime)':'#e8eaed';this.closest('label').style.background=this.checked?'#f7ffe4':'#fff';document.getElementById('guideProductCount').textContent='('+document.querySelectorAll('#guideProductCheckboxes input:checked').length+' selected)'">
       <span><strong>${p.brand}</strong> ${p.name.length > 28 ? p.name.slice(0,28)+'…' : p.name}</span>
     </label>`;
   }).join('');
   if (countEl) countEl.textContent = selectedIds.length ? '(' + selectedIds.length + ' selected)' : '';
-
   overlay.classList.add('open');
 }
 
@@ -4874,50 +4928,80 @@ function closeGuideEditor() {
   if (overlay) overlay.classList.remove('open');
 }
 
-function saveGuideEditor() {
+async function saveGuideEditor() {
   const id    = document.getElementById('guideEditorId').value;
   const title = document.getElementById('guideEditorTitleInput').value.trim();
   const icon  = document.getElementById('guideEditorIcon').value.trim();
   const desc  = document.getElementById('guideEditorDesc').value.trim();
   const image = document.getElementById('guideEditorImage').value.trim();
   if (!title) { if (typeof showToast !== 'undefined') showToast('⚠️', 'Guide title is required'); return; }
-  const selectedProducts = [...document.querySelectorAll('#guideProductCheckboxes input[type=checkbox]:checked')].map(cb => parseInt(cb.value));
-  if (id) {
-    const idx = adminGuides.findIndex(g => g.id === parseInt(id));
-    if (idx >= 0) adminGuides[idx] = { ...adminGuides[idx], title, icon, desc, image, products: selectedProducts };
-  } else {
-    const newId = adminGuides.length ? Math.max(...adminGuides.map(g => g.id)) + 1 : 1;
-    adminGuides.push({ id: newId, title, icon, desc, image, products: selectedProducts });
-  }
-  localStorage.setItem('kominhoo_guides', JSON.stringify(adminGuides));
-  closeGuideEditor();
-  renderAdminGuides();
-  if (typeof showToast !== 'undefined') showToast('✅', id ? 'Guide updated!' : 'New guide created!');
+  const productIds = [...document.querySelectorAll('#guideProductCheckboxes input[type=checkbox]:checked')].map(cb => parseInt(cb.value));
+  const payload = { title, icon, excerpt: desc, body: desc, image, product_ids: productIds, is_published: true };
+  try {
+    const url    = id ? (API_BASE + '/guides/' + id) : (API_BASE + '/guides');
+    const method = id ? 'PUT' : 'POST';
+    const r = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF },
+      body: JSON.stringify(payload),
+      credentials: 'include',
+    });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) { showToast('⚠️', d?.message || 'Save failed'); return; }
+    closeGuideEditor();
+    await renderAdminGuides();
+    showToast('✅', id ? 'Guide updated!' : 'New guide created!');
+  } catch (e) { showToast('⚠️', 'Request failed'); }
 }
 
-function deleteAdminGuide(id) {
+async function deleteAdminGuide(id) {
   if (!confirm('Delete this buying guide? This cannot be undone.')) return;
-  adminGuides = adminGuides.filter(g => g.id !== id);
-  localStorage.setItem('kominhoo_guides', JSON.stringify(adminGuides));
-  renderAdminGuides();
-  if (typeof showToast !== 'undefined') showToast('🗑️', 'Guide deleted');
+  try {
+    await fetch(API_BASE + '/guides/' + id, {
+      method: 'DELETE',
+      headers: { 'X-CSRF-TOKEN': CSRF },
+      credentials: 'include',
+    });
+    await renderAdminGuides();
+    showToast('🗑️', 'Guide deleted');
+  } catch (e) { showToast('⚠️', 'Delete failed'); }
 }
 
 // ── Admin Bundle Kits ──────────────────────────────────
-let adminBundles = JSON.parse(localStorage.getItem('kominhoo_bundles')) || (typeof BUNDLES_DEFAULT !== 'undefined' ? [...BUNDLES_DEFAULT] : []);
+let adminBundles = [];
 
-function renderAdminBundles() {
+function _normalizeBundle(b) {
+  return {
+    id:            b.id,
+    name:          b.name,
+    tag:           b.skin_type || '',
+    desc:          b.description || '',
+    price:         parseFloat(b.price) || 0,
+    originalPrice: b.original_price ? parseFloat(b.original_price) : null,
+    image:         b.image || '',
+    products:      (b.products || []).map(p => typeof p === 'object' ? p.id : p),
+  };
+}
+
+async function renderAdminBundles() {
   const list  = document.getElementById('bundleAdminList');
   const label = document.getElementById('bundlesCountLabel');
   if (!list) return;
+  list.innerHTML = '<div style="padding:24px;text-align:center;color:rgba(10,10,10,.4);">Loading…</div>';
+  try {
+    const r = await fetch(API_BASE + '/bundles?per_page=50', { credentials: 'include' });
+    const d = await r.json();
+    adminBundles = (d?.data?.data || d?.data || []).map(_normalizeBundle);
+  } catch (e) { adminBundles = []; }
   if (label) label.textContent = adminBundles.length + ' bundle' + (adminBundles.length !== 1 ? 's' : '') + ' live in the shop';
   if (!adminBundles.length) {
     list.innerHTML = '<div style="padding:36px;text-align:center;color:rgba(10,10,10,.4);">No bundles yet — click <strong>+ Create Bundle</strong> to add your first one.</div>';
     return;
   }
+  const cmsProds = typeof CMS_PRODUCTS !== 'undefined' ? CMS_PRODUCTS : [];
   list.innerHTML = adminBundles.map(b => {
-    const chips = (b.products || []).map(pid => {
-      const p = (typeof PRODUCTS !== 'undefined' ? PRODUCTS : []).find(x => x.id === pid);
+    const chips    = (b.products || []).map(pid => {
+      const p = cmsProds.find(x => x.id == pid);
       return p ? `<span class="bundle-item-chip">${p.brand} ${p.name.split(' ').slice(0,3).join(' ')}</span>` : '';
     }).join('');
     const discount = b.originalPrice ? Math.round((1 - b.price / b.originalPrice) * 100) : 0;
@@ -4925,7 +5009,7 @@ function renderAdminBundles() {
       <div class="bundle-row">
         <div class="bundle-meta">
           <strong>${b.name}</strong>
-          <p>${b.desc || ''}</p>
+          <p>${b.desc}</p>
           <div class="bundle-items-list">${chips || '<span style="color:rgba(10,10,10,.35);font-size:.8rem;">No products assigned</span>'}</div>
           <div class="bundle-actions">
             <button class="action-btn edit" onclick="openBundleEditor(${b.id})">✏️ Edit</button>
@@ -4953,14 +5037,16 @@ function openBundleEditor(id) {
   document.getElementById('bundleEditorTag').value       = b ? (b.tag || '') : '';
   document.getElementById('bundleEditorDesc').value      = b ? (b.desc || '') : '';
   document.getElementById('bundleEditorImage').value     = b ? (b.image || '') : '';
+  bundleImageThumb();
   document.getElementById('bundleEditorPrice').value     = b ? b.price : '';
   document.getElementById('bundleEditorOrigPrice').value = b ? (b.originalPrice || '') : '';
-  const selected = b ? (b.products || []) : [];
-  const allProducts = typeof PRODUCTS !== 'undefined' ? PRODUCTS : [];
-  const countEl = document.getElementById('bundleProductCount');
-  document.getElementById('bundleProductCheckboxes').innerHTML = allProducts.map(p => {
-    const checked = selected.includes(p.id) ? 'checked' : '';
-    const bg = checked ? 'background:rgba(200,230,52,.15);border-radius:8px;' : '';
+  const selected   = b ? (b.products || []) : [];
+  const cmsProds   = typeof CMS_PRODUCTS !== 'undefined' ? CMS_PRODUCTS : [];
+  const countEl    = document.getElementById('bundleProductCount');
+  document.getElementById('bundleProductCheckboxes').innerHTML = cmsProds.map(p => {
+    const isChecked = selected.includes(p.id) || selected.includes(String(p.id));
+    const checked   = isChecked ? 'checked' : '';
+    const bg        = isChecked ? 'background:rgba(200,230,52,.15);border-radius:8px;' : '';
     return `<label style="display:flex;align-items:center;gap:8px;padding:7px 10px;cursor:pointer;${bg}font-size:.82rem;">
       <input type="checkbox" value="${p.id}" ${checked} onchange="(function(){const c=document.querySelectorAll('#bundleProductCheckboxes input:checked').length;document.getElementById('bundleProductCount').textContent='('+c+' selected)';})()">
       <span><strong>${p.brand}</strong> — ${p.name.split(' ').slice(0,4).join(' ')}</span>
@@ -4975,47 +5061,63 @@ function closeBundleEditor() {
   if (overlay) overlay.classList.remove('open');
 }
 
-function saveBundleEditor() {
-  const name      = (document.getElementById('bundleEditorName').value || '').trim();
-  if (!name) { alert('Please enter a bundle name.'); return; }
+async function saveBundleEditor() {
+  const name = (document.getElementById('bundleEditorName').value || '').trim();
+  if (!name) { showToast('⚠️', 'Please enter a bundle name.'); return; }
   const id        = document.getElementById('bundleEditorId').value;
   const tag       = (document.getElementById('bundleEditorTag').value || '').trim();
   const desc      = (document.getElementById('bundleEditorDesc').value || '').trim();
   const image     = (document.getElementById('bundleEditorImage').value || '').trim();
-  const price     = parseInt(document.getElementById('bundleEditorPrice').value) || 0;
-  const origPrice = parseInt(document.getElementById('bundleEditorOrigPrice').value) || null;
-  const selectedProducts = [...document.querySelectorAll('#bundleProductCheckboxes input[type=checkbox]:checked')].map(cb => parseInt(cb.value));
-  if (id) {
-    const idx = adminBundles.findIndex(b => b.id === parseInt(id));
-    if (idx >= 0) adminBundles[idx] = { ...adminBundles[idx], name, tag, desc, image, price, originalPrice: origPrice, products: selectedProducts };
-  } else {
-    const newId = adminBundles.length ? Math.max(...adminBundles.map(b => b.id)) + 1 : 1;
-    adminBundles.push({ id: newId, name, tag, desc, image, price, originalPrice: origPrice, products: selectedProducts });
-  }
-  localStorage.setItem('kominhoo_bundles', JSON.stringify(adminBundles));
-  closeBundleEditor();
-  renderAdminBundles();
-  if (typeof showToast !== 'undefined') showToast('✅', id ? 'Bundle updated!' : 'New bundle created!');
+  const price     = parseFloat(document.getElementById('bundleEditorPrice').value) || 0;
+  const origPrice = parseFloat(document.getElementById('bundleEditorOrigPrice').value) || null;
+  const productIds = [...document.querySelectorAll('#bundleProductCheckboxes input[type=checkbox]:checked')].map(cb => parseInt(cb.value));
+  const payload = { name, skin_type: tag, description: desc, image, price, original_price: origPrice, product_ids: productIds, is_active: true };
+  try {
+    const url    = id ? (API_BASE + '/bundles/' + id) : (API_BASE + '/bundles');
+    const method = id ? 'PUT' : 'POST';
+    const r = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF },
+      body: JSON.stringify(payload),
+      credentials: 'include',
+    });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) { showToast('⚠️', d?.message || 'Save failed'); return; }
+    closeBundleEditor();
+    await renderAdminBundles();
+    showToast('✅', id ? 'Bundle updated!' : 'New bundle created!');
+  } catch (e) { showToast('⚠️', 'Request failed'); }
 }
 
-function deleteAdminBundle(id) {
+async function deleteAdminBundle(id) {
   if (!confirm('Delete this bundle kit? This cannot be undone.')) return;
-  adminBundles = adminBundles.filter(b => b.id !== id);
-  localStorage.setItem('kominhoo_bundles', JSON.stringify(adminBundles));
-  renderAdminBundles();
-  if (typeof showToast !== 'undefined') showToast('🗑️', 'Bundle deleted');
+  try {
+    await fetch(API_BASE + '/bundles/' + id, {
+      method: 'DELETE',
+      headers: { 'X-CSRF-TOKEN': CSRF },
+      credentials: 'include',
+    });
+    await renderAdminBundles();
+    showToast('🗑️', 'Bundle deleted');
+  } catch (e) { showToast('⚠️', 'Delete failed'); }
 }
 
-function retagBundle(id) {
+async function retagBundle(id) {
   const b = adminBundles.find(x => x.id === id);
   if (!b) return;
   const newTag = prompt('Enter new badge tag for "' + b.name + '":', b.tag || '');
   if (newTag === null) return;
-  const idx = adminBundles.findIndex(x => x.id === id);
-  if (idx >= 0) adminBundles[idx] = { ...adminBundles[idx], tag: newTag.trim() };
-  localStorage.setItem('kominhoo_bundles', JSON.stringify(adminBundles));
-  renderAdminBundles();
-  if (typeof showToast !== 'undefined') showToast('🏷️', 'Tag updated to "' + newTag.trim() + '"');
+  try {
+    const r = await fetch(API_BASE + '/bundles/' + id, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF },
+      body: JSON.stringify({ skin_type: newTag.trim() }),
+      credentials: 'include',
+    });
+    if (!r.ok) { showToast('⚠️', 'Update failed'); return; }
+    await renderAdminBundles();
+    showToast('🏷️', 'Tag updated to "' + newTag.trim() + '"');
+  } catch (e) { showToast('⚠️', 'Request failed'); }
 }
 
 // Initialise on panel open
@@ -5029,11 +5131,10 @@ function retagBundle(id) {
       if (id === 'bundles')  renderAdminBundles();
     };
   }
-  // Populate tables once on load so Products panel is ready when first visited
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => { buildProductsTable(); renderAdminGuides(); renderAdminBundles(); });
+    document.addEventListener('DOMContentLoaded', () => { buildProductsTable(); });
   } else {
-    buildProductsTable(); renderAdminGuides(); renderAdminBundles();
+    buildProductsTable();
   }
 })();
 
