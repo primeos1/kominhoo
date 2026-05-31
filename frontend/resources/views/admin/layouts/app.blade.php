@@ -15,9 +15,10 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
   <style>
     /* ── Admin Layout ──────────────────────────────────────── */
-    body { background: var(--bg-primary); font-family: var(--font-body); }
+    body { background: var(--bg-primary); font-family: var(--font-body); overflow: hidden; }
 
-    .admin-wrapper { display: flex; min-height: 100vh; }
+    /* Lock wrapper to viewport so only admin-main scrolls, not the page */
+    .admin-wrapper { display: flex; height: 100vh; overflow: hidden; }
 
     /* Sidebar */
     .admin-sidebar {
@@ -72,12 +73,13 @@
     .admin-user-role { font-size: .7rem; color: rgba(255,255,255,.4); }
 
     /* Main content */
-    .admin-main { margin-left: 260px; flex: 1; }
+    .admin-main { margin-left: 260px; flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
     /* Topbar */
     .admin-topbar {
       background: #fff; border-bottom: 1px solid #e8eaed;
       padding: 14px 32px; display: flex; align-items: center; gap: 16px;
+      flex-shrink: 0;
     }
     .admin-topbar-title { font-size: 1.1rem; font-weight: 700; color: var(--black); flex: 1; }
     .admin-topbar-title span { color: rgba(10,10,10,.4); font-weight: 400; font-size: .9rem; margin-left: 8px; }
@@ -103,7 +105,13 @@
 
     /* Panel container */
     .admin-panel { display: none; padding: 28px 32px; }
-    .admin-panel.active { display: block; }
+    /* Active panels fill remaining height below the sticky topbar and scroll */
+    .admin-panel.active {
+      display: block;
+      height: calc(100vh - 57px);
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
 
     /* ── Admin loading screen ──────────────────────────────── */
     #admin-loader {
@@ -685,6 +693,7 @@
       .subscriber-grid { grid-template-columns: 1fr; }
       .settings-grid { grid-template-columns: 1fr; }
       .admin-panel { padding: 16px; }
+      .admin-panel.active { height: calc(100vh - 49px); }
       .community-grid { grid-template-columns: repeat(2,1fr); }
       .coupon-grid { grid-template-columns: 1fr 1fr; }
       .coupon-grid .coupon-card { padding: 14px; }

@@ -10,6 +10,32 @@
     --gray-100: #f4f5f7;
     --text-muted: rgba(10,10,10,.45);
   }
+
+  /* ── Desktop density: Community & Content Manager ── */
+  /* Tighter panel padding so more fits above the fold */
+  #panel-community.admin-panel.active,
+  #panel-content.admin-panel.active { padding: 20px 24px; }
+
+  /* Smaller section-card headers in these two panels */
+  #panel-community .section-card-header,
+  #panel-content .section-card-header { padding: 13px 18px; }
+  #panel-community .section-card-header h3,
+  #panel-content .section-card-header h3 { font-size: .9rem; }
+
+  /* Tighter mini-stats */
+  #panel-community .mini-stat { padding: 12px 14px; }
+  #panel-community .mini-stat-val { font-size: 1.2rem; }
+  #panel-community .mini-stat-label { font-size: .68rem; }
+
+  /* Community table: smaller row height */
+  #panel-community .data-table th { padding: 9px 14px; font-size: .68rem; }
+  #panel-community .data-table td { padding: 10px 14px; font-size: .8rem; }
+
+  /* CMS form inputs: trim vertical padding */
+  #panel-content .form-input { padding: 7px 10px; font-size: .84rem; }
+  #panel-content .section-card > div[style*="padding:16px 22px"],
+  #panel-content .section-card > div[style*="padding: 16px 22px"] { padding: 12px 18px !important; }
+
   /* Panel Tabs */
   .panel-tabs { display:flex; gap:0; border-bottom:2px solid #e8eaed; margin-bottom:24px; }
   .panel-tab { padding:10px 18px; font-size:.83rem; font-weight:600; cursor:pointer; color:rgba(10,10,10,.45); border-bottom:2px solid transparent; margin-bottom:-2px; transition:all .2s; white-space:nowrap; }
@@ -18,24 +44,81 @@
   #cmsTabBar::-webkit-scrollbar { display:none; }
   .panel-tab-content { display:none; }
   .panel-tab-content.active { display:block; }
-  /* CMS Responsive — collapse inline grids at breakpoints */
+  /* ── Community panel: tab bar always scrollable ── */
+  #panel-community .panel-tabs {
+    overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch; flex-wrap:nowrap;
+  }
+  #panel-community .panel-tabs::-webkit-scrollbar { display:none; }
+
+  /* ── Content Manager + Community — responsive ── */
+
+  /* 1100px: slides 3-col → 2-col */
   @media (max-width:1100px) {
     #panel-content [style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns:repeat(2,1fr) !important; }
+    #panel-content .panel-header > div:last-child .action-btn { white-space:nowrap; }
   }
+
+  /* 960px: all 2-col CMS form grids collapse; community tweaks */
+  @media (max-width:960px) {
+    #panel-content [style*="grid-template-columns:1fr 1fr"],
+    #panel-content [style*="grid-template-columns:repeat(2,1fr)"],
+    #panel-content [style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns:1fr !important; }
+    #panel-content .section-card-header { flex-wrap:wrap; gap:8px; }
+    /* Save button full-width */
+    #panel-content .panel-header { flex-wrap:wrap; gap:10px; }
+    #panel-content .panel-header > div:last-child { width:100%; }
+    #panel-content .panel-header > div:last-child .action-btn { width:100%; justify-content:center; }
+    /* Upload rows (URL input + Upload button) */
+    #panel-content [style*="display:flex;gap:6px"] { flex-wrap:wrap; }
+    #panel-content [style*="display:flex;gap:6px"] input { min-width:0; flex:1 1 160px; }
+    #panel-content [style*="display:flex;gap:6px"] label.action-btn { flex-shrink:0; }
+  }
+
+  /* 768px */
   @media (max-width:768px) {
     #panel-content [style*="grid-template-columns:1fr 1fr"],
     #panel-content [style*="grid-template-columns:repeat(2,1fr)"],
     #panel-content [style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns:1fr !important; }
     #panel-content .section-card-header { flex-wrap:wrap; gap:8px; }
+    #panel-content .content-block-header { flex-direction:column; align-items:flex-start; }
     .ann-item { flex-wrap:wrap; }
     .ann-link-field { width:100% !important; }
-    #panel-content .content-block-header { flex-direction:column; align-items:flex-start; }
+
+    /* Community: header buttons fill row */
+    #panel-community .panel-header > div[style*="display:flex"] { width:100%; }
+    #panel-community .panel-header > div[style*="display:flex"] .action-btn { flex:1; justify-content:center; }
+    /* Filter chip row wraps */
+    #panel-community #comm-tab-all > .section-card > div:first-child { flex-wrap:wrap; row-gap:6px; }
+    /* Action button columns in table rows tighter */
+    #panel-community .data-table td:last-child > div { gap:3px; }
+    #panel-community .data-table .action-btn { padding:2px 6px !important; font-size:.65rem !important; }
+    /* Activity feed items stack */
+    #panel-community #commActivityFeed > div { flex-wrap:wrap; }
+    /* Settings toggle labels don't overflow */
+    #panel-community .toggle-info strong { font-size:.82rem; }
   }
+
+  /* 480px */
   @media (max-width:480px) {
+    #panel-content [style*="padding:16px 22px"] { padding:12px 14px !important; }
     #panel-content [style*="grid-template-columns:1fr 1fr"],
     #panel-content [style*="grid-template-columns:repeat(2,1fr)"],
-    #panel-content [style*="grid-template-columns:repeat(3,1fr)"] { gap:12px !important; }
-    #panel-content [style*="padding:16px 22px"] { padding:12px 14px !important; }
+    #panel-content [style*="grid-template-columns:repeat(3,1fr)"] { gap:10px !important; }
+    /* CMS tab arrows always visible on very small screens */
+    #cmsTabPrev, #cmsTabNext { display:flex !important; }
+
+    /* Community: stats 2×2 */
+    #panel-community .mini-stats { grid-template-columns:1fr 1fr !important; }
+    #panel-community .mini-stat-val { font-size:1.1rem; }
+    /* Community: table columns de-clutter — hide less critical columns */
+    #panel-community .data-table th:nth-child(5),
+    #panel-community .data-table td:nth-child(5) { display:none; }
+    #panel-community .data-table th:nth-child(4),
+    #panel-community .data-table td:nth-child(4) { display:none; }
+    /* Panel header stacks */
+    #panel-community .panel-header { flex-direction:column; align-items:flex-start; }
+    #panel-community .panel-header > div[style*="display:flex"] { flex-direction:column; width:100%; }
+    #panel-community .panel-header > div[style*="display:flex"] .action-btn { width:100%; justify-content:center; }
   }
   /* Wallet bonus form labels */
   .w-cfg-lbl { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:rgba(10,10,10,.45); display:block; margin-bottom:6px; }
