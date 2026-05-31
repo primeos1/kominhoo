@@ -6,7 +6,7 @@
 /* ================================================================
    HOME PAGE — Kominhoo Beauty
    Palette: Rose #893941 · Blush #CB7885 · Chartreuse #D4D994 · Olive #5E6623
-   Fonts: Bodoni Moda (display) · Jost (body)
+   Font: Jost (all text)
    ================================================================ */
 
 /* ── Font & Color Tokens (scoped to page) ──────────────────────── */
@@ -39,9 +39,9 @@
 
 .home-page h1,
 .home-page h2,
-.home-page h3 { font-family: 'Bodoni Moda', Georgia, serif; }
+.home-page h3 { font-family: 'Jost', system-ui, sans-serif; }
 
-.home-page .serif { font-family: 'Bodoni Moda', Georgia, serif; }
+.home-page .serif { font-family: 'Jost', system-ui, sans-serif; }
 
 /* ── Animations ─────────────────────────────────────────────────── */
 @keyframes shimmer-sweep {
@@ -131,7 +131,7 @@
 }
 
 .hero-title {
-  font-family: 'Bodoni Moda', Georgia, serif;
+  font-family: 'Jost', system-ui, sans-serif;
   font-size: clamp(2.6rem, 4.2vw, 5.6rem);
   font-weight: 700;
   line-height: 1.03;
@@ -196,7 +196,7 @@
   animation: txt-up .7s .7s cubic-bezier(.4,0,.2,1) both;
 }
 .hero-stat-num {
-  font-family: 'Bodoni Moda', Georgia, serif;
+  font-family: 'Jost', system-ui, sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: #fff;
@@ -402,7 +402,7 @@
 }
 .home-page .sec-kicker-dot { display: none; }
 .home-page .sec-heading {
-  font-family: 'Bodoni Moda', Georgia, serif;
+  font-family: 'Jost', system-ui, sans-serif;
   font-size: clamp(1.85rem, 2.7vw, 2.75rem);
   letter-spacing: -.025em;
   line-height: 1.08;
@@ -465,7 +465,7 @@
   position: absolute;
   top: -24px;
   right: -32px;
-  font-family: 'Bodoni Moda', Georgia, serif;
+  font-family: 'Jost', system-ui, sans-serif;
   font-size: clamp(9rem, 16vw, 22rem);
   font-weight: 700;
   color: rgba(137,57,65,.028);
@@ -504,7 +504,7 @@
   border-radius: 2px;
 }
 .why-heading {
-  font-family: 'Bodoni Moda', Georgia, serif;
+  font-family: 'Jost', system-ui, sans-serif;
   font-size: clamp(2.1rem, 3.2vw, 3.4rem);
   line-height: 1.07;
   letter-spacing: -.025em;
@@ -608,7 +608,7 @@
   flex-shrink: 0;
 }
 .why-title {
-  font-family: 'Bodoni Moda', Georgia, serif;
+  font-family: 'Jost', system-ui, sans-serif;
   font-size: 1.06rem;
   font-weight: 600;
   color: #fff;
@@ -642,7 +642,7 @@
   position: absolute;
   bottom: 2px;
   right: 12px;
-  font-family: 'Bodoni Moda', Georgia, serif;
+  font-family: 'Jost', system-ui, sans-serif;
   font-size: 5rem;
   font-weight: 700;
   line-height: 1;
@@ -675,7 +675,7 @@
   margin-bottom: 14px;
 }
 .quiz-banner-text h2 {
-  font-family: 'Bodoni Moda', Georgia, serif;
+  font-family: 'Jost', system-ui, sans-serif;
   font-size: clamp(1.9rem, 2.8vw, 2.9rem);
   color: #fff;
   line-height: 1.14;
@@ -740,7 +740,7 @@
   margin-bottom: 14px;
 }
 .deal-title {
-  font-family: 'Bodoni Moda', Georgia, serif;
+  font-family: 'Jost', system-ui, sans-serif;
   font-size: clamp(1.6rem, 2.2vw, 2.5rem);
   line-height: 1.08;
   letter-spacing: -.025em;
@@ -770,7 +770,7 @@
 .deal-countdown-sep { font-size: 1.3rem; color: var(--blush); font-weight: 300; line-height: 1; margin-bottom: 18px; }
 .deal-price-row { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; flex-wrap: wrap; }
 .deal-price-new {
-  font-family: 'Bodoni Moda', Georgia, serif;
+  font-family: 'Jost', system-ui, sans-serif;
   font-size: 2.1rem;
   font-weight: 700;
   color: var(--rose);
@@ -869,7 +869,7 @@
 .guide-card-img.featured { grid-column: span 2; aspect-ratio: 2 / 1.1; }
 .guide-img-inner { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(28,20,22,.52) 0%, rgba(28,20,22,.18) 50%, rgba(28,20,22,.62) 100%); padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; color: #fff; }
 
-.guide-img-title { font-family: 'Bodoni Moda', Georgia, serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 6px; letter-spacing: -.01em; }
+.guide-img-title { font-family: 'Jost', system-ui, sans-serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 6px; letter-spacing: -.01em; }
 .guide-card-img.featured .guide-img-title { font-size: 1.9rem; }
 .guide-img-desc { font-family: 'Jost', sans-serif; font-size: .8rem; opacity: .78; margin-bottom: 14px; max-width: 80%; line-height: 1.5; }
 .guide-img-footer { display: flex; justify-content: space-between; align-items: center; }
@@ -911,7 +911,7 @@
 .sub-plan-card.featured .sub-plan-tag { background: rgba(212,217,148,.15); color: var(--chartreuse); }
 .sub-plan-name { font-family: 'Jost', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: -.01em; margin-bottom: 6px; color: var(--black); }
 .sub-plan-card.featured .sub-plan-name { color: #fff; }
-.sub-plan-price { font-family: 'Bodoni Moda', Georgia, serif; font-size: 2.4rem; font-weight: 700; letter-spacing: -.04em; line-height: 1; margin-bottom: 4px; color: var(--rose); }
+.sub-plan-price { font-family: 'Jost', system-ui, sans-serif; font-size: 2.4rem; font-weight: 700; letter-spacing: -.04em; line-height: 1; margin-bottom: 4px; color: var(--rose); }
 .sub-plan-card.featured .sub-plan-price { color: #fff; }
 .sub-plan-period { font-family: 'Jost', sans-serif; font-size: .8rem; color: var(--text-muted); margin-bottom: 28px; }
 .sub-plan-card.featured .sub-plan-period { color: rgba(255,255,255,.36); }
@@ -952,7 +952,7 @@
 .newsletter-section { background: var(--rose-dark); padding: 96px 0; }
 .newsletter-inner { text-align: center; max-width: 540px; margin: 0 auto; position: relative; z-index: 1; }
 .newsletter-eyebrow { font-family: 'Jost', sans-serif; font-size: .7rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--chartreuse); margin-bottom: 20px; display: inline-block; }
-.newsletter-heading { font-family: 'Bodoni Moda', Georgia, serif; font-size: clamp(2rem, 3.5vw, 3rem); color: #fff; line-height: 1.14; letter-spacing: -.025em; margin-bottom: 14px; }
+.newsletter-heading { font-family: 'Jost', system-ui, sans-serif; font-size: clamp(2rem, 3.5vw, 3rem); color: #fff; line-height: 1.14; letter-spacing: -.025em; margin-bottom: 14px; }
 .newsletter-sub { font-family: 'Jost', sans-serif; color: rgba(255,255,255,.4); font-size: .92rem; line-height: 1.72; margin-bottom: 36px; }
 .newsletter-form { display: flex; gap: 8px; padding: 6px 6px 6px 20px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: var(--r-pill); }
 .newsletter-input { flex: 1; background: none; border: none; outline: none; font-family: 'Jost', sans-serif; color: #fff; font-size: .9rem; font-weight: 500; min-width: 0; }
@@ -964,20 +964,33 @@
 /* ── Quiz Popup ──────────────────────────────────────────────────── */
 .quiz-popup-overlay { position: fixed; inset: 0; background: rgba(28,20,22,.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity .4s ease, visibility .4s ease; }
 .quiz-popup-overlay.active { opacity: 1; visibility: visible; }
-.quiz-popup { background: var(--rose-dark); border-radius: 28px; max-width: 440px; width: 100%; position: relative; overflow: hidden; transform: scale(.88) translateY(24px); opacity: 0; transition: transform .52s cubic-bezier(.34,1.56,.64,1), opacity .38s ease; border: 1px solid rgba(203,120,133,.18); box-shadow: 0 40px 100px rgba(28,20,22,.8), 0 0 0 1px rgba(212,217,148,.08); }
+.quiz-popup { display: flex; background: var(--rose-dark); border-radius: 28px; max-width: 700px; width: 100%; position: relative; overflow: hidden; transform: scale(.88) translateY(24px); opacity: 0; transition: transform .52s cubic-bezier(.34,1.56,.64,1), opacity .38s ease; border: 1px solid rgba(203,120,133,.18); box-shadow: 0 40px 100px rgba(28,20,22,.8), 0 0 0 1px rgba(212,217,148,.08); }
 .quiz-popup-overlay.active .quiz-popup { transform: scale(1) translateY(0); opacity: 1; }
 .quiz-popup::before, .quiz-popup::after { display: none; }
 .quiz-popup-particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 .qp-particle { position: absolute; border-radius: 50%; animation: qp-float linear infinite; }
+
+/* Image panel (left column) */
+.quiz-popup-visual { position: relative; width: 245px; flex-shrink: 0; overflow: hidden; }
+.quiz-popup-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.quiz-popup-visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, rgba(107,42,48,.15) 0%, rgba(107,42,48,.72) 70%, var(--rose-dark) 100%), linear-gradient(to bottom, rgba(28,20,22,.45) 0%, transparent 35%, transparent 65%, rgba(28,20,22,.55) 100%); z-index: 1; }
+.quiz-popup-visual-badge { position: absolute; bottom: 28px; left: 0; right: 0; z-index: 2; text-align: center; padding: 0 14px; }
+.quiz-popup-visual-label { display: block; font-family: 'Jost', sans-serif; font-size: .6rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--chartreuse); margin-bottom: 6px; }
+.quiz-popup-visual-divider { display: block; width: 28px; height: 1px; background: rgba(212,217,148,.4); margin: 0 auto 6px; }
+.quiz-popup-visual-tagline { display: block; font-family: 'Jost', sans-serif; font-size: .72rem; font-weight: 500; color: rgba(255,255,255,.55); line-height: 1.4; }
+
+/* Content column (right) */
+.quiz-popup-content { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
 .quiz-popup-close { position: absolute; top: 14px; right: 14px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.42); font-size: .78rem; cursor: pointer; display: grid; place-items: center; z-index: 5; transition: var(--t-fast); line-height: 1; }
 .quiz-popup-close:hover { background: rgba(255,255,255,.12); color: #fff; }
 .quiz-popup-banner { background: rgba(212,217,148,.06); border-bottom: 1px solid rgba(212,217,148,.12); padding: 10px 28px; text-align: center; font-family: 'Jost', sans-serif; font-size: .72rem; font-weight: 600; color: rgba(255,255,255,.36); letter-spacing: .02em; position: relative; z-index: 1; }
 .quiz-popup-banner strong { color: var(--chartreuse); font-weight: 700; }
-.quiz-popup-body { padding: 32px 36px 28px; position: relative; z-index: 1; }
+.quiz-popup-body { padding: 32px 36px 28px; position: relative; z-index: 1; flex: 1; }
 .quiz-popup-eyebrow { font-family: 'Jost', sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--chartreuse); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
 .quiz-popup-eyebrow::before, .quiz-popup-eyebrow::after { content: ''; height: 1px; flex: 1; background: linear-gradient(to right, transparent, rgba(212,217,148,.3)); }
 .quiz-popup-eyebrow::after { background: linear-gradient(to left, transparent, rgba(212,217,148,.3)); }
-.quiz-popup-title { font-family: 'Bodoni Moda', Georgia, serif; font-size: 1.9rem; color: #fff; line-height: 1.18; letter-spacing: -.02em; margin-bottom: 8px; }
+.quiz-popup-title { font-family: 'Jost', system-ui, sans-serif; font-size: 1.9rem; color: #fff; line-height: 1.18; letter-spacing: -.02em; margin-bottom: 8px; }
 .quiz-popup-title em { color: var(--blush); font-style: italic; }
 .quiz-popup-sub { font-family: 'Jost', sans-serif; font-size: .86rem; color: rgba(255,255,255,.38); margin-bottom: 24px; line-height: 1.6; }
 .quiz-popup-perks { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; padding: 16px 18px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; }
@@ -1084,8 +1097,17 @@
   .gallery-item.featured { grid-column: span 2; height: 220px; grid-row: span 1; }
   .sub-plans-grid { max-width: none; }
   .tier-cards { max-width: none; }
-  .quiz-popup-body { padding: 28px 22px 24px; }
-  .quiz-popup-title { font-size: 1.62rem; }
+  .quiz-popup-overlay { align-items: flex-start; padding: 16px 14px; overflow-y: auto; }
+  .quiz-popup { flex-direction: column; max-width: 420px; max-height: none; margin: auto; }
+  .quiz-popup-visual { width: 100%; height: 150px; flex-shrink: 0; }
+  .quiz-popup-visual::after { background: linear-gradient(to bottom, transparent 20%, rgba(107,42,48,.45) 60%, var(--rose-dark) 100%); }
+  .quiz-popup-visual-badge { bottom: 14px; }
+  .quiz-popup-content { overflow: visible; }
+  .quiz-popup-body { padding: 22px 20px 22px; flex: none; }
+  .quiz-popup-title { font-size: 1.55rem; margin-bottom: 6px; }
+  .quiz-popup-sub { margin-bottom: 16px; }
+  .quiz-popup-perks { margin-bottom: 16px; padding: 12px 14px; gap: 8px; }
+  .quiz-popup-perk { font-size: .82rem; }
 
   .deal-visual { max-width: none; max-height: none; }
 }
@@ -1337,7 +1359,7 @@
   .mob-feat-badge{position:absolute;top:12px;left:12px;background:var(--m-rose);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px}
   .mob-feat-body{padding:14px 16px 16px}
   .mob-feat-brand{font-size:11px;font-weight:600;color:var(--m-rose);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
-  .mob-feat-name{font-size:17px;font-weight:700;color:var(--m-black);margin-bottom:10px;font-family:'Bodoni Moda',Georgia,serif;line-height:1.25}
+  .mob-feat-name{font-size:17px;font-weight:700;color:var(--m-black);margin-bottom:10px;font-family:'Jost',system-ui,sans-serif;line-height:1.25}
   .mob-feat-prices{display:flex;align-items:baseline;gap:8px;margin-bottom:12px;flex-wrap:wrap}
   .mob-feat-price{font-size:22px;font-weight:800;color:var(--m-rose)}
   .mob-feat-orig{font-size:14px;color:var(--m-text2);text-decoration:line-through}
@@ -1455,7 +1477,7 @@
   .mob-sub-plan-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,255,255,.65);margin-bottom:4px}
   .mob-sub-plan.featured .mob-sub-plan-badge{color:var(--m-chart)}
   .mob-sub-plan-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:6px}
-  .mob-sub-plan-price{font-size:20px;font-weight:800;color:#fff;line-height:1;margin-bottom:2px;font-family:'Bodoni Moda',Georgia,serif}
+  .mob-sub-plan-price{font-size:20px;font-weight:800;color:#fff;line-height:1;margin-bottom:2px;font-family:'Jost',system-ui,sans-serif}
   .mob-sub-plan-period{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:10px}
   .mob-sub-plan-features{display:flex;flex-direction:column;gap:4px}
   .mob-sub-plan-feat{font-size:11px;color:rgba(255,255,255,.8);display:flex;align-items:flex-start;gap:4px}
@@ -1466,7 +1488,7 @@
   .mob-hero-slide{flex-shrink:0;width:100%;height:100%;background-size:cover;background-position:center top;position:relative}
   .mob-hero-content{position:absolute;inset:0;background:linear-gradient(to top,rgba(28,20,22,.9) 0%,rgba(28,20,22,.52) 45%,rgba(28,20,22,.06) 100%);padding:20px;display:flex;flex-direction:column;justify-content:flex-end}
   .mob-hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--m-chart);margin-bottom:6px}
-  .mob-hero-h{font-family:'Bodoni Moda',Georgia,serif;font-size:clamp(1.5rem,5.5vw,2.1rem);font-weight:700;color:#fff;line-height:1.1;letter-spacing:-.02em;margin-bottom:12px}
+  .mob-hero-h{font-family:'Jost',system-ui,sans-serif;font-size:clamp(1.5rem,5.5vw,2.1rem);font-weight:700;color:#fff;line-height:1.1;letter-spacing:-.02em;margin-bottom:12px}
   .mob-hero-h em{color:var(--m-blush);font-style:italic}
   .mob-hero-btn{display:inline-flex;align-items:center;background:var(--m-chart);color:var(--m-olive);font-size:12px;font-weight:700;padding:8px 16px;border-radius:999px;text-decoration:none;font-family:'Jost',sans-serif;letter-spacing:.02em;white-space:nowrap;transition:opacity .15s}
   .mob-hero-btn:active{opacity:.8}
@@ -1995,7 +2017,7 @@
       @empty
         <a href="{{ route('community') }}" class="gallery-item featured reveal" style="display:grid;place-items:center;background:var(--blush-pale);border:1px solid var(--border)">
           <div style="text-align:center;padding:24px;max-width:32ch;color:var(--rose-dark)">
-            <div style="font-family:'Bodoni Moda',Georgia,serif;font-size:1.4rem;margin-bottom:10px">Be the first to share</div>
+            <div style="font-family:'Jost',system-ui,sans-serif;font-size:1.4rem;margin-bottom:10px">Be the first to share</div>
             <div style="font-family:'Jost',sans-serif;font-size:.9rem;line-height:1.6;color:rgba(28,20,22,.65)">No community posts yet. Tap to post your glow-up.</div>
           </div>
         </a>
@@ -2132,38 +2154,52 @@
 </section>
 @endif
 
-{{-- ── Welcome Quiz Popup ───────────────────────────────────────── --}}
+</div>{{-- /.home-page --}}
+
+{{-- ── Welcome Quiz Popup (outside .home-page so it works on mobile too) ── --}}
 @if(data_get($visibility, 'welcome_quiz_popup', true))
 <div class="quiz-popup-overlay" id="quiz-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="qp-title">
   <div class="quiz-popup" id="quiz-popup">
     <button class="quiz-popup-close" id="quiz-popup-close" aria-label="Close">✕</button>
-    <div class="quiz-popup-banner">
-       &nbsp;<strong>{{ data_get($quizPopup, 'banner_strong_1', 'Free') }}</strong> &nbsp;·&nbsp; {{ data_get($quizPopup, 'banner_text', 'No account needed') }} &nbsp;·&nbsp; <strong>{{ data_get($quizPopup, 'banner_strong_2', '60 seconds') }}</strong>
-    </div>
-    <div class="quiz-popup-body">
-      <div class="quiz-popup-eyebrow">{{ data_get($quizPopup, 'eyebrow', 'Kominhoo Skin Quiz') }}</div>
-      <h2 class="quiz-popup-title" id="qp-title">
-        {{ data_get($quizPopup, 'title_line_1', 'Get Your') }} <em>{{ data_get($quizPopup, 'title_em', 'Personalized') }}</em><br>{{ data_get($quizPopup, 'title_line_2', 'Korean Skincare Routine') }}
-      </h2>
-      <p class="quiz-popup-sub">{{ data_get($quizPopup, 'subtitle', 'in 60 seconds — matched to your skin type, concerns & lifestyle') }}</p>
-      <div class="quiz-popup-perks">
-        @foreach($quizPopupPerks as $perk)
-        <div class="quiz-popup-perk">
-          <div class="quiz-popup-perk-check">✓</div>
-          {{ $perk }}
-        </div>
-        @endforeach
+
+    {{-- Skincare image panel --}}
+    <div class="quiz-popup-visual" aria-hidden="true">
+      <img src="{{ $heroSlide2['url'] }}" alt="" loading="lazy">
+      <div class="quiz-popup-visual-badge">
+        <span class="quiz-popup-visual-label">K-Beauty</span>
+        <span class="quiz-popup-visual-divider"></span>
+        <span class="quiz-popup-visual-tagline">Curated for<br>your skin</span>
       </div>
-      <a href="{{ route('quiz') }}" class="quiz-popup-btn" id="quiz-popup-cta">{{ data_get($quizPopup, 'cta_text', ' Start Skin Quiz — Free') }}</a>
-      <div class="quiz-popup-login-line">
-        Already took the quiz? &nbsp;<a href="{{ route('login') }}" id="quiz-popup-login-link">Sign In →</a>
+    </div>
+
+    {{-- Content column --}}
+    <div class="quiz-popup-content">
+      <div class="quiz-popup-banner">
+         &nbsp;<strong>{{ data_get($quizPopup, 'banner_strong_1', 'Free') }}</strong> &nbsp;·&nbsp; {{ data_get($quizPopup, 'banner_text', 'No account needed') }} &nbsp;·&nbsp; <strong>{{ data_get($quizPopup, 'banner_strong_2', '60 seconds') }}</strong>
+      </div>
+      <div class="quiz-popup-body">
+        <div class="quiz-popup-eyebrow">{{ data_get($quizPopup, 'eyebrow', 'Kominhoo Skin Quiz') }}</div>
+        <h2 class="quiz-popup-title" id="qp-title">
+          {{ data_get($quizPopup, 'title_line_1', 'Get Your') }} <em>{{ data_get($quizPopup, 'title_em', 'Personalized') }}</em><br>{{ data_get($quizPopup, 'title_line_2', 'Korean Skincare Routine') }}
+        </h2>
+        <p class="quiz-popup-sub">{{ data_get($quizPopup, 'subtitle', 'in 60 seconds — matched to your skin type, concerns & lifestyle') }}</p>
+        <div class="quiz-popup-perks">
+          @foreach($quizPopupPerks as $perk)
+          <div class="quiz-popup-perk">
+            <div class="quiz-popup-perk-check">✓</div>
+            {{ $perk }}
+          </div>
+          @endforeach
+        </div>
+        <a href="{{ route('quiz') }}" class="quiz-popup-btn" id="quiz-popup-cta">{{ data_get($quizPopup, 'cta_text', ' Start Skin Quiz — Free') }}</a>
+        <div class="quiz-popup-login-line">
+          Already took the quiz? &nbsp;<a href="{{ route('login') }}" id="quiz-popup-login-link">Sign In →</a>
+        </div>
       </div>
     </div>
   </div>
 </div>
 @endif
-
-</div>{{-- /.home-page --}}
 
 {{-- ── Bundle Modal (outside .home-page so it works on mobile too) ── --}}
 <div class="guide-modal-overlay" id="bundleModalOverlay" onclick="if(event.target===this)closeBundleModal()" role="dialog" aria-modal="true">
@@ -2174,7 +2210,7 @@
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
           <span id="bundleModalTag" style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--lime);color:var(--black);padding:3px 10px;border-radius:20px;"></span>
         </div>
-        <h2 id="bundleModalTitle" style="font-family:'Bodoni Moda',Georgia,serif;font-size:1.8rem;font-weight:600;margin-bottom:6px;"></h2>
+        <h2 id="bundleModalTitle" style="font-family:'Jost',system-ui,sans-serif;font-size:1.8rem;font-weight:600;margin-bottom:6px;"></h2>
         <p id="bundleModalDesc" style="font-family:'Jost',sans-serif;font-size:.9rem;color:var(--text-secondary);line-height:1.5;max-width:55ch;"></p>
       </div>
       <div style="text-align:right;flex-shrink:0;">
@@ -2194,7 +2230,7 @@
     <div class="guide-modal-header">
       <div class="guide-modal-icon">📖</div>
       <div>
-        <h2 id="guideModalTitle" style="font-family:'Bodoni Moda',Georgia,serif;font-size:1.8rem;font-weight:600;margin-bottom:6px;"></h2>
+        <h2 id="guideModalTitle" style="font-family:'Jost',system-ui,sans-serif;font-size:1.8rem;font-weight:600;margin-bottom:6px;"></h2>
         <p id="guideModalDesc" style="font-family:'Jost',sans-serif;font-size:.9rem;color:var(--text-secondary);line-height:1.5;max-width:55ch;"></p>
       </div>
     </div>

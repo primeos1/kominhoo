@@ -6,7 +6,7 @@
 <title>@yield('title', 'Oops') — Kominhoo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,700;0,6..96,900;1,6..96,400;1,6..96,700&family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -84,7 +84,7 @@ body{
 .e-watermark{
   position:absolute;
   top:-48px;left:50%;transform:translateX(-50%);
-  font-family:'Bodoni Moda',Georgia,serif;
+  font-family:'Jost',system-ui,sans-serif;
   font-size:clamp(7rem,18vw,14rem);
   line-height:1;color:transparent;
   -webkit-text-stroke:2px var(--gray-200);
@@ -140,7 +140,7 @@ body{
 .e-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block}
 
 .e-headline{
-  font-family:'Bodoni Moda',Georgia,serif;
+  font-family:'Jost',system-ui,sans-serif;
   font-size:clamp(1.65rem,3.5vw,2.5rem);line-height:1.2;
   color:var(--dark);margin-bottom:16px;
   animation:cardIn .7s cubic-bezier(.34,1.4,.64,1) .1s both;

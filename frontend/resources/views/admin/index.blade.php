@@ -5774,9 +5774,10 @@ let COMM_CACHE = [];
 const COMM_CSRF = document.querySelector('meta[name="csrf-token"]')?.content || '';
 
 async function commApi(url, method, body) {
-  const opts = { method: method || 'GET', headers: { 'X-CSRF-TOKEN': COMM_CSRF, 'Accept': 'application/json' } };
+  const fullUrl = url.startsWith('/admin/') ? (ADMIN_URL + '/' + url.slice('/admin/'.length)) : url;
+  const opts = { method: method || 'GET', credentials: 'include', headers: { 'X-CSRF-TOKEN': COMM_CSRF, 'Accept': 'application/json' } };
   if (body) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
-  const r = await fetch(url, opts);
+  const r = await fetch(fullUrl, opts);
   if (!r.ok) throw new Error('HTTP ' + r.status);
   return r.json();
 }

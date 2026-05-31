@@ -120,17 +120,13 @@ class AdminCommunityController extends Controller
     // POST /admin/community/post/{id}/feature  — toggle; un-features all others
     public function feature(string $id)
     {
-        $all    = $this->store->all();
-        $target = null;
-        foreach ($all['posts'] as $p) {
-            if ($p['id'] === $id) { $target = $p; break; }
-        }
+        $target = $this->store->getPost($id);
         if (!$target) return response()->json(['success' => false], 404);
 
         $alreadyFeatured = $target['featured'] ?? false;
 
-        // Un-feature every post first
-        foreach ($all['posts'] as $p) {
+        // Un-feature every currently featured post
+        foreach ($this->store->getPosts('all', false) as $p) {
             if ($p['featured'] ?? false) {
                 $this->store->updatePost($p['id'], ['featured' => false]);
             }
