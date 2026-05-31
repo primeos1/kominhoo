@@ -13,16 +13,16 @@
 @endphp
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700&display=swap" rel="stylesheet">
 <style>
 .post-page{
-  font-family:'Jost',system-ui,sans-serif;
+  font-family:'DM Sans',system-ui,sans-serif;
   --rose-dark:#6B2A30;
   --cream:#FAF6F3;
   --border:#EDDCD8;
   --text:#1C1416;
 }
-.post-page h1,.post-page h2,.post-page h3{font-family:'Jost',system-ui,sans-serif}
+.post-page h1,.post-page h2,.post-page h3{font-family:'DM Sans',system-ui,sans-serif}
 .post-hero{
   background: #231013;
   color:#fff;
@@ -65,7 +65,7 @@
 .rel-media img{width:100%;height:100%;object-fit:cover;display:block}
 .rel-body{padding:14px 14px 16px}
 .rel-tag{font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;font-weight:700;color:var(--rose-dark)}
-.rel-title{margin-top:8px;font-family:'Jost',system-ui,sans-serif;font-size:1.06rem;line-height:1.25}
+.rel-title{margin-top:8px;font-family:'DM Sans',system-ui,sans-serif;font-size:1.06rem;line-height:1.25}
 .rel-meta{margin-top:10px;font-size:.8rem;color:rgba(28,20,22,.58)}
 @media(max-width:980px){.rel-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.rel-grid{grid-template-columns:1fr}.post-body{padding:22px 18px}.post-hero-inner{padding:48px 16px 28px}.related{padding:0 16px}.post-body-wrap{padding:24px 16px 48px}}

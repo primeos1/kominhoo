@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   {{-- Load fonts asynchronously so they don't block first paint --}}
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700&display=swap" /></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700&display=swap" /></noscript>
   <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
   <style>
     /* ── Admin Layout ──────────────────────────────────────── */
@@ -469,7 +469,7 @@
     .coupon-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; padding: 20px 22px; }
     .coupon-card { border: 2px dashed #e8eaed; border-radius: 14px; padding: 18px; position: relative; transition: border-color .2s; }
     .coupon-card.active-coupon { border-color: var(--lime); background: rgba(212,217,148,.03); }
-    .coupon-code   { font-size: 1.15rem; font-weight: 700; letter-spacing: .08em; font-family: 'Courier New',monospace; margin-bottom: 10px; color: var(--black); }
+    .coupon-code   { font-size: 1.15rem; font-weight: 700; letter-spacing: .08em; font-family: 'DM Sans',system-ui,sans-serif; margin-bottom: 10px; color: var(--black); }
     .coupon-detail { font-size: .78rem; color: rgba(10,10,10,.5); margin-bottom: 3px; }
     .coupon-badge  { position: absolute; top: 12px; right: 12px; }
 

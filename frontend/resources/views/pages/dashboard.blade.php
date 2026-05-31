@@ -54,7 +54,7 @@
   background: rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.14);
   border-radius: 7px; padding: 5px 10px;
   color: #fff; cursor: pointer; transition: background .15s;
-  font-family: 'Courier New', monospace; font-size: .72rem;
+  font-family: 'DM Sans', system-ui, sans-serif; font-size: .72rem;
   font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
 }
 .kmh-gc-code:hover { background: rgba(0,0,0,.45); }
@@ -1715,7 +1715,7 @@
               @if($oTracking)
               <div style="background:var(--cream);border-radius:var(--r-md);padding:10px 14px;font-size:.82rem;display:flex;align-items:center;gap:8px">
                 <span>🚚</span>
-                <span>Tracking: <strong style="font-family:monospace">{{ $oTracking }}</strong></span>
+                <span>Tracking: <strong style="font-family:'DM Sans',system-ui,sans-serif">{{ $oTracking }}</strong></span>
               </div>
               @endif
               @if(!empty($order['admin_note']))
@@ -2491,7 +2491,7 @@
         <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
           <input class="input" id="dash-coupon-input"
             placeholder="Enter promo code"
-            style="flex:1;max-width:300px;text-transform:uppercase;font-weight:700;letter-spacing:.06em;font-family:monospace;font-size:.95rem"
+            style="flex:1;max-width:300px;text-transform:uppercase;font-weight:700;letter-spacing:.06em;font-family:'DM Sans',system-ui,sans-serif;font-size:.95rem"
             onkeydown="if(event.key==='Enter')dashApplyCoupon()">
           <button class="btn btn-dark btn-sm" onclick="dashApplyCoupon()" id="dash-coupon-btn">Apply Code</button>
         </div>
@@ -4805,7 +4805,7 @@ function renderGcList(containerId, cards, type) {
           <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
             <span style="background:${s.bg};color:${s.color};font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:999px;letter-spacing:.04em">${s.label}${hasBalance ? ' · ₦'+Number(c.balance||0).toLocaleString() : ''}</span>
             <button onclick="navigator.clipboard.writeText('${c.code}').then(()=>{const b=this;b.textContent='✓ Copied!';b.style.color='#16a34a';b.style.background='rgba(34,197,94,.08)';setTimeout(()=>{b.textContent='${c.code}';b.style.color='';b.style.background='';},1800)})"
-              style="font-family:monospace;font-size:.7rem;font-weight:700;color:#374151;background:#f4f6f8;border:1px solid #e4e8ec;border-radius:7px;padding:3px 9px;cursor:pointer;transition:all .15s;letter-spacing:.04em">${c.code}</button>
+              style="font-family:'DM Sans',system-ui,sans-serif;font-size:.7rem;font-weight:700;color:#374151;background:#f4f6f8;border:1px solid #e4e8ec;border-radius:7px;padding:3px 9px;cursor:pointer;transition:all .15s;letter-spacing:.04em">${c.code}</button>
             <span style="font-size:.7rem;color:#9ca3af;margin-left:auto;white-space:nowrap">Exp ${c.expires_at||'—'}</span>
           </div>
         </div>

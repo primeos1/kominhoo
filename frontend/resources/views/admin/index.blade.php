@@ -225,7 +225,7 @@
   }
   .coupon-code {
     font-size: 1.35rem; font-weight: 700; letter-spacing: .14em;
-    font-family: 'Courier New', monospace;
+    font-family: 'DM Sans', system-ui, sans-serif;
     color: var(--black); position: relative; z-index: 1;
     margin-bottom: 0;
   }
@@ -3575,7 +3575,7 @@ Orders are processed within 24 hours Monday–Saturday. You'll receive a trackin
         <div><label style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(10,10,10,.45);display:block;margin-bottom:6px">Message (optional)</label><textarea class="form-input" rows="2" placeholder="Personal note to include…" id="gcIssueMessage" style="resize:vertical"></textarea></div>
         <div id="gcIssueResult" style="display:none;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:14px">
           <div style="font-size:.82rem;font-weight:700;color:#15803d;margin-bottom:6px">✓ Gift card issued!</div>
-          <div style="font-size:.85rem">Code: <strong id="gcIssuedCode" style="font-family:monospace;font-size:.95rem;letter-spacing:.06em"></strong></div>
+          <div style="font-size:.85rem">Code: <strong id="gcIssuedCode" style="font-family:'DM Sans',system-ui,sans-serif;font-size:.95rem;letter-spacing:.06em"></strong></div>
           <div style="font-size:.78rem;color:rgba(10,10,10,.5);margin-top:4px" id="gcIssuedMeta"></div>
         </div>
         <div id="gcIssueError" style="color:#e8382e;font-size:.8rem;display:none"></div>
@@ -4010,7 +4010,7 @@ Orders are processed within 24 hours Monday–Saturday. You'll receive a trackin
             <label style="font-size:.78rem;font-weight:700;color:rgba(10,10,10,.7);">Code <span style="color:#e63434;">*</span></label>
             <input type="text" id="coupon_code" class="form-input"
               placeholder="e.g. SAVE20"
-              style="text-transform:uppercase;font-family:'Courier New',monospace;font-size:1.1rem;font-weight:700;letter-spacing:.12em;margin-top:6px;background:#fff;" oninput="this.value=this.value.toUpperCase().replace(/\s/g,'')" />
+              style="text-transform:uppercase;font-family:'DM Sans',system-ui,sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.12em;margin-top:6px;background:#fff;" oninput="this.value=this.value.toUpperCase().replace(/\s/g,'')" />
           </div>
           <div class="form-group" style="margin-bottom:0;">
             <label style="font-size:.78rem;font-weight:700;color:rgba(10,10,10,.7);">Discount Type <span style="color:#e63434;">*</span></label>
@@ -5811,7 +5811,7 @@ function buildInventoryTable() {
     const expiryFlag  = monthsLeft <= 3 ? ' ⚠️' : '';
     const imgArr = p.images;
     const imgUrl = Array.isArray(imgArr) ? (imgArr[0] || '') : (imgArr || p.image || '');
-    return '<tr><td><div style="display:flex;align-items:center;gap:10px;"><img class="product-thumb" src="' + imgUrl + '" style="width:38px;height:38px;" onerror="this.style.background=\'#eee\'" /><div><div style="font-weight:600;font-size:.83rem;">' + p.name + '</div><div style="font-size:.72rem;color:rgba(10,10,10,.4);">' + p.brand + '</div></div></div></td><td style="font-size:.82rem;">' + p.category + '</td><td><span style="font-family:monospace;font-size:.8rem;background:#f4f5f7;padding:3px 8px;border-radius:6px;">' + batch + '</span></td><td><span style="' + expiryStyle + 'font-size:.82rem;">' + (expiry || '—') + expiryFlag + '</span></td><td><input class="inv-qty-input" type="number" value="' + stock + '" min="0" onchange="updateStockQty(' + p.id + ',this.value,this)" /></td><td><div style="display:flex;align-items:center;gap:8px;"><div class="stock-bar-mini"><div class="stock-fill-mini ' + fillCls + '" style="width:' + pct + '%"></div></div><span style="font-size:.72rem;color:rgba(10,10,10,.4);">' + pct + '%</span></div></td><td><span class="status-badge ' + statusCls + '" id="inv-status-' + p.id + '">' + statusText + '</span></td></tr>';
+    return '<tr><td><div style="display:flex;align-items:center;gap:10px;"><img class="product-thumb" src="' + imgUrl + '" style="width:38px;height:38px;" onerror="this.style.background=\'#eee\'" /><div><div style="font-weight:600;font-size:.83rem;">' + p.name + '</div><div style="font-size:.72rem;color:rgba(10,10,10,.4);">' + p.brand + '</div></div></div></td><td style="font-size:.82rem;">' + p.category + '</td><td><span style="font-family:'DM Sans',system-ui,sans-serif;font-size:.8rem;background:#f4f5f7;padding:3px 8px;border-radius:6px;">' + batch + '</span></td><td><span style="' + expiryStyle + 'font-size:.82rem;">' + (expiry || '—') + expiryFlag + '</span></td><td><input class="inv-qty-input" type="number" value="' + stock + '" min="0" onchange="updateStockQty(' + p.id + ',this.value,this)" /></td><td><div style="display:flex;align-items:center;gap:8px;"><div class="stock-bar-mini"><div class="stock-fill-mini ' + fillCls + '" style="width:' + pct + '%"></div></div><span style="font-size:.72rem;color:rgba(10,10,10,.4);">' + pct + '%</span></div></td><td><span class="status-badge ' + statusCls + '" id="inv-status-' + p.id + '">' + statusText + '</span></td></tr>';
   }).join('');
 }
 
@@ -9316,7 +9316,7 @@ function walletLoadTransactions(page) {
           const userHdr   = `<div style="padding:8px 24px 0;font-size:.7rem;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:8px">
             <span>${userName}</span>
             <span style="font-weight:400;color:#bbb">${userEmail}</span>
-            <span style="font-family:monospace;font-size:.65rem;color:#d1d5db;margin-left:auto">ref: ${tx.reference || ''}</span>
+            <span style="font-family:'DM Sans',system-ui,sans-serif;font-size:.65rem;color:#d1d5db;margin-left:auto">ref: ${tx.reference || ''}</span>
           </div>`;
           return userHdr + walletTxRows([tx]);
         }).join('');

@@ -7,7 +7,7 @@
 @endphp
 <style>
 .blog-page {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
   --rose:        #893941;
   --rose-dark:   #6B2A30;
   --blush:       #CB7885;
@@ -21,7 +21,7 @@
 }
 .blog-page h1,
 .blog-page h2,
-.blog-page h3 { font-family: 'Cormorant Garamond', Georgia, serif; }
+.blog-page h3 { font-family: 'DM Sans', system-ui, sans-serif; }
 
 .blog-hero {
   position: relative;
@@ -116,7 +116,7 @@
 .blog-featured-media::after { content:''; position:absolute; inset:0; background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,.18) 100%); }
 .blog-featured-body { padding: 28px 28px; display:flex; flex-direction:column; justify-content:center; }
 .blog-kicker { display:inline-flex; align-items:center; gap:8px; font-size:.75rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color: var(--rose-dark); }
-.blog-title { font-family:'Cormorant Garamond', Georgia, serif; font-size: 1.55rem; line-height:1.2; margin:12px 0 10px; color: var(--text); }
+.blog-title { font-family:'DM Sans', system-ui, sans-serif; font-size: 1.55rem; line-height:1.2; margin:12px 0 10px; color: var(--text); }
 .blog-excerpt { color: rgba(28,20,22,.68); line-height:1.7; margin:0; }
 .blog-meta { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top: 16px; font-size:.82rem; color: rgba(28,20,22,.55); }
 .blog-dot { opacity:.45; }
@@ -133,7 +133,7 @@
 .blog-card-media { height: 190px; background: linear-gradient(135deg, rgba(203,120,133,.20), rgba(212,217,148,.22)); position:relative; }
 .blog-card-media img { width:100%; height:100%; object-fit:cover; display:block; }
 .blog-card-body { padding: 18px 18px 20px; display:flex; flex-direction:column; gap:10px; flex:1; }
-.blog-card-title { font-family:'Cormorant Garamond', Georgia, serif; font-size:1.12rem; line-height:1.25; color: var(--text); }
+.blog-card-title { font-family:'DM Sans', system-ui, sans-serif; font-size:1.12rem; line-height:1.25; color: var(--text); }
 .blog-card-excerpt { font-size:.92rem; color: rgba(28,20,22,.68); line-height:1.65; margin:0; }
 .blog-card-footer { margin-top:auto; display:flex; gap:10px; align-items:center; flex-wrap:wrap; font-size:.78rem; color: rgba(28,20,22,.55); }
 

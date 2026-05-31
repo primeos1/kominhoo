@@ -124,12 +124,12 @@
 .guide-card-img:hover { transform: translateY(-6px); box-shadow: 0 24px 56px rgba(137,57,65,.18); }
 .guide-card-img.featured { grid-column: span 2; aspect-ratio: 2 / 1.1; }
 .guide-img-inner { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(28,20,22,.52) 0%, rgba(28,20,22,.18) 50%, rgba(28,20,22,.62) 100%); padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; color: #fff; }
-.guide-img-title { font-family: 'Jost', system-ui, sans-serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 6px; letter-spacing: -.01em; }
+.guide-img-title { font-family: 'DM Sans', system-ui, sans-serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 6px; letter-spacing: -.01em; }
 .guide-card-img.featured .guide-img-title { font-size: 1.9rem; }
-.guide-img-desc { font-family: 'Jost', sans-serif; font-size: .8rem; opacity: .78; margin-bottom: 14px; max-width: 80%; line-height: 1.5; }
+.guide-img-desc { font-family: 'DM Sans', sans-serif; font-size: .8rem; opacity: .78; margin-bottom: 14px; max-width: 80%; line-height: 1.5; }
 .guide-img-footer { display: flex; justify-content: space-between; align-items: center; }
-.guide-img-count { background: rgba(255,255,255,.15); backdrop-filter: blur(6px); padding: 4px 12px; border-radius: 99px; font-family: 'Jost', sans-serif; font-size: .72rem; font-weight: 600; }
-.guide-img-arrow { font-family: 'Jost', sans-serif; font-weight: 700; font-size: .82rem; border-bottom: 1.5px solid var(--chartreuse); color: var(--chartreuse); }
+.guide-img-count { background: rgba(255,255,255,.15); backdrop-filter: blur(6px); padding: 4px 12px; border-radius: 99px; font-family: 'DM Sans', sans-serif; font-size: .72rem; font-weight: 600; }
+.guide-img-arrow { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .82rem; border-bottom: 1.5px solid var(--chartreuse); color: var(--chartreuse); }
 @media(max-width:768px) { .guide-grid { grid-template-columns: repeat(2, 1fr); } .guide-card-img.featured { grid-column: span 2; } }
 @media(max-width:480px) { .guide-grid { grid-template-columns: 1fr; } .guide-card-img.featured { grid-column: span 1; aspect-ratio: 1 / 1.2; } }
 .guide-modal-overlay { position: fixed; inset: 0; background: rgba(28,20,22,.86); backdrop-filter: blur(10px); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility .35s ease; }
@@ -483,11 +483,11 @@
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
           <span id="shopBundleModalTag" style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--lime);color:var(--black);padding:3px 10px;border-radius:20px;"></span>
         </div>
-        <h2 id="shopBundleModalTitle" style="font-family:'Jost',system-ui,sans-serif;font-size:1.8rem;font-weight:600;margin-bottom:6px;"></h2>
-        <p id="shopBundleModalDesc" style="font-family:'Jost',sans-serif;font-size:.9rem;color:var(--text-secondary);line-height:1.5;max-width:55ch;"></p>
+        <h2 id="shopBundleModalTitle" style="font-family:'DM Sans',system-ui,sans-serif;font-size:1.8rem;font-weight:600;margin-bottom:6px;"></h2>
+        <p id="shopBundleModalDesc" style="font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--text-secondary);line-height:1.5;max-width:55ch;"></p>
       </div>
       <div style="text-align:right;flex-shrink:0;">
-        <div style="font-size:1.5rem;font-weight:700;font-family:'Jost',sans-serif;color:var(--black);" id="shopBundleModalPrice"></div>
+        <div style="font-size:1.5rem;font-weight:700;font-family:'DM Sans',sans-serif;color:var(--black);" id="shopBundleModalPrice"></div>
         <div id="shopBundleModalOrigPrice" style="font-size:.85rem;color:var(--text-secondary);text-decoration:line-through;margin-top:2px;"></div>
         <button id="shopBundleModalAddBtn" class="btn btn-primary" style="margin-top:12px;font-size:.82rem;padding:10px 20px;">Add Bundle to Cart</button>
       </div>
@@ -503,8 +503,8 @@
     <div class="guide-modal-header">
       <div class="guide-modal-icon">📖</div>
       <div>
-        <h2 id="shopGuideModalTitle" style="font-family:'Jost',system-ui,sans-serif;font-size:1.8rem;font-weight:600;margin-bottom:6px;"></h2>
-        <p id="shopGuideModalDesc" style="font-family:'Jost',sans-serif;font-size:.9rem;color:var(--text-secondary);line-height:1.5;max-width:55ch;"></p>
+        <h2 id="shopGuideModalTitle" style="font-family:'DM Sans',system-ui,sans-serif;font-size:1.8rem;font-weight:600;margin-bottom:6px;"></h2>
+        <p id="shopGuideModalDesc" style="font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--text-secondary);line-height:1.5;max-width:55ch;"></p>
       </div>
     </div>
     <div class="guide-modal-products"></div>

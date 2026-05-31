@@ -48,10 +48,10 @@
       <div style="display:flex;justify-content:space-between;font-size:.9rem"><span style="color:var(--text-muted)">Bank</span><strong>Guaranty Trust Bank (GTB)</strong></div>
       <div style="display:flex;justify-content:space-between;font-size:.9rem"><span style="color:var(--text-muted)">Account Name</span><strong>Kominhoo Beauty Ltd</strong></div>
       <div style="display:flex;justify-content:space-between;font-size:.9rem"><span style="color:var(--text-muted)">Account Number</span>
-        <strong style="font-family:monospace;font-size:1rem;letter-spacing:.05em" id="bankAcctNum">0123456789</strong>
+        <strong style="font-family:'DM Sans',system-ui,sans-serif;font-size:1rem;letter-spacing:.05em" id="bankAcctNum">0123456789</strong>
       </div>
       <div style="display:flex;justify-content:space-between;font-size:.9rem"><span style="color:var(--text-muted)">Amount</span><strong id="bankAmount" style="color:var(--black)">—</strong></div>
-      <div style="display:flex;justify-content:space-between;font-size:.9rem"><span style="color:var(--text-muted)">Reference</span><strong id="bankReference" style="font-family:monospace">—</strong></div>
+      <div style="display:flex;justify-content:space-between;font-size:.9rem"><span style="color:var(--text-muted)">Reference</span><strong id="bankReference" style="font-family:'DM Sans',system-ui,sans-serif">—</strong></div>
     </div>
     <button onclick="copyBankDetails()" class="btn btn-outline" style="width:100%;margin-bottom:10px">📋 Copy Account Details</button>
     <a id="bankDashboardBtn" href="{{ route('dashboard.orders') }}?order_placed=1" class="btn btn-primary" style="width:100%;display:block;text-align:center">View My Order →</a>
@@ -359,7 +359,7 @@
   text-transform:uppercase;
   letter-spacing:.14em;
   font-weight:700;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: 'DM Sans', system-ui, sans-serif;
   font-size:.9rem;
   background:#fff;
   border:1.5px solid var(--gray-200);
@@ -478,7 +478,7 @@
   text-transform: uppercase;
   letter-spacing: .1em;
   font-weight: 700;
-  font-family: 'Courier New', monospace;
+  font-family: 'DM Sans', system-ui, sans-serif;
   font-size: .92rem;
   background: #fff;
   border: 1.5px solid var(--gray-200);
@@ -541,7 +541,7 @@
 }
 .co-voucher-applied-info { flex: 1; min-width: 0; }
 .co-voucher-applied-code {
-  font-family: 'Courier New', monospace;
+  font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: .1em;

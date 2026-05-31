@@ -6,7 +6,7 @@
 <title>@yield('title', 'Oops') — Kominhoo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -18,7 +18,7 @@
 }
 html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 body{
-  font-family:'Jost',system-ui,-apple-system,sans-serif;
+  font-family:'DM Sans',system-ui,-apple-system,sans-serif;
   background:var(--cream);color:var(--dark);
   min-height:100vh;display:flex;flex-direction:column;
 }
@@ -35,7 +35,7 @@ body{
 .e-nav-wrap{max-width:1400px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between}
 .e-logo{
   font-size:1.125rem;font-weight:700;color:var(--dark);
-  text-decoration:none;letter-spacing:-.5px;font-family:'Jost',system-ui,sans-serif;
+  text-decoration:none;letter-spacing:-.5px;font-family:'DM Sans',system-ui,sans-serif;
 }
 .e-logo em{font-style:normal;color:var(--red)}
 .e-nav-links{display:flex;align-items:center;gap:8px}
@@ -84,7 +84,7 @@ body{
 .e-watermark{
   position:absolute;
   top:-48px;left:50%;transform:translateX(-50%);
-  font-family:'Jost',system-ui,sans-serif;
+  font-family:'DM Sans',system-ui,sans-serif;
   font-size:clamp(7rem,18vw,14rem);
   line-height:1;color:transparent;
   -webkit-text-stroke:2px var(--gray-200);
@@ -140,7 +140,7 @@ body{
 .e-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block}
 
 .e-headline{
-  font-family:'Jost',system-ui,sans-serif;
+  font-family:'DM Sans',system-ui,sans-serif;
   font-size:clamp(1.65rem,3.5vw,2.5rem);line-height:1.2;
   color:var(--dark);margin-bottom:16px;
   animation:cardIn .7s cubic-bezier(.34,1.4,.64,1) .1s both;
@@ -157,7 +157,7 @@ body{
 .e-btn{
   display:inline-flex;align-items:center;gap:8px;
   padding:13px 28px;border-radius:999px;
-  font-family:'Jost',system-ui,sans-serif;font-size:.9375rem;font-weight:700;
+  font-family:'DM Sans',system-ui,sans-serif;font-size:.9375rem;font-weight:700;
   text-decoration:none;cursor:pointer;border:none;
   transition:all .28s cubic-bezier(.4,0,.2,1);white-space:nowrap;
 }

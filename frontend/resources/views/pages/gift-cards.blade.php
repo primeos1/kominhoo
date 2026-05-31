@@ -18,7 +18,7 @@
   background: var(--cream, #FAF6F3);
   min-height: calc(100vh - 64px);
   padding: 0 0 80px;
-  font-family: var(--font-body, 'Cormorant Garamond', Georgia, serif);
+  font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
 }
 .gcv2-inner { padding: 60px 0 0; }
 
@@ -664,7 +664,7 @@ textarea.gcp-inp { resize: none; min-height: 52px; line-height: 1.6; }
   width: 100%;
 }
 .gcp-code-val {
-  font-family: 'Courier New', monospace;
+  font-family: 'DM Sans', system-ui, sans-serif;
   font-size: .8rem;
   font-weight: 700;
   letter-spacing: .12em;
@@ -837,7 +837,7 @@ textarea.gcp-inp { resize: none; min-height: 52px; line-height: 1.6; }
   padding: 14px 18px; display: flex; align-items: center; justify-content: space-between;
   gap: 12px; margin-bottom: 16px;
 }
-.gc-code-val { font-family: 'Courier New', monospace; font-size: 1.2rem; font-weight: 700; letter-spacing: .14em; color: #0a0a0a; }
+.gc-code-val { font-family: 'DM Sans', system-ui, sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: .14em; color: #0a0a0a; }
 .gc-copy-btn-modal {
   background: #0a0a0a; color: #fff; border: none; border-radius: 10px;
   padding: 9px 16px; font-size: .8rem; font-weight: 700; cursor: pointer;
